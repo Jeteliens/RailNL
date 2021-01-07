@@ -7,16 +7,6 @@ class Station():
         self.x_position = x
         self.y_position = y
 
-    def load_station(self, source_file):
-        
-        stations = {}
-        with open(source_file, 'r') as in_file:
-            reader = csv.DictReader(in_file)
-
-            for row in reader:
-                stations[row['station']] = Station(row['station'], row['x'], row['y'])
-
-
     def add_directions(self, source_file):
         
         directions = []

@@ -20,7 +20,7 @@ class Kaart():
         return stations
     
     def add_train(self, train_id, train_trajectory, train_distance):
-        train_1
+        # train_1
         self.trains[train_id] = train_trajectory
         self.number_of_trains += 1
         self.total_distance += train_distance
@@ -55,4 +55,5 @@ class Kaart():
             for train in self.trains:
                 writer.writerow(train)
 
-            output.write(f"score,{self.calculate_score()}")
+            # output.write(f"score,{self.calculate_score()}")
+            output.write("score,0")

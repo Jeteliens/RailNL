@@ -16,6 +16,7 @@ if __name__ == '__main__':
     number_of_trains = random.randint(1,7)
 
     randomise_train(test_map, number_of_trains)
+    # add_train
 
     test_map.create_output()
 

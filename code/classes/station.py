@@ -2,21 +2,21 @@ import csv
 
 class Station():
     def __init__(self, name, x, y):
-        self.directions = self.add_directions(source_file)
+        self.directions = []
         self.name = name
         self.x_position = x
         self.y_position = y
 
-    def add_directions(self, source_file):
+    def add_directions(self, connections_file):
         
-        directions = []
-        with open(source_file, 'r') as in_file:
+        with open(connections_file, 'r') as in_file:
             reader = csv.DictReader(in_file)
 
             for row in reader:
                 if row['station1'] == self.name:
-                    directions.append([row['station2'], row['distance']])
+                    self.directions.append([row['station2'], int(row['distance'])])
                 elif row['station2'] == self.name:
-                    directions.append([row['station1'], row['distance']])
+                    self.directions.append([row['station1'], int(row['distance'])])
 
-        return directions
+    def __repr__(self):
+        return self.name

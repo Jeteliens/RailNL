@@ -6,6 +6,7 @@ class Station():
         self.name = name
         self.x_position = x
         self.y_position = y
+        self.times_visited = 0
 
     def add_directions(self, connections_file):
         
@@ -17,6 +18,9 @@ class Station():
                     self.directions.append([row['station2'], int(row['distance'])])
                 elif row['station2'] == self.name:
                     self.directions.append([row['station1'], int(row['distance'])])
+
+    def set_visited(self):
+        self.times_visited += 1
 
     def __repr__(self):
         return self.name

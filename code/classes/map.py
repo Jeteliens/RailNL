@@ -3,8 +3,10 @@ from .station import Station
 
 class Map():
     def __init__(self, stations_file):
-        self.trains = None
+        self.trains = {'train_1': "[AmsterdamZuid,Haarlem]", 'train_2': "[Alkmaar,Hoorn]"}
+        self.number_of_trains = 0
         self.stations = self.load_stations(stations_file)
+        self.total_distance = 0
 
     def load_stations(self, stations_file):
         
@@ -17,19 +19,40 @@ class Map():
     
         return stations
     
-    def create_train(self, train):
-        trains = []
-        trains.append(train)
-
-    def add_visited(self):
-        pass
-
-    def remove_visited(self):
-        pass
+    def add_train(self, train_id, train_trajectory, train_distance):
+        self.trains[train_id] = train_trajectory
+        self.number_of_trains += 1
+        self.total_distance += train_distance
 
     def calculate_score(self):
-        pass
+               
+        ridden_stations = 0
+        total_stations = 0
+        
+        for station in self.stations:
+            if station.times_visited > 0:
+                ridden_stations += 1
+            
+            total_stations += 1
+
+        p = ridden_stations / total_stations
+        T = self.number_of_trains
+        Min = self.total_distance
+        
+        quality_score = p*10000 - (T*100 + Min)
+
+        return quality_score
 
     def create_output(self):
-        return file
+        csv_colums = ['train', 'stations']
+        output_file = "Trajectories.csv"
         
+        try:
+            with open(output_file, "w") as output:
+                writer = csv.DictWriter(output, fieldnames=csv_colums)
+                writer.writeheader()
+             
+                for train in self.trains:
+                    writer.writerow(train)
+
+                output.write(f"score,{map.calculate_score()}")

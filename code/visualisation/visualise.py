@@ -10,18 +10,14 @@ def visualise(self, kaart):
         x.append(station.x_position)
         y.append(station.y_position)
 
-    print(x)
-    print("hello")
-    print(y)
-
     plt.figure(figsize=(9, 3))
 
-    plt.scatter(x, y)
-    # plt.scatter(x, y, s=80, c=z, marker=("."))
+    plt.scatter(x, y, c=r, marker=("."))
     plt.set_title("Stations")
 
     # plt.tight_layout()
     plt.show()
+    plt.savefig("filename.ext", format="ext")
 
     # positions = [station for station in map.stations.values()]
     # name = [station.name for station in positions]

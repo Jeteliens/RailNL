@@ -10,6 +10,8 @@ if __name__ == '__main__':
     
     test_map = Kaart(stations_file)
     
+    visualise(test_map.directions)
+    
     for station in test_map.stations:
         station.add_directions(connections_file)
     

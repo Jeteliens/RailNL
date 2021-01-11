@@ -10,9 +10,9 @@ def randomise_train(test_map, number_of_trains):
     station = start_point
     train.append(station)
     
-    print(start_point)
+    # print(start_point)
 
-    for number in range(number_of_stations - 1):
+    for num in range(number_of_stations - 1):
         print(station)
         next_station = random.choice(station.directions)[0]
         train.append(next_station)

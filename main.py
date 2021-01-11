@@ -1,6 +1,7 @@
 from code.classes.map import Kaart
 from code.classes.station import Station
 from code.algorithms.randomise import randomise_train
+# from code.visualisation.visualise import visualise
 import random
 
 if __name__ == '__main__':
@@ -9,11 +10,21 @@ if __name__ == '__main__':
     connections_file = "data/Holland/ConnectiesHolland.csv"
     
     test_map = Kaart(stations_file)
-    
-    visualise(test_map.directions)
+
+    # print(test_map.stations)
     
     for station in test_map.stations:
+        # print(station)
         station.add_directions(connections_file)
+        for direction in station.directions:
+            # print(direction)
+            for element in test_map.stations_dictionary:
+                # print(element)
+                if direction[0] == element:
+                    # print(direction[0])
+                    direction[0] = test_map.stations_dictionary[element]
+
+    # visualise(test_map.directions)
     
     number_of_trains = random.randint(1,7)
 

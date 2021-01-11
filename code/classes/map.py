@@ -6,19 +6,33 @@ class Kaart():
         self.trains = [{"train": 'train_1', "station": "[AmsterdamZuid,Haarlem]"}, {"train": 'train_2', "station": "[Alkmaar,Hoorn]"}]
         self.number_of_trains = 0
         self.stations = self.load_stations(stations_file)
+        self.stations_dictionary = self.load_stations_dictionary(self.stations)
         self.total_distance = 0
 
     def load_stations(self, stations_file):
         
         stations = []
+        
         with open(stations_file, 'r') as in_file:
             reader = csv.DictReader(in_file)
         
             for row in reader:
                 stations.append(Station(row['station'], float(row['x']), float(row['y'])))
-    
+
+        # for station in stations:
+        #     self.stations_dict[station.name] = station
+        
         return stations
     
+    def load_stations_dictionary(self, stations_list):
+        
+        stations_dictionary = {}
+
+        for station in stations_list:
+            self.stations_dictionary[station.name] = station
+
+        return stations_dictionary
+
     def add_train(self, train_id, train_trajectory, train_distance):
         # train_1
         self.trains[train_id] = train_trajectory

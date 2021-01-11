@@ -8,7 +8,7 @@ class Station():
         self.y_position = y
         self.times_visited = 0
 
-    def add_directions(self, connections_file):
+    def add_directions(self, connections_file, stations_list):
         
         with open(connections_file, 'r') as in_file:
             reader = csv.DictReader(in_file)
@@ -18,6 +18,11 @@ class Station():
                     self.directions.append([row['station2'], int(row['distance'])])
                 elif row['station2'] == self.name:
                     self.directions.append([row['station1'], int(row['distance'])])
+
+        for direction in self.directions:
+            for station in stations_list:
+                if direction[0] == station.name:
+                    direction[0] = station
 
     def set_visited(self):
         self.times_visited += 1

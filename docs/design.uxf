@@ -1,12 +1,6 @@
 <diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><help_text>Kaart
 --
-</help_text><element><id>UMLClass</id><coordinates><x>420</x><y>0</y><w>260</w><h>90</h></coordinates><panel_attributes>Train
---
-stations: [Station]
-total_distance: int
---
-load_stations(self, source_file): [trajectory]
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>360</x><y>150</y><w>250</w><h>180</h></coordinates><panel_attributes>Station
+</help_text><element><id>UMLClass</id><coordinates><x>360</x><y>150</y><w>250</w><h>180</h></coordinates><panel_attributes>Station
 --
 directions: [Station:distance]
 name: string

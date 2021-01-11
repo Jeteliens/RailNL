@@ -1,1 +1,4 @@
 train,stations
+train_1,"[AmsterdamZuid,Haarlem]"
+train_2,"[Alkmaar,Hoorn]"
+score,2

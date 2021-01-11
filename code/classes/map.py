@@ -3,10 +3,10 @@ from .station import Station
 
 class Kaart():
     def __init__(self, stations_file):
-        self.trains = [{"train": 'train_1', "station": "[AmsterdamZuid,Haarlem]"}, {"train": 'train_2', "station": "[Alkmaar,Hoorn]"}]
+        self.trains = [{"train": 'train_1', "stations": "[AmsterdamZuid,Haarlem]"}, {"train": 'train_2', "stations": "[Alkmaar,Hoorn]"}]
         self.number_of_trains = 0
         self.stations = self.load_stations(stations_file)
-        self.stations_dictionary = self.load_stations_dictionary(self.stations)
+        # self.stations_dictionary = self.load_stations_dictionary(self.stations)
         self.total_distance = 0
 
     def load_stations(self, stations_file):
@@ -24,14 +24,14 @@ class Kaart():
         
         return stations
     
-    def load_stations_dictionary(self, stations_list):
+    # def load_stations_dictionary(self, stations_list):
         
-        stations_dictionary = {}
+    #     stations_dictionary = {}
 
-        for station in stations_list:
-            self.stations_dictionary[station.name] = station
+    #     for station in stations_list:
+    #         self.stations_dictionary[station.name] = station
 
-        return stations_dictionary
+    #     return stations_dictionary
 
     def add_train(self, train_id, train_trajectory, train_distance):
         # train_1
@@ -67,7 +67,10 @@ class Kaart():
             writer.writeheader()
            
             for train in self.trains:
+                # print(train)
                 writer.writerow(train)
 
-            # output.write(f"score,{self.calculate_score()}")
-            output.write("score,0")
+            i = 2
+
+            output.write(f"score,{i}")
+            # output.write("score,0")

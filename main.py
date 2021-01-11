@@ -16,31 +16,35 @@ if __name__ == '__main__':
     for station in test_map.stations:
         # print(station)
         station.add_directions(connections_file, test_map.stations)
-        # for direction in station.directions:
-        #     # print(direction)
-        #     for element in test_map.stations_dictionary:
-        #         # print(element)
-        #         if direction[0] == element:
-        #             # print(direction[0])
-        #             direction[0] = test_map.stations_dictionary[element]
 
     # visualise(test_map.directions)
     
-    number_of_trains = random.randint(1,7)
+    number_of_trains = random.randint(2,7)
 
-    trains = randomise_train(test_map, number_of_trains)
+    trains_data = randomise_train(test_map, number_of_trains)
+    # print(trains_data)
+
+    trains = trains_data[0]
+    # print(trains)
+    trains_distances = trains_data[1]
+    # print(trains_distances)
     
-    for train in trains:
-        print(train)
+    # for train in trains:
+    #     print(train)
+
+    # print(trains_data)
+    # print(trains_distances)
     
     # add_train
-    # for train in trains:
-    #     id = 1
-    #     train_id = f"train_{i}"
-    #     train_distance
-    #     test_map.add_train(train_id, train, train_distance)
-    #     id += 1
+    id = 1
 
+    for train in trains:
+        train_id = f"train_{id}"
+        train_distance = trains_distances[id-1]
+        test_map.add_train(train_id, train, train_distance)
+        id += 1
+
+    # create csv output file
     test_map.create_output()
 
     # print(test_map.stations)

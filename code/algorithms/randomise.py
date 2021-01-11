@@ -1,13 +1,19 @@
 import random
 import copy
+TIME_FRAME = 60
 
 def randomise_train(test_map, number_of_trains):
+    
     list_of_stations = test_map.stations
+    
+    trains_data = []
     trains = []
+    train_distances = []
     
     for i in range(number_of_trains - 1):
-        number_of_stations = random.randint(1,22)
+        number_of_stations = random.randint(2,22)
         train = []
+        train_distance = 0
         start_point = random.choice(list_of_stations)
         
         station = start_point
@@ -18,17 +24,40 @@ def randomise_train(test_map, number_of_trains):
 
         for j in range(number_of_stations - 1):
             # print(station)
+        
             possible_next_stations = []
             for direction in station.directions:
-                if direction not in train:
+                # print(direction)
+                if direction[0] not in train:
                     possible_next_stations.append(direction)
-            next_station = random.choice(possible_next_stations)[0]
+            
+            if possible_next_stations:
+                next_station_data = random.choice(possible_next_stations)
+            else:
+                break
+
+            # print(next_station_data)
+            next_station = next_station_data[0]
+            # print(next_station)
+            
+            if train_distance + next_station_data[1] > TIME_FRAME:
+                break
+
+            train_distance += next_station_data[1]
+            # print(train_distance)
             train.append(next_station)
             station = next_station
         
         trains.append(train)
+        train_distances.append(train_distance)
 
-    return trains
+    # print(trains)
+    trains_data.append(trains)
+    # print(train_distances)
+    trains_data.append(train_distances)
+    
+    # print(trains_data[1])
+    return trains_data
 
     # map.add_train(train_id, train, train_distance)  
 

@@ -3,18 +3,16 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 def visualise():
-    x = [4.7, 4.7, 4.9, 4.9]
-    y = [52.1, 52.6, 52.3, 52.4]
-    n = ['Alphen a/d Rijn', 'Alkmaar', 'Amsterdam Amstel', 'Amsterdam Centraal']
+    # x = [4.7, 4.7, 4.9, 4.9]
+    # y = [52.1, 52.6, 52.3, 52.4]
+    # n = ['Alphen a/d Rijn', 'Alkmaar', 'Amsterdam Amstel', 'Amsterdam Centraal']
 
-    # df = pd.read_csv(r"StationsHolland.csv")
+    df = pd.read_csv(r"../data/Holland/StationsHolland.csv")
     map = plt.imread(r"nederland.png")
 
-    # print(df.head())
+    print(df.head())
 
     fig, ax = plt.subplots(figsize=(7,9))
-
-    # print(df.head(2))
 
     ax.set_title('Trajectories')
 
@@ -35,10 +33,12 @@ if __name__ == '__main__':
     
     visualise()
 
-
-    # for station in kaart.stations:
-    #     x.append(station.x_position)
-    #     y.append(station.y_position)
-
     # plt.tight_layout()
 
+    # x = []
+    # y = []
+
+    # for station in df:
+    #     print(station)
+    #     x.append(station[2])
+    #     y.append(station[3])

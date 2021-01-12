@@ -39,12 +39,18 @@ class Kaart():
         ridden_stations = 0
        
         for station in self.stations:
+            # print("Loop entered")
+            print(f"Times visited: {station.times_visited}")
             if station.times_visited > 0:
                 ridden_stations += 1
 
         p = ridden_stations / total_stations
+        print(f"ridden_stations:{ridden_stations}")
+        print(f"p:{p}")
         T = self.number_of_trains
+        print(f"T:{T}")
         Min = self.total_distance
+        print(f"Min:{Min}")
         
         quality_score = p*10000 - (T*100 + Min)
 
@@ -53,7 +59,7 @@ class Kaart():
     def create_output(self):
         
         csv_colums = ['train', 'stations']
-        output_file = "Trajectories.csv"
+        output_file = "output.csv"
         
         with open(output_file, "w") as output:
             writer = csv.DictWriter(output, fieldnames=csv_colums)

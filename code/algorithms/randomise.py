@@ -1,6 +1,6 @@
 import random
 import copy
-TIME_FRAME = 60
+TIME_FRAME = 120
 
 def randomise_train(test_map, number_of_trains):
     
@@ -24,8 +24,10 @@ def randomise_train(test_map, number_of_trains):
 
         for j in range(number_of_stations - 1):
             # print(station)
-        
+
+            station.set_visited()
             possible_next_stations = []
+            
             for direction in station.directions:
                 # print(direction)
                 if direction[0] not in train:

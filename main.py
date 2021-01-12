@@ -19,7 +19,8 @@ if __name__ == '__main__':
 
     # visualise(test_map.directions)
     
-    number_of_trains = random.randint(2,7)
+    # number_of_trains = random.randint(2,8)
+    number_of_trains = 8
 
     trains_data = randomise_train(test_map, number_of_trains)
     # print(trains_data)

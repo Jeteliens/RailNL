@@ -15,9 +15,9 @@ def visualise():
     ax.set_extent([-150, 60, -25, 60])
     # img_extent = (-120.67660000000001, -106.32104523100001, 13.2301484511245, 30.766899999999502)
 
-    x = [3, 5, 9, 12]
-    y = [2, 6, 8, 13]
-    n = ['Amsterdam', 'Alkmaar', 'Haarlem', 'Delft']
+    # x = [3, 5, 9, 12]
+    # y = [2, 6, 8, 13]
+    # n = ['Amsterdam', 'Alkmaar', 'Haarlem', 'Delft']
 
 
     # BBox = ((df.longitude.min(3.2932),   df.longitude.max(6.2869),      

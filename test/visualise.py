@@ -7,7 +7,7 @@ def visualise():
     # y = [52.1, 52.6, 52.3, 52.4]
     # n = ['Alphen a/d Rijn', 'Alkmaar', 'Amsterdam Amstel', 'Amsterdam Centraal']
 
-    df = pd.read_csv(r"../data/Holland/StationsHolland.csv")
+    df = pd.read_csv(r"data/Holland/StationsHolland.csv")
     map = plt.imread(r"nederland.png")
 
     print(df.head())

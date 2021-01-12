@@ -1,7 +1,7 @@
 from code.classes.map import Kaart
 from code.classes.station import Station
 from code.algorithms.randomise import randomise_train
-# from code.visualisation.visualise import visualise
+from code.visualisation.visualise import visualise
 import random
 
 if __name__ == '__main__':
@@ -43,6 +43,9 @@ if __name__ == '__main__':
         train_id = f"train_{id}"
         train_distance = trains_distances[id-1]
         test_map.add_train(train_id, train, train_distance)
+
+        visualise(train)
+
         id += 1
 
     # create csv output file

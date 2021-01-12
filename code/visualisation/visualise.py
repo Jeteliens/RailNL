@@ -1,23 +1,42 @@
+import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 
-def visualise(self, kaart):
+def visualise(train):
+    # x = [4.7, 4.7, 4.9, 4.9]
+    # y = [52.1, 52.6, 52.3, 52.4]
+    # n = ['Alphen a/d Rijn', 'Alkmaar', 'Amsterdam Amstel', 'Amsterdam Centraal']
+
     x = []
     y = []
+    n = train
 
-    for station in kaart.stations:
+    for station in train:
         x.append(station.x_position)
         y.append(station.y_position)
 
-    plt.figure(figsize=(9, 3))
+    df = pd.read_csv(r"data/Holland/StationsHolland.csv")
+    map = plt.imread(r"code/visualisation/nederland.png")
 
-    plt.scatter(x, y, c=r, marker=("."))
-    plt.set_title("Stations")
+    print(df.head())
+    
+    # x = []
+    # y = []
+    # n = []
 
-    # plt.tight_layout()
+    fig, ax = plt.subplots(figsize=(7,9))
+
+    ax.set_title('Trajectories')
+
+    BBox = (3.395, 7.273, 53.593, 50.716)
+    ax.set_xlim(BBox[0], BBox[1])
+    ax.set_ylim(BBox[2], BBox[3])
+
+    ax.plot(y, x, c='b', marker=("."))
+
+    for i, txt in enumerate(n):
+        plt.annotate(txt, (y[i], x[i]))
+
+    ax.imshow(map, zorder=0, extent = BBox, aspect= 'equal')
     plt.show()
-    plt.savefig("filename.ext", format="ext")
-
-    # positions = [station for station in map.stations.values()]
-    # name = [station.name for station in positions]
-    # color = [station.get_value().colour.get_web() if station is not None else "grey"
-    #           for station in positions]
+    plt.savefig("trajectories.jpeg", format="jpeg")

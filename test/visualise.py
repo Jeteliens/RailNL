@@ -6,14 +6,14 @@ def visualise():
     # x = [4.7, 4.7, 4.9, 4.9]
     # y = [52.1, 52.6, 52.3, 52.4]
     # n = ['Alphen a/d Rijn', 'Alkmaar', 'Amsterdam Amstel', 'Amsterdam Centraal']
-​
+
     df = pd.read_csv(r"../data/Holland/StationsHolland.csv")
     map = plt.imread(r"nederland.png")
-​
+
     print(df.head())
-​
+
     fig, ax = plt.subplots(figsize=(7,9))
-​
+
     ax.set_title('Trajectories')
 ​
     BBox = (3.395, 7.273, 53.593, 50.716)
@@ -32,6 +32,7 @@ def visualise():
 if __name__ == '__main__':
     
     visualise()
+<<<<<<< HEAD
 ​
     # plt.tight_layout()
 ​
@@ -41,3 +42,15 @@ if __name__ == '__main__':
     # for station in df:
     #     print(station)
     #     x.append(station[2])
+=======
+
+    # plt.tight_layout()
+
+    # x = []
+    # y = []
+
+    # for station in df:
+    #     print(station)
+    #     x.append(station[2])
+    #     y.append(station[3])
+>>>>>>> ec0f2d22634c97600b94c8617d30eecb3e1ad81d

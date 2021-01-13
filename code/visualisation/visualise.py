@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 # from adjustText import adjust_text
 import random
 
+
 def visualise(map):
     # x = [4.7, 4.7, 4.9, 4.9]
     # y = [52.1, 52.6, 52.3, 52.4]

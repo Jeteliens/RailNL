@@ -10,6 +10,8 @@ class Kaart():
         self.number_of_trains = 0
         self.stations = self.load_stations(stations_file)
         self.total_distance = 0
+        self.number_of_connections = 0
+        self.number_of_ridden_connections = 0
 
     def load_stations(self, stations_file):
         
@@ -35,17 +37,19 @@ class Kaart():
 
     def calculate_score(self):
                
-        total_stations = len(self.stations)
-        ridden_stations = 0
+        # total_stations = len(self.stations)
+        # ridden_stations = 0
        
-        for station in self.stations:
-            # print("Loop entered")
-            print(f"Times visited: {station.times_visited}")
-            if station.times_visited > 0:
-                ridden_stations += 1
+        # for station in self.stations:
+        #     # print("Loop entered")
+        #     # print(f"Times visited: {station.times_visited}")
+        #     if station.times_visited > 0:
+        #         ridden_stations += 1
 
-        p = ridden_stations / total_stations
-        print(f"ridden_stations:{ridden_stations}")
+        p = self.number_of_ridden_connections / self.number_of_connections
+        print(self.number_of_ridden_connections)
+        print(self.number_of_connections)
+        # print(f"ridden_stations:{ridden_stations}")
         print(f"p:{p}")
         T = self.number_of_trains
         print(f"T:{T}")

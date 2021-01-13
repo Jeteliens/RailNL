@@ -2,6 +2,7 @@ from code.classes.map import Kaart
 from code.classes.station import Station
 from code.algorithms.randomise import randomise_train
 from code.visualisation.visualise import visualise
+import csv
 import random
 
 if __name__ == '__main__':
@@ -16,6 +17,11 @@ if __name__ == '__main__':
     for station in test_map.stations:
         # print(station)
         station.add_directions(connections_file, test_map.stations)
+
+    with open(connections_file, 'r') as in_file:
+        reader = csv.reader(in_file)
+        test_map.number_of_connections = len(list(reader)) - 1
+        # print(number_of_connections)
 
     # visualise(test_map.directions)
     
@@ -44,9 +50,9 @@ if __name__ == '__main__':
         train_distance = trains_distances[id-1]
         test_map.add_train(train_id, train, train_distance)
 
-        visualise(train)
-
         id += 1
+
+    visualise(test_map)
 
     # create csv output file
     test_map.create_output()

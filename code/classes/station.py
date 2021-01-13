@@ -12,12 +12,15 @@ class Station():
         
         with open(connections_file, 'r') as in_file:
             reader = csv.DictReader(in_file)
+            
+            connection_id = 0
 
             for row in reader:
+                connection_id += 1
                 if row['station1'] == self.name:
-                    self.directions.append([row['station2'], int(row['distance'])])
+                    self.directions.append([row['station2'], int(row['distance']), connection_id])
                 elif row['station2'] == self.name:
-                    self.directions.append([row['station1'], int(row['distance'])])
+                    self.directions.append([row['station1'], int(row['distance']), connection_id])
 
         for direction in self.directions:
             for station in stations_list:

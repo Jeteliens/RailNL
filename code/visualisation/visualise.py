@@ -23,7 +23,20 @@ def visualise(map):
     ax.set_xlim(BBox[0], BBox[1])
     ax.set_ylim(BBox[2], BBox[3])
 
-    print(map.trains)
+    x_positions = []
+    y_positions = []
+    names = []
+
+    for station in map.ridden_stations:
+        x_positions.append(station.x_position)
+        y_positions.append(station.y_position)
+        names.append(station.name)
+
+    for i, txt in enumerate(names):
+        plt.annotate(txt, (y_positions[i], x_positions[i]), size=4)
+        # adjust_text(n, only_move={'points':'y', 'texts':'y'}, arrowprops=dict(arrowstyle="->", color='r', lw=0.5))
+
+    ax.scatter(y_positions, x_positions, c='k', marker=("."))
 
     for train in map.trains:
         train = train['stations']
@@ -37,26 +50,9 @@ def visualise(map):
             color = random.choice(colors)
             ax.plot(y, x, c=color)
 
-    x_positions = []
-    y_positions = []
-    names = []
-
-    print(map.stations)
-
-    for station in map.stations:
-        x_positions.append(station.x_position)
-        y_positions.append(station.y_position)
-        names.append(station.name)
-
-    ax.scatter(y_positions, x_positions, c='k', marker=("."))
-    for i, txt in enumerate(names):
-        plt.annotate(txt, (y_positions[i], x_positions[i]), size=4)
-        # adjust_text(n, only_move={'points':'y', 'texts':'y'}, arrowprops=dict(arrowstyle="->", color='r', lw=0.5))
-
-        # n = train
-        # , marker=(".")
-        
+    
 
     ax.imshow(background, zorder=0, extent = BBox, aspect= 'equal')
     plt.show()
     plt.savefig("trajectories.jpeg", format="jpeg")
+

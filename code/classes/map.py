@@ -9,6 +9,7 @@ class Kaart():
         self.trains = []
         self.number_of_trains = 0
         self.stations = self.load_stations(stations_file)
+        self.ridden_stations = []
         self.total_distance = 0
         self.number_of_connections = 0
         self.number_of_ridden_connections = 0
@@ -31,6 +32,13 @@ class Kaart():
         trajectory["train"] = train_id
         trajectory["stations"] = train_trajectory
         self.trains.append(trajectory)
+
+        for station in train_trajectory:
+            self.ridden_stations.append(station)
+
+        temp = [] 
+        [temp.append(station) for station in self.ridden_stations if station not in temp]
+        self.ridden_stations = temp
 
         self.number_of_trains += 1
         self.total_distance += train_distance

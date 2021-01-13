@@ -19,23 +19,19 @@ def visualise(train):
     map = plt.imread(r"code/visualisation/nederland.png")
 
     print(df.head())
-    
-    # x = []
-    # y = []
-    # n = []
 
     fig, ax = plt.subplots(figsize=(7,9))
 
     ax.set_title('Trajectories')
 
-    BBox = (3.395, 7.273, 53.593, 50.716)
+    BBox = (3.395, 7.273, 50.716, 53.593)
     ax.set_xlim(BBox[0], BBox[1])
     ax.set_ylim(BBox[2], BBox[3])
 
     ax.plot(y, x, c='b', marker=("."))
 
     for i, txt in enumerate(n):
-        plt.annotate(txt, (y[i], x[i]))
+        plt.annotate(txt, (y[i], x[i]), size=6)
 
     ax.imshow(map, zorder=0, extent = BBox, aspect= 'equal')
     plt.show()

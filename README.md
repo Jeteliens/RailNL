@@ -16,15 +16,21 @@ De resultaten die hier uit voort komen zijn dan ook niet 'slim'.
 ###### map.py
 
 ###### station.py
+Ordening van alle stations met de daarbij behorende connecties.
 
 ##### visualisation
+###### visualise.py
+Dit bestand zorgt ervoor dat er een kaart van Nederland met daarbij de lijnvoering wordt gemaakt.
 
 #### data
 ##### Holland
+Alleen stationinformatie over de de intercitystations in Noord- en Zuid-Holland. 
 ##### Nationaal
+Stationsinformatie over alle intercitystations in heel Nederland.
 
 #### docs
 ##### design.uxf
+Het designdocument, een UML met daarin alle classes en algoritmes.
 
 #### main.py
 De main roept de bestanden aan met de inhoudelijke code om zo tot resultaten te komen. 

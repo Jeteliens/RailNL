@@ -1,0 +1,6 @@
+Requirements:
+
+numpy
+panda
+pyplot
+matplotlib

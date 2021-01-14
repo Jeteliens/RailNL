@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-# from adjustText import adjust_text
+from adjustText import adjust_text
 import random
 
 
@@ -33,15 +33,18 @@ def visualise(map):
         x_positions.append(station.x_position)
         y_positions.append(station.y_position)
         names.append(station.name)
-
+    
     # place a point for each ridden station
     ax.scatter(y_positions, x_positions, c='k', marker=("."))
+    
+    texts = []
+    for x, y, s in zip(y_positions, x_positions, names):
+        texts.append(plt.text(x, y, s))
 
-    # write the names by each point
-    for i, txt in enumerate(names):
-        plt.annotate(txt, (y_positions[i], x_positions[i]), size=4)
-        # adjust_text(n, only_move={'points':'y', 'texts':'y'}, arrowprops=dict(arrowstyle="->", color='r', lw=0.5))
-
+    # # write the names by each point
+    # for i, txt in enumerate(names):
+    #     plt.annotate(txt, (y_positions[i], x_positions[i]), size=4)
+        
     # make new lists for every trajectory
     for train in map.trains:
         train = train['stations']
@@ -55,10 +58,14 @@ def visualise(map):
             color = random.choice(colors)
             ax.plot(y, x, c=color)
 
+    adjust_text(texts, arrowprops=dict(arrowstyle="-", color='k', lw=0.5), font={'size': 2})
+
     # show the image
     ax.imshow(background, zorder=0, extent = BBox, aspect= 'equal')
-    
+
     # show the plots
     plt.show()
 
     plt.savefig("trajectories.jpeg", format="jpeg")
+
+    # only_move={'points':'y', 'texts':'y'},

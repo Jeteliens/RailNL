@@ -23,6 +23,19 @@ def visualise(map):
     BBox = (3.362, 7.234, 50.786, 53.557)
     ax.set_xlim(BBox[0], BBox[1])
     ax.set_ylim(BBox[2], BBox[3])
+        
+    # make new lists for every trajectory
+    for train in map.trains:
+        train = train['stations']
+        x = []
+        y = []
+        # draw lines between the stations for each trajectory
+        for station in train:
+            x.append(station.x_position)
+            y.append(station.y_position)
+            
+            color = random.choice(colors)
+            ax.plot(y, x, c=color)
 
     x_positions = []
     y_positions = []
@@ -39,26 +52,13 @@ def visualise(map):
     
     texts = []
     for x, y, s in zip(y_positions, x_positions, names):
-        texts.append(plt.text(x, y, s))
+        texts+=[plt.text(x, y, s, fontsize=6)]
 
     # # write the names by each point
     # for i, txt in enumerate(names):
     #     plt.annotate(txt, (y_positions[i], x_positions[i]), size=4)
-        
-    # make new lists for every trajectory
-    for train in map.trains:
-        train = train['stations']
-        x = []
-        y = []
-        # draw lines between the stations for each trajectory
-        for station in train:
-            x.append(station.x_position)
-            y.append(station.y_position)
-            
-            color = random.choice(colors)
-            ax.plot(y, x, c=color)
 
-    adjust_text(texts, arrowprops=dict(arrowstyle="-", color='k', lw=0.5), font={'size': 2})
+    adjust_text(texts, arrowprops=dict(arrowstyle="-", color='k', lw=0.5), only_move={'points':'y', 'texts':'y'})
 
     # show the image
     ax.imshow(background, zorder=0, extent = BBox, aspect= 'equal')
@@ -67,5 +67,3 @@ def visualise(map):
     plt.show()
 
     plt.savefig("trajectories.jpeg", format="jpeg")
-
-    # only_move={'points':'y', 'texts':'y'},

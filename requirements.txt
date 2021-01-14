@@ -4,3 +4,4 @@ numpy
 panda
 pyplot
 matplotlib
+adjustText

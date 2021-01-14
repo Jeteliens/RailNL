@@ -33,6 +33,7 @@ def randomise_train(map, number_of_trains):
             
             # assure that no station is ridden more than once in a single trejectory
             for direction in station.directions:
+                # if direction[0] not in train and direction[2] not in ridden_connections:
                 if direction[2] not in ridden_connections:
                     possible_next_stations.append(direction)
             

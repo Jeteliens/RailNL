@@ -18,7 +18,7 @@ def randomise_train(map, number_of_trains):
         if len(ridden_connections) == map.number_of_connections:
             break
         
-        number_of_stations = 21
+        number_of_stations = len(stations) - 1
         train = []
         train_distance = 0
         
@@ -33,7 +33,7 @@ def randomise_train(map, number_of_trains):
             
             # assure that no station is ridden more than once in a single trejectory
             for direction in station.directions:
-                if direction[0] not in train:
+                if direction[2] not in ridden_connections:
                     possible_next_stations.append(direction)
             
             if possible_next_stations:

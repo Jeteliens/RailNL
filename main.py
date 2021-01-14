@@ -14,8 +14,24 @@ if __name__ == '__main__':
         
     number_of_trains = 7
 
+    highest_score = 0
+    lowest_score = 10000
+
     randomise_train(test_map, number_of_trains)
 
-    # visualise(test_map)
+    # for _ in range(5):
+    #     randomise_train(test_map, number_of_trains)
 
+    #     if test_map.calculate_score() > highest_score:
+    #         highest_score = test_map.calculate_score()
+    #         best_map = test_map
+    #     elif test_map.calculate_score() < lowest_score:
+    #         lowest_score = test_map.calculate_score()
+
+    # print(f"Highest score is: {highest_score}")
+    # print(f"Lowesst score is: {lowest_score}")
+
+    # best_map.create_output()
     test_map.create_output()
+
+    # visualise(test_map)

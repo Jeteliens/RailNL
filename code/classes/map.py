@@ -26,12 +26,11 @@ class Map():
         for station in stations:
             station.add_directions(connections_file, stations)
         
-        # print(stations)
         return stations
 
-    def calculate_number_of_connections(self, file):
+    def calculate_number_of_connections(self, connections_file):
         
-        with open(file, 'r') as in_file:
+        with open(connections_file, 'r') as in_file:
             reader = csv.reader(in_file)
             number_of_connections = len(list(reader)) - 1
 
@@ -47,33 +46,19 @@ class Map():
         for station in train_trajectory:
             self.ridden_stations.append(station)
 
-        temp = [] 
-        [temp.append(station) for station in self.ridden_stations if station not in temp]
-        self.ridden_stations = temp
+        # remove duplicated ridden stations from the list
+        temp_list = [] 
+        [temp_list.append(station) for station in self.ridden_stations if station not in temp_list]
+        self.ridden_stations = temp_list
 
         self.number_of_trains += 1
         self.total_distance += train_distance
 
     def calculate_score(self):
                
-        # total_stations = len(self.stations)
-        # ridden_stations = 0
-       
-        # for station in self.stations:
-        #     # print("Loop entered")
-        #     # print(f"Times visited: {station.times_visited}")
-        #     if station.times_visited > 0:
-        #         ridden_stations += 1
-
         p = self.number_of_ridden_connections / self.number_of_connections
-        # print(self.number_of_ridden_connections)
-        # print(self.number_of_connections)
-        # print(f"ridden_stations:{ridden_stations}")
-        # print(f"p:{p}")
         T = self.number_of_trains
-        # print(f"T:{T}")
         Min = self.total_distance
-        # print(f"Min:{Min}")
         
         quality_score = p*10000 - (T*100 + Min)
 
@@ -89,7 +74,6 @@ class Map():
             writer.writeheader()
            
             for train in self.trains:
-                # print(train)
                 writer.writerow(train)
 
             output.write(f"score,{self.calculate_score()}")

@@ -2,35 +2,37 @@ import random
 import copy
 TIME_FRAME = 120
 
-def randomise_train(test_map, number_of_trains):
+def randomise_train(map, number_of_trains):
     
-    list_of_stations = test_map.stations
+    stations = map.stations
     
-    # trains_data = []
     trains = []
     train_distances = []
+    # a list that contains the id's of the ridden connections
     ridden_connections = []
+    # train id
+    t_id = 1
     
-    for i in range(number_of_trains):
-        number_of_stations = random.randint(2,22)
+    # create multiple trains
+    for _ in range(number_of_trains):
+        if len(ridden_connections) == map.number_of_connections:
+            break
+        
+        number_of_stations = 21
         train = []
         train_distance = 0
-        start_point = random.choice(list_of_stations)
         
-        station = start_point
+        # randomly chose the start point
+        station = random.choice(stations)
+        
         train.append(station)
-        
-        # print(start_point)
-        # print(start_point.directions)
 
-        for j in range(number_of_stations - 1):
-            # print(station)
-
-            station.set_visited()
+        # create a train
+        for _ in range(number_of_stations):
             possible_next_stations = []
             
+            # assure that no station is ridden more than once in a single trejectory
             for direction in station.directions:
-                # print(direction)
                 if direction[0] not in train:
                     possible_next_stations.append(direction)
             
@@ -39,53 +41,38 @@ def randomise_train(test_map, number_of_trains):
             else:
                 break
 
-            # print(next_station_data)
+            # extract data of the next station
             next_station = next_station_data[0]
-            # print(next_station)
+            distance_to_next_station = next_station_data[1]
+            connection_id = next_station_data[2]
                     
-            if train_distance + next_station_data[1] > TIME_FRAME:
+            if train_distance + distance_to_next_station > TIME_FRAME:
                 break
 
-            connection_id = next_station_data[2]
-            # print(f"[{station}, {next_station}]")
-            ridden_connections.append(connection_id) 
-
-            train_distance += next_station_data[1]
-            # print(train_distance)
             train.append(next_station)
+            ridden_connections.append(connection_id) 
+            train_distance += distance_to_next_station
+
             station = next_station
+
         
         trains.append(train)
         train_distances.append(train_distance)
 
-    # print(trains)
-    # trains_data.append(trains)
-    # # print(train_distances)
-    # trains_data.append(train_distances)
+        # add train to the map
+        train_id = f"train_{t_id}"
+        train_distance = train_distances[t_id - 1]
+        map.add_train(train_id, train, train_distance)
+            
+        t_id += 1
 
-    # trains = trains_data[0]
-    # trains_distances = trains_data[1]
-    
-    # add_train
-    id = 1
+        # remove duplicated (ridden) connection ids from the list
+        temp_list = [] 
+        [temp_list.append(cnx_id) for cnx_id in ridden_connections if cnx_id not in temp_list]
+        ridden_connections = temp_list
 
-    for train in trains:
-        train_id = f"train_{id}"
-        train_distance = train_distances[id-1]
-        test_map.add_train(train_id, train, train_distance)
-
-        id += 1
-
-    elimin = [] 
-    [elimin.append(cnx_id) for cnx_id in ridden_connections if cnx_id not in elimin]
-    test_map.number_of_ridden_connections = len(elimin)
-    
-    # print(ridden_connections)
-    # print(elimin)
-    # print(trains_data[1])
-    # return trains_data
-
-    # map.add_train(train_id, train, train_distance)  
+    # determine the number of ridden connections
+    map.number_of_ridden_connections = len(ridden_connections)
 
 
 

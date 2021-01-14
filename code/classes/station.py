@@ -19,7 +19,6 @@ class Station():
         self.name = name
         self.x_position = x
         self.y_position = y
-        self.times_visited = 0
 
     def add_directions(self, connections_file, stations_list):
         """Organize the object with the connections it has."""
@@ -43,10 +42,6 @@ class Station():
             for station in stations_list:
                 if direction[0] == station.name:
                     direction[0] = station
-
-    def set_visited(self):
-        """Note that the object is visited."""
-        self.times_visited += 1
 
     def __repr__(self):
         """Properly print the object if it is in a list or dict."""

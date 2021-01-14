@@ -1,20 +1,19 @@
 import csv
 from .station import Station
 
-class Kaart():
+class Map():
     
-    def __init__(self, stations_file):
+    def __init__(self, stations_file, connections_file):
         
-        # self.trains = [{"train": 'train_1', "stations": "[AmsterdamZuid,Haarlem]"}, {"train": 'train_2', "stations": "[Alkmaar,Hoorn]"}]
         self.trains = []
         self.number_of_trains = 0
-        self.stations = self.load_stations(stations_file)
+        self.stations = self.load_stations(stations_file, connections_file)
         self.ridden_stations = []
         self.total_distance = 0
-        self.number_of_connections = 0
+        self.number_of_connections = self.calculate_number_of_connections(connections_file)
         self.number_of_ridden_connections = 0
 
-    def load_stations(self, stations_file):
+    def load_stations(self, stations_file, connections_file):
         
         stations = []
         
@@ -23,8 +22,20 @@ class Kaart():
         
             for row in reader:
                 stations.append(Station(row['station'], float(row['x']), float(row['y'])))
+
+        for station in stations:
+            station.add_directions(connections_file, stations)
         
+        # print(stations)
         return stations
+
+    def calculate_number_of_connections(self, file):
+        
+        with open(file, 'r') as in_file:
+            reader = csv.reader(in_file)
+            number_of_connections = len(list(reader)) - 1
+
+        return number_of_connections
     
     def add_train(self, train_id, train_trajectory, train_distance):
         

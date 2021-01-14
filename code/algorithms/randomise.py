@@ -6,12 +6,12 @@ def randomise_train(test_map, number_of_trains):
     
     list_of_stations = test_map.stations
     
-    trains_data = []
+    # trains_data = []
     trains = []
     train_distances = []
     ridden_connections = []
     
-    for i in range(number_of_trains - 1):
+    for i in range(number_of_trains):
         number_of_stations = random.randint(2,22)
         train = []
         train_distance = 0
@@ -59,9 +59,22 @@ def randomise_train(test_map, number_of_trains):
         train_distances.append(train_distance)
 
     # print(trains)
-    trains_data.append(trains)
-    # print(train_distances)
-    trains_data.append(train_distances)
+    # trains_data.append(trains)
+    # # print(train_distances)
+    # trains_data.append(train_distances)
+
+    # trains = trains_data[0]
+    # trains_distances = trains_data[1]
+    
+    # add_train
+    id = 1
+
+    for train in trains:
+        train_id = f"train_{id}"
+        train_distance = train_distances[id-1]
+        test_map.add_train(train_id, train, train_distance)
+
+        id += 1
 
     elimin = [] 
     [elimin.append(cnx_id) for cnx_id in ridden_connections if cnx_id not in elimin]
@@ -70,7 +83,7 @@ def randomise_train(test_map, number_of_trains):
     # print(ridden_connections)
     # print(elimin)
     # print(trains_data[1])
-    return trains_data
+    # return trains_data
 
     # map.add_train(train_id, train, train_distance)  
 

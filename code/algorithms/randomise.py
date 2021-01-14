@@ -47,9 +47,9 @@ def randomise_train(test_map, number_of_trains):
                 break
 
             connection_id = next_station_data[2]
-            print(f"[{station}, {next_station}]")
+            # print(f"[{station}, {next_station}]")
             ridden_connections.append(connection_id) 
-            
+
             train_distance += next_station_data[1]
             # print(train_distance)
             train.append(next_station)
@@ -67,8 +67,8 @@ def randomise_train(test_map, number_of_trains):
     [elimin.append(cnx_id) for cnx_id in ridden_connections if cnx_id not in elimin]
     test_map.number_of_ridden_connections = len(elimin)
     
-    print(ridden_connections)
-    print(elimin)
+    # print(ridden_connections)
+    # print(elimin)
     # print(trains_data[1])
     return trains_data
 

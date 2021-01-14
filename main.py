@@ -52,7 +52,7 @@ if __name__ == '__main__':
 
         id += 1
 
-    visualise(test_map)
+    # visualise(test_map)
 
     # create csv output file
     test_map.create_output()

@@ -55,14 +55,14 @@ class Kaart():
         #         ridden_stations += 1
 
         p = self.number_of_ridden_connections / self.number_of_connections
-        print(self.number_of_ridden_connections)
-        print(self.number_of_connections)
+        # print(self.number_of_ridden_connections)
+        # print(self.number_of_connections)
         # print(f"ridden_stations:{ridden_stations}")
-        print(f"p:{p}")
+        # print(f"p:{p}")
         T = self.number_of_trains
-        print(f"T:{T}")
+        # print(f"T:{T}")
         Min = self.total_distance
-        print(f"Min:{Min}")
+        # print(f"Min:{Min}")
         
         quality_score = p*10000 - (T*100 + Min)
 

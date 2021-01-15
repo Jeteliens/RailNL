@@ -25,7 +25,7 @@ def visualise(map):
     BBox = (3.362, 7.234, 50.786, 53.557)
     ax.set_xlim(BBox[0], BBox[1])
     ax.set_ylim(BBox[2], BBox[3])
-        
+
     # make new lists for every trajectory
     for train in map.trains:
         train = train['stations']
@@ -60,6 +60,7 @@ def visualise(map):
     texts = []
     for x, y, s in zip(y_positions, x_positions, names):
         texts+=[plt.text(x, y, s, fontsize=6)]
+        
 
     # # write the names by each point
     # for i, txt in enumerate(names):

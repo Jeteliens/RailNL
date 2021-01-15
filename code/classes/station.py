@@ -33,9 +33,9 @@ class Station():
                 # give every object an id
                 connection_id += 1
                 if row['station1'] == self.name:
-                    self.directions.append([row['station2'], int(row['distance']), connection_id])
+                    self.directions.append([row['station2'], float(row['distance']), connection_id])
                 elif row['station2'] == self.name:
-                    self.directions.append([row['station1'], int(row['distance']), connection_id])
+                    self.directions.append([row['station1'], float(row['distance']), connection_id])
 
         # ...
         for direction in self.directions:

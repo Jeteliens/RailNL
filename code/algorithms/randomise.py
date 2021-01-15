@@ -1,8 +1,8 @@
 import random
 import copy
-TIME_FRAME = 120
+# time_frame = 120
 
-def randomise_train(map, number_of_trains):
+def randomise_train(map, number_of_trains, time_frame):
     
     stations = map.stations
     
@@ -49,7 +49,7 @@ def randomise_train(map, number_of_trains):
             distance_to_next_station = next_station_data[1]
             connection_id = next_station_data[2]
                     
-            if train_distance + distance_to_next_station > TIME_FRAME:
+            if train_distance + distance_to_next_station > time_frame:
                 break
 
             train.append(next_station)

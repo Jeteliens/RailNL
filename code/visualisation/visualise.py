@@ -11,13 +11,15 @@ def visualise(map):
     # n = ['Alphen a/d Rijn', 'Alkmaar', 'Amsterdam Amstel', 'Amsterdam Centraal']
 
     colors = ['r', 'g', 'b', 'c', 'm', 'y', 'yellow', 'orange', 'pink', 'lawngreen', 'silver', 'saddlebrown']
+    used_colors = []
 
     background = plt.imread(r"code/visualisation/nederlandgroot.png")
 
     # initialize figure
     fig, ax = plt.subplots(figsize=(10,9))
-
-    ax.set_title('Trajectories')
+    ax = plt.axes(frameon=False)
+    ax.axes.get_yaxis().set_visible(False)
+    ax.axes.get_xaxis().set_visible(False)
 
     # set boundries for image
     BBox = (3.362, 7.234, 50.786, 53.557)
@@ -35,6 +37,11 @@ def visualise(map):
             y.append(station.y_position)
             
             color = random.choice(colors)
+            if color in used_colors:
+                color = random.choice(colors)
+            else:
+                used_colors.append(color)
+            
             ax.plot(y, x, c=color)
 
     x_positions = []

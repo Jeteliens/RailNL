@@ -5,7 +5,7 @@ Om een voorbeeld te genereren van een lijnvoering kan de volgende regel worden a
 ```
 python main.py runserver  
 ```
-
+&nbsp..
 
 ### Inhoud van de repository:
 #### code
@@ -14,19 +14,18 @@ In deze map staat de inhoudelijke code van het resultaten maken in 3 mappen opge
 Hierin staan de verschillende algoritmes die geimplementeerd zijn.
 ###### randomise.py 
 Het random algoritme kiest tijdens het maken van een traject steeds een willekeurige richting vanuit een bepaald station.
-De resultaten die hier uit voort komen zijn dan ook niet 'slim'.  
+De resultaten die hier uit voort komen zijn dan ook niet 'slim'.&nbsp  
 
 
 ##### classes 
 ###### map.py
 Hier worden de trajecten die samene en map vormen gemaakt. Ook de kwaliteitsscore wordt hiervan berekend. Al deze informatie wordt samengevoegd en in een output bestand gezet. 
 ###### station.py
-Aan de hand van he connections bestand worden alle stations met de daarbij behorende connecties geordend.  
+Aan de hand van de connections bestand worden alle stations met de daarbij behorende connecties geordend.  
 
 
 ##### visualisation
-###### visualise.py
-Dit bestand zorgt ervoor dat er een kaart van Nederland met daarbij de lijnvoering wordt gemaakt.  
+Dit bestand zorgt ervoor dat er een kaart van Nederland met daarbij de lijnvoering wordt gemaakt, passend bij de output.  
 
 
 #### data

@@ -3,8 +3,8 @@ import csv
 class Station():
     """State the connections every train station has.
 
-    Read the object and connections information.
-    Make a list for every object with matching information.
+    Read the connections information.
+    Make a list for every object with matching connections information.
 
     Attributes:
         name: name of the object

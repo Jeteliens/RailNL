@@ -2,7 +2,9 @@
 
 ### Gebruik
 Om een voorbeeld te genereren van een lijnvoering kan de volgende regel worden aangeroepen:
-```python main.py runserver```
+```
+python main.py runserver
+```
 
 ### Inhoud van de repository:
 #### code
@@ -44,4 +46,6 @@ Een bestand die in een specifiek format, met header beginnend, de verschillende 
 
 #### requirements.txt
 Om succesvol de code te draaien zijn in dit bestand alle benodigde packages op een rij gezet. 
-```pip install -r requirements.txt```
+```
+pip install -r requirements.txt
+```

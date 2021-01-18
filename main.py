@@ -1,6 +1,6 @@
 from code.classes.map import Map
 from code.classes.station import Station
-from code.algorithms.randomise import randomise_train
+from code.algorithms.randomise1 import randomise
 from code.visualisation.visualise import visualise
 import csv
 import random
@@ -84,7 +84,7 @@ if __name__ == '__main__':
 
     for _ in range(run_freq):
         test_map = Map(stations_file, connections_file)
-        randomise_train(test_map, max_number_of_trains, time_frame)
+        randomise(test_map, max_number_of_trains, time_frame)
 
         if test_map.calculate_score() > highest_score:
             highest_score = test_map.calculate_score()

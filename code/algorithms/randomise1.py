@@ -2,7 +2,7 @@ import random
 import copy
 # time_frame = 120
 
-def randomise_train(map, number_of_trains, time_frame):
+def randomise(map, number_of_trains, time_frame):
     
     stations = map.stations
     

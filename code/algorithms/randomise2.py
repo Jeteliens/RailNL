@@ -48,7 +48,7 @@ class Randomise():
             t_id += 1
 
             # remove duplicated (ridden) connection ids from the list
-            self.remove_duplicates(self.ridden_connections)
+            self.ridden_connections = self.remove_duplicates(self.ridden_connections)
 
         # determine the number of ridden connections
         self.map.number_of_ridden_connections = len(self.ridden_connections)

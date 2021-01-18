@@ -1,7 +1,7 @@
 from code.classes.map import Map
 from code.classes.station import Station
 from code.algorithms.randomise1 import randomise
-from code.visualisation.visualise import visualise
+# from code.visualisation.visualise import visualise
 import csv
 import random
 
@@ -104,5 +104,6 @@ if __name__ == '__main__':
     print(f"Lowest score: {lowest_score}")
     print(f"Average score: {average_score}")
     print(f"Number of ridden connections: {best_map.number_of_ridden_connections}")
-    
+    print(f"Number of trains: {best_map.number_of_trains}")
+
     best_map.create_output()

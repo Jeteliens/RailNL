@@ -1,4 +1,4 @@
-from .code.classes.map import Map
+# from .code.classes.map import Map
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -7,7 +7,7 @@ import random
 import csv
 
 
-def visualise(output_file, stations):
+def visualise(map): #output_file, stations
     # x = [4.7, 4.7, 4.9, 4.9]
     # y = [52.1, 52.6, 52.3, 52.4]
     # n = ['Alphen a/d Rijn', 'Alkmaar', 'Amsterdam Amstel', 'Amsterdam Centraal']
@@ -28,50 +28,50 @@ def visualise(output_file, stations):
     ax.set_xlim(BBox[0], BBox[1])
     ax.set_ylim(BBox[2], BBox[3])
 
-    ridden_stations = []
+    # ridden_stations = []
 
-    with open(output_file, 'r') as in_file:
-        reader = csv.DictReader(in_file)
+    # with open(output_file, 'r') as in_file:
+    #     reader = csv.DictReader(in_file)
 
-        for row in reader:
-            row = row['stations']
-            x = []
-            y = []
-            for element in row:
-                for station in stations:
-                    if element == station.name:
-                        element = station
-                if element not in ridden_stations:
-                    ridden_stations.append(element)
+    #     for row in reader:
+    #         row = row['stations']
+    #         x = []
+    #         y = []
+    #         for element in row:
+    #             for station in stations:
+    #                 if element == station.name:
+    #                     element = station
+    #             if element not in ridden_stations:
+    #                 ridden_stations.append(element)
 
-                x.append(element.x_position)
-                y.append(element.y_position)
+    #             x.append(element.x_position)
+    #             y.append(element.y_position)
             
-            color = random.choice(colors)
-            if color in used_colors:
-                color = random.choice(colors)
-            else:
-                used_colors.append(color)
+    #         color = random.choice(colors)
+    #         if color in used_colors:
+    #             color = random.choice(colors)
+    #         else:
+    #             used_colors.append(color)
         
-            ax.plot(y, x, c=color)
+    #         ax.plot(y, x, c=color)
 
     # make new lists for every trajectory
-    # for train in map.trains:
-    #     train = train['stations']
-    #     x = []
-    #     y = []
-    #     # draw lines between the stations for each trajectory
-    #     for station in train:
-    #         x.append(station.x_position)
-    #         y.append(station.y_position)
+    for train in map.trains:
+        train = train['stations']
+        x = []
+        y = []
+        # draw lines between the stations for each trajectory
+        for station in train:
+            x.append(station.x_position)
+            y.append(station.y_position)
             
-#         color = random.choice(colors)
-#         if color in used_colors:
-#             color = random.choice(colors)
-#         else:
-#             used_colors.append(color)
+        color = random.choice(colors)
+        if color in used_colors:
+            color = random.choice(colors)
+        else:
+            used_colors.append(color)
         
-#         ax.plot(y, x, c=color)
+        ax.plot(y, x, c=color)
 
     x_positions = []
     y_positions = []

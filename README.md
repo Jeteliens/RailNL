@@ -2,7 +2,7 @@
 
 ### Gebruik
 Om een voorbeeld te genereren van een lijnvoering kan de volgende regel worden aangeroepen:
-python main.py runserver
+```python main.py runserver```
 
 ### Inhoud van de repository:
 #### code
@@ -14,9 +14,10 @@ Het random algoritme kiest tijdens het maken van een traject steeds een willekeu
 De resultaten die hier uit voort komen zijn dan ook niet 'slim'. 
 ##### classes 
 ###### map.py
+Hier worden de trajecten die samene en map vormen gemaakt. Ook de kwaliteitsscore wordt hiervan berekend. Al deze informatie wordt samengevoegd en in een output bestand gezet. 
 
 ###### station.py
-Ordening van alle stations met de daarbij behorende connecties.
+Aan de hand van he connections bestand worden alle stations met de daarbij behorende connecties geordend.
 
 ##### visualisation
 ###### visualise.py
@@ -32,6 +33,9 @@ Stationsinformatie over alle intercitystations in heel Nederland.
 ##### design.uxf
 Het designdocument, een UML met daarin alle classes en algoritmes.
 
+#### results
+De resultaten van de opdrachten behorend bij de RailNL case staan in deze map opgeslagen. In `main.py` staat hoe elk van deze opdrachten tot stand zijn gekomen.
+
 #### main.py
 De main roept de bestanden aan met de inhoudelijke code om zo tot resultaten te komen. 
 
@@ -40,3 +44,4 @@ Een bestand die in een specifiek format, met header beginnend, de verschillende 
 
 #### requirements.txt
 Om succesvol de code te draaien zijn in dit bestand alle benodigde packages op een rij gezet. 
+```pip install -r requirements.txt```

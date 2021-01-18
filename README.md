@@ -5,7 +5,7 @@ Om een voorbeeld te genereren van een lijnvoering kan de volgende regel worden a
 ```
 python main.py runserver  
 ```
-&nbsp..
+&nbsp  
 
 ### Inhoud van de repository:
 #### code

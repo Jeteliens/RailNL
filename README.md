@@ -5,7 +5,7 @@ Om een voorbeeld te genereren van een lijnvoering kan de volgende regel worden a
 ```
 python main.py runserver  
 ```
-&nbsp  
+&nbsp;
 
 ### Inhoud van de repository:
 #### code
@@ -14,7 +14,7 @@ In deze map staat de inhoudelijke code van het resultaten maken in 3 mappen opge
 Hierin staan de verschillende algoritmes die geimplementeerd zijn.
 ###### randomise.py 
 Het random algoritme kiest tijdens het maken van een traject steeds een willekeurige richting vanuit een bepaald station.
-De resultaten die hier uit voort komen zijn dan ook niet 'slim'.&nbsp  
+De resultaten die hier uit voort komen zijn dan ook niet 'slim'.&nbsp;
 
 
 ##### classes 

@@ -1,6 +1,6 @@
 import csv
 from .station import Station
-import json
+# import json
 
 class Map():
     """Put a map together with trajectories.
@@ -24,6 +24,7 @@ class Map():
         self.number_of_trains = 0
         self.stations = self.load_stations(stations_file, connections_file)
         self.ridden_stations = []
+        self.train_distances = []
         self.total_distance = 0
         self.number_of_connections = self.calculate_number_of_connections(connections_file)
         self.number_of_ridden_connections = 0
@@ -70,6 +71,7 @@ class Map():
 
         self.number_of_trains = len(self.trains)
         self.total_distance += train_distance
+        self.train_distances.append(train_distance)
 
     def calculate_score(self):
         """Calculate the quality of the trajectories."""

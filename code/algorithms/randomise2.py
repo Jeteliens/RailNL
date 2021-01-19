@@ -5,8 +5,8 @@ from code.classes.map import Map
 
 class Randomise():
     
-    def __init__(self, stations_file, connections_file):
-        self.map = Map(stations_file, connections_file)
+    def __init__(self, map):
+        self.map = map
         # number_of_trains = None
         self.time_frame = None
         # self.number_of_stations = len(self.stations)
@@ -19,7 +19,7 @@ class Randomise():
         
         self.time_frame = time_frame
 
-        train_distances = []
+        # train_distances = []
 
         # train id
         t_id = 1
@@ -35,10 +35,10 @@ class Randomise():
             # create a train
             train_data = self.create_train(start_station)
             train = train_data['train']
-            train_distance = train_data['train_disctance']
+            train_distance = train_data['train_distance']
 
-            self.map.trains.append(train)
-            train_distances.append(train_distance)
+            # self.map.trains.append(train)
+            # self.map.train_distances.append(train_distance)
 
             # add train to the map
             train_id = f"train_{t_id}"
@@ -96,7 +96,7 @@ class Randomise():
 
         train_data = {}
         train_data['train'] = train
-        train_data['train_disctance'] = train_distance
+        train_data['train_distance'] = train_distance
 
         return train_data
 

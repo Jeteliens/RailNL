@@ -42,7 +42,7 @@ class Randomise():
 
             # add train to the map
             train_id = f"train_{t_id}"
-            train_distance = [t_id - 1]
+            # train_distance = [t_id - 1]
             self.map.add_train(train_id, train, train_distance)
                 
             t_id += 1

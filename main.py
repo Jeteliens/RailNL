@@ -93,7 +93,8 @@ if __name__ == '__main__':
 
     # for _ in range(run_freq):
     #     test_map = Map(stations_file, connections_file)
-    #     randomise(test_map, max_number_of_trains, time_frame)
+        # randomise = Randomise(stations_file, connections_file)
+        # randomise.run(max_number_of_trains, time_frame)
 
     #     if test_map.calculate_score() > highest_score:
     #         highest_score = test_map.calculate_score()

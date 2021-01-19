@@ -1,5 +1,6 @@
 import csv
 from .station import Station
+import json
 
 class Map():
     """Put a map together with trajectories.
@@ -100,26 +101,32 @@ class Map():
             reader = csv.DictReader(in_file)
         
             for row in reader:
+                if row['train'] == "score":
+                    break
+                
                 train_data = {}
                 # stations.append(Station(row['station'], float(row['x']), float(row['y'])))
                 train_data['train'] = row['train']
-                train_data['stations'] = row['stations']
-                train = row['stations']
-                
+                train_data['stations'] = json.loads(row['stations'])
+                train = json.loads(row['stations'])
+                # print(train)
                 self.trains.append(train_data)
-                self.number_of_trains = len(self.trains)
+                # self.number_of_trains = len(self.trains)
                 
                 for station in train:
                     self.ridden_stations.append(station)
                     # connection = []
                     # connection.append(station)
 
+                # print(train)
+                # print(f"len(train): {len(train)}")
                 for n in range(len(train) - 1):
                     connection = train[n:n+1]
                     self.ridden_connections.append(connection)
         
+        self.number_of_trains = len(self.trains)
         self.total_distance = self.calculate_total_distance()
-
+        self.number_of_ridden_connections = self.calculate_number_of_ridden_connections(file)
         self.ridden_stations = self.remove_duplicates(self.ridden_stations)
 
         # self.number_of_ridden_connections = 
@@ -146,13 +153,43 @@ class Map():
 
                 connections_data.append(data_1)
                 connections_data.append(data_2)
-
+        
+        # print("Ridden connections:")
+        # print(self.ridden_connections)
         for element in self.ridden_connections:
+            # print(f"Element: {element}")
             for connection in connections_data:
-                if element[0] == connection[0] & element[1] == connection[1]:
+                # print(f"Connection: {connection}")
+                if element[0] == connection[0] and element[1] == connection[1]:
                     total_distance += connection[2]
                     
+        print(f"Total distance 1: {total_distance}")
         return total_distance
+
+    def calculate_number_of_ridden_connections(self, file):
+
+        score = None
+
+        with open(file, 'r') as in_file:
+            reader = csv.DictReader(in_file)
+            
+            for row in reader:
+                if row['train'] == "score":
+                    score = float(row['stations'])
+                    break
+
+        print(f"Score: {score}")
+        noc = self.number_of_connections
+        print(f"Number of connections: {noc}")
+        T = self.number_of_trains
+        print(f"Number of trains: {T}")
+        Min = self.total_distance
+        print(f"Total distance: {Min}")
+    
+        norc = ((score + (T*100 + Min))*noc) / 10000
+        print(f"Number of ridden connections: {norc}")
+
+        return norc
 
     def remove_duplicates(self, input_list):
         """Removes duplicated elements from a list"""

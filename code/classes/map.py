@@ -97,6 +97,26 @@ class Map():
 
             output.write(f"score,{self.calculate_score()}")
 
+    def create_extra_output(self, train_distance):
+
+        csv_colums = ['train', 'distance']
+        extra_output = "extra_output.csv"
+
+        with open(extra_output, "w") as output:
+            writer = csv.DictWriter(output, fieldnames=csv_colums)
+            writer.writeheader()
+
+            for train in self.trains:
+
+                writer.writerow(train)
+                writer.writerow(train_distance)
+
+            output.write(f"score,{self.calculate_score()}\n")
+            output.write(f"number of connections,{self.number_of_connections}\n")
+            output.write(f"number of ridden connections,{self.number_of_ridden_connections}\n")
+            output.write(f"total distance,{self.total_distance}\n")
+            output.write(f"number of trains,{self.number_of_trains}")
+            
     def remove_duplicates(self, input_list):
         """Removes duplicated elements from a list"""
         

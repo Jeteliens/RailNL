@@ -22,7 +22,7 @@ def randomise(map, number_of_trains, time_frame):
         train = []
         train_distance = 0
         
-        # randomly chose the start point
+        # randomly choose the start point
         station = random.choice(stations)
         
         train.append(station)

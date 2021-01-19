@@ -127,3 +127,4 @@ if __name__ == '__main__':
 
     # print(best_map.trains)
     best_map.create_output()
+    # best_map.create_extra_output()

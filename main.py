@@ -1,6 +1,7 @@
 from code.classes.map import Map
 from code.classes.station import Station
 from code.algorithms.randomise2 import Randomise
+from code.algorithms.hill_climber import HillClimber
 # from code.algorithms.randomise1 import randomise
 # from code.visualisation.visualise import visualise
 import csv
@@ -124,7 +125,26 @@ if __name__ == '__main__':
     print(f"Average score: {average_score}")
     print(f"Number of ridden connections: {best_map.number_of_ridden_connections}")
     print(f"Number of trains: {best_map.number_of_trains}")
+    print(f"Number of connections: {best_map.number_of_connections}")
+    print(f"Number of trains: {best_map.number_of_trains}")
+    print(f"Train distances: {best_map.train_distances}")
+    print(f"Total distance: {best_map.total_distance}")
 
     # print(best_map.trains)
-    best_map.create_output()
+    best_map.create_output("output1.csv")
+
+    # print(best_map.all_ridden_connections)
+
+    hill_climber = HillClimber(best_map)
+    best_map = hill_climber.run(10)
+    print("\n")
+    print("Output2: ================================================================")
+    print(f"Number of ridden connections: {best_map.number_of_ridden_connections}")
+    print(f"Number of trains: {best_map.number_of_trains}")
+    print(f"Number of connections: {best_map.number_of_connections}")
+    print(f"Number of trains: {best_map.number_of_trains}")
+    print(f"Train distances: {best_map.train_distances}")
+    print(f"Total distance: {best_map.total_distance}")
+    best_map.create_output("output2.csv")
+
     # best_map.create_extra_output()

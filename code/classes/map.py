@@ -19,7 +19,7 @@ class Map():
     """
 
     def __init__(self, stations_file, connections_file):
-        # self.connections_file = connections_file
+        self.connections_file = connections_file
         self.trains = []
         self.number_of_trains = 0
         self.stations = self.load_stations(stations_file, connections_file)
@@ -29,6 +29,9 @@ class Map():
         self.number_of_connections = self.calculate_number_of_connections(connections_file)
         self.number_of_ridden_connections = 0
         self.ridden_connections = []
+        self.all_ridden_connections = []
+        self.score = 0
+        self.time_frame = None
 
     def load_stations(self, stations_file, connections_file):
         """Read csv files and save the information in lists."""
@@ -81,12 +84,13 @@ class Map():
         
         quality_score = p*10000 - (T*100 + Min)
 
+        self.score = quality_score
         return quality_score
 
-    def create_output(self):
+    def create_output(self, output_name):
         """Build an output csvfile with alle trajectory information."""
         csv_colums = ['train', 'stations']
-        output_file = "output.csv"
+        output_file = output_name
         
         with open(output_file, "w") as output:
             writer = csv.DictWriter(output, fieldnames=csv_colums)
@@ -97,25 +101,25 @@ class Map():
 
             output.write(f"score,{self.calculate_score()}")
 
-    def create_extra_output(self, train_distance):
+    # def create_extra_output(self, train_distance):
 
-        csv_colums = ['train', 'distance']
-        extra_output = "extra_output.csv"
+    #     csv_colums = ['train', 'distance']
+    #     extra_output = "extra_output.csv"
 
-        with open(extra_output, "w") as output:
-            writer = csv.DictWriter(output, fieldnames=csv_colums)
-            writer.writeheader()
+    #     with open(extra_output, "w") as output:
+    #         writer = csv.DictWriter(output, fieldnames=csv_colums)
+    #         writer.writeheader()
 
-            for train in self.trains:
+    #         for train in self.trains:
 
-                writer.writerow(train)
-                writer.writerow(train_distance)
+    #             writer.writerow(train)
+    #             writer.writerow(train_distance)
 
-            output.write(f"score,{self.calculate_score()}\n")
-            output.write(f"number of connections,{self.number_of_connections}\n")
-            output.write(f"number of ridden connections,{self.number_of_ridden_connections}\n")
-            output.write(f"total distance,{self.total_distance}\n")
-            output.write(f"number of trains,{self.number_of_trains}")
+    #         output.write(f"score,{self.calculate_score()}\n")
+    #         output.write(f"number of connections,{self.number_of_connections}\n")
+    #         output.write(f"number of ridden connections,{self.number_of_ridden_connections}\n")
+    #         output.write(f"total distance,{self.total_distance}\n")
+    #         output.write(f"number of trains,{self.number_of_trains}")
             
     def remove_duplicates(self, input_list):
         """Removes duplicated elements from a list"""

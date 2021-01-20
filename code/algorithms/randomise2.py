@@ -8,7 +8,7 @@ class Randomise():
     def __init__(self, map):
         self.map = map
         # number_of_trains = None
-        self.time_frame = None
+        # self.time_frame = None
         # self.number_of_stations = len(self.stations)
         # self.trains = []
         #  = []
@@ -17,7 +17,7 @@ class Randomise():
     
     def run(self, number_of_trains, time_frame):
         
-        self.time_frame = time_frame
+        self.map.time_frame = time_frame
 
         # train_distances = []
 
@@ -30,10 +30,10 @@ class Randomise():
                 break
             
             # randomly chose the start point
-            start_station = random.choice(self.map.stations)
+            # start_station = random.choice(self.map.stations)
             
             # create a train
-            train_data = self.create_train(start_station)
+            train_data = self.create_train()
             train = train_data['train']
             train_distance = train_data['train_distance']
 
@@ -54,7 +54,10 @@ class Randomise():
         self.map.number_of_ridden_connections = len(self.ridden_connections)
         # print(map.number_of_ridden_connections)
 
-    def create_train(self, station):
+    def create_train(self):
+
+        # randomly chose the start point
+        station = random.choice(self.map.stations)
 
         train = []
         train_distance = 0
@@ -84,12 +87,16 @@ class Randomise():
             next_station = next_station_data[0]
             distance_to_next_station = next_station_data[1]
             connection_id = next_station_data[2]
-                        
-            if train_distance + distance_to_next_station > self.time_frame:
+
+            # print(f"Train distance: {train_distance}")
+            # print(f"Distance to next station: {distance_to_next_station}")      
+            # print(f"Time frame: {self.map.time_frame}")
+            if train_distance + distance_to_next_station > self.map.time_frame:
                 break
 
             train.append(next_station)
-            self.ridden_connections.append(connection_id) 
+            self.ridden_connections.append(connection_id)
+            self.map.all_ridden_connections.append(connection_id) 
             train_distance += distance_to_next_station
 
             station = next_station

@@ -9,30 +9,42 @@ class HillClimber:
 
     def __init__(self, map):
         self.map = map
-        self.old_map = map
-        self.best_map = map
+        self.old_map = None
+        self.best_map = None
 
 
         # trains = [{'train': 'train_1', 'stations': [Helmond, Eindhoven, Tilburg, Breda, Etten-Leur, Roosendaal, Vlissingen]}]
     
     def run(self, number_of_runs):
-        old_score = self.map.score
+        # old_score = self.map.score
         
         # print(self.map.all_ridden_connections)
 
         for i in range(number_of_runs):
             # print(self.map.all_ridden_connections)
             
+            n = 0
+            # print(self.map.trains)
             for trajectory in self.map.trains:
+                old_score = self.map.calculate_score()
+                # print(f"Old score: {old_score}")
                 randomise = Randomise(self.map)
                 new_train_data = randomise.create_train()
+                # print(new_train_data)
 
                 old_train = trajectory['stations']
+                # print(f"Old train: {old_train}", end="")
                 new_train = new_train_data['train']
-                trajectory['stations'] = new_train
-
-                old_train_distance = self.map.train_distances[i]
                 new_train_distance = new_train_data['train_distance']
+                # print(f"New train: {new_train}")
+                trajectory['stations'] = new_train
+                old_train_distance = self.map.train_distances[n]
+                self.map.train_distances[n] = new_train_distance
+
+                # print(self.map.train_distances)
+                
+                # print(f" ==> Old train distance: {old_train_distance}")
+                # new_train_distance = new_train_data['train_distance']
                 self.map.total_distance = self.map.total_distance + new_train_distance - old_train_distance
 
                 # remove the ridden connections in the old train from the list
@@ -59,20 +71,28 @@ class HillClimber:
                 #     print(f"After: {self.map.ridden_connections}")
 
                 # print(self.map.all_ridden_connections)
-                self.map.number_of_ridden_connections = len(self.map.all_ridden_connections)
-                print(f"Number of ridden connections: {self.map.number_of_ridden_connections}")
+                self.map.number_of_ridden_connections = len(self.map.ridden_connections)
+                # print(f"Number of ridden connections: {self.map.number_of_ridden_connections}")
 
                 new_score = self.map.calculate_score()
 
                 # if new_score > old_score:
                 #     self.best_map = self.map
                 
-                if new_score < old_score:
-                    # self.best_map = self.old_map
-                    self.map = self.old_map
-                else:
+                # if new_score < old_score:
+                #     # self.best_map = self.old_map
+                #     self.map = self.old_map
+                # else:
+                #     self.best_map = self.map
+                #     self.old_map = self.map
+                
+                if new_score > old_score:
                     self.best_map = self.map
-                    self.old_map = self.map
+                    # self.old_map = self.map
+                else:
+                    self.map = self.best_map
+
+                n += 1
 
         return self.best_map
 

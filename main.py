@@ -3,7 +3,7 @@ from code.classes.station import Station
 from code.algorithms.randomise2 import Randomise
 from code.algorithms.hill_climber import HillClimber
 # from code.algorithms.randomise1 import randomise
-# from code.visualisation.visualise import visualise
+from code.visualisation.visualise import visualise
 import csv
 import random
 
@@ -90,7 +90,7 @@ if __name__ == '__main__':
     highest_score = 0
     lowest_score = 10000
 
-    run_freq = 10
+    run_freq = 50000
     scores_sum = 0
 
     for _ in range(run_freq):
@@ -109,7 +109,7 @@ if __name__ == '__main__':
         if test_map.calculate_score() > highest_score:
             highest_score = test_map.calculate_score()
             best_map = test_map
-            print(f"New highest score: {highest_score}")
+            print(f"New high score: {highest_score}")
         elif test_map.calculate_score() < lowest_score:
             lowest_score = test_map.calculate_score()
         
@@ -124,7 +124,6 @@ if __name__ == '__main__':
     print(f"Lowest score: {lowest_score}")
     print(f"Average score: {average_score}")
     print(f"Number of ridden connections: {best_map.number_of_ridden_connections}")
-    print(f"Number of trains: {best_map.number_of_trains}")
     print(f"Number of connections: {best_map.number_of_connections}")
     print(f"Number of trains: {best_map.number_of_trains}")
     print(f"Train distances: {best_map.train_distances}")
@@ -136,15 +135,14 @@ if __name__ == '__main__':
     # print(best_map.all_ridden_connections)
 
     hill_climber = HillClimber(best_map)
-    best_map = hill_climber.run(10)
+    best_map = hill_climber.run(50000)
     print("\n")
     print("Output2: ================================================================")
     print(f"Number of ridden connections: {best_map.number_of_ridden_connections}")
     print(f"Number of trains: {best_map.number_of_trains}")
     print(f"Number of connections: {best_map.number_of_connections}")
-    print(f"Number of trains: {best_map.number_of_trains}")
     print(f"Train distances: {best_map.train_distances}")
     print(f"Total distance: {best_map.total_distance}")
+    print(f"New HC score: {best_map.calculate_score()}")
     best_map.create_output("output2.csv")
-
-    # best_map.create_extra_output()
+    visualise(best_map)

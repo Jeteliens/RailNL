@@ -15,7 +15,7 @@ def visualise(map): #output_file, stations
     colors = ['r', 'g', 'b', 'c', 'm', 'y', 'yellow', 'orange', 'pink', 'lawngreen', 'silver', 'saddlebrown']
     used_colors = []
 
-    background = plt.imread(r"nederlandgroot.png")
+    background = plt.imread(r"code/visualisation/nederland2.webp")
 
     # initialize figure
     fig, ax = plt.subplots(figsize=(10,9))
@@ -78,7 +78,7 @@ def visualise(map): #output_file, stations
     names = []
 
     # list all the stations that are ridden in the trajectory
-    for station in ridden_stations:
+    for station in map.ridden_stations:
         x_positions.append(station.x_position)
         y_positions.append(station.y_position)
         names.append(station.name)
@@ -104,14 +104,3 @@ def visualise(map): #output_file, stations
     plt.show()
 
     plt.savefig("trajectories.jpeg", format="jpeg")
-
-
-if __name__ == '__main__':
-
-    output_file = "output.csv"
-    stations_file = "../StationsHolland.csv"
-    connections_file = "../ConnectiesHolland.csv"
-
-    vis_map = Map(stations_file, connections_file)
-
-    visualise(output_file, vis_map.stations)

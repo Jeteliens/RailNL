@@ -1,21 +1,19 @@
-# from .code.classes.map import Map
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from adjustText import adjust_text
 import random
-import csv
 
 
-def visualise(map): #output_file, stations
-    # x = [4.7, 4.7, 4.9, 4.9]
-    # y = [52.1, 52.6, 52.3, 52.4]
-    # n = ['Alphen a/d Rijn', 'Alkmaar', 'Amsterdam Amstel', 'Amsterdam Centraal']
-
-    colors = ['r', 'g', 'b', 'c', 'm', 'y', 'yellow', 'orange', 'pink', 'lawngreen', 'silver', 'saddlebrown']
+def visualise(map):
+    """"""
     used_colors = []
-
-    background = plt.imread(r"code/visualisation/nederland2.webp")
+    colors = ['r', 'g', 'b', 'c', 'm', 'y', 'k', 'yellow', 
+            'orange', 'pink', 'lawngreen', 'silver', 
+            'saddlebrown', 'hotpink', 'blueviolet', 'cyan', 
+            'bisque', 'darkorange', 'maroon', 'dimgray']
+    
+    background = plt.imread(r"code/visualisation/mapnederland.jpg")
 
     # initialize figure
     fig, ax = plt.subplots(figsize=(10,9))
@@ -28,33 +26,6 @@ def visualise(map): #output_file, stations
     ax.set_xlim(BBox[0], BBox[1])
     ax.set_ylim(BBox[2], BBox[3])
 
-    # ridden_stations = []
-
-    # with open(output_file, 'r') as in_file:
-    #     reader = csv.DictReader(in_file)
-
-    #     for row in reader:
-    #         row = row['stations']
-    #         x = []
-    #         y = []
-    #         for element in row:
-    #             for station in stations:
-    #                 if element == station.name:
-    #                     element = station
-    #             if element not in ridden_stations:
-    #                 ridden_stations.append(element)
-
-    #             x.append(element.x_position)
-    #             y.append(element.y_position)
-            
-    #         color = random.choice(colors)
-    #         if color in used_colors:
-    #             color = random.choice(colors)
-    #         else:
-    #             used_colors.append(color)
-        
-    #         ax.plot(y, x, c=color)
-
     # make new lists for every trajectory
     for train in map.trains:
         train = train['stations']
@@ -65,13 +36,14 @@ def visualise(map): #output_file, stations
             x.append(station.x_position)
             y.append(station.y_position)
             
-        color = random.choice(colors)
-        if color in used_colors:
             color = random.choice(colors)
-        else:
-            used_colors.append(color)
-        
-        ax.plot(y, x, c=color)
+            # while color in used_colors:
+            #     color = random.choice(colors)
+            
+            # used_colors.append(color)
+            
+            # print(color)
+            ax.plot(y, x, c=color, zorder=1)
 
     x_positions = []
     y_positions = []
@@ -84,7 +56,7 @@ def visualise(map): #output_file, stations
         names.append(station.name)
     
     # place a point for each ridden station
-    ax.scatter(y_positions, x_positions, c='k', marker=("."))
+    ax.scatter(y_positions, x_positions, c='k', marker=("."), zorder=2)
     
     texts = []
     for x, y, s in zip(y_positions, x_positions, names):
@@ -95,12 +67,13 @@ def visualise(map): #output_file, stations
     # for i, txt in enumerate(names):
     #     plt.annotate(txt, (y_positions[i], x_positions[i]), size=4)
 
+    # make sure annotations do not touch
     adjust_text(texts, arrowprops=dict(arrowstyle="-", color='k', lw=0.5), only_move={'points':'y', 'texts':'y'})
 
     # show the image
-    ax.imshow(background, zorder=0, extent = BBox, aspect= 'equal')
+    ax.imshow(background, zorder=0, extent = BBox, aspect= 'auto')
 
     # show the plots
     plt.show()
 
-    plt.savefig("trajectories.jpeg", format="jpeg")
+    plt.savefig("trajectories.jpeg", format="jpeg", dpi=5000)

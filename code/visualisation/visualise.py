@@ -76,4 +76,4 @@ def visualise(map):
     # show the plots
     plt.show()
 
-    plt.savefig("trajectories.jpeg", format="jpeg", dpi=5000)
+    plt.savefig("trajectories.jpeg", format="jpeg", dpi=500)

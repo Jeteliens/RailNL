@@ -81,16 +81,16 @@ if __name__ == '__main__':
 
     # --------------------------- Opdracht 3 ---------------------------------------
 
-    stations_file = "data/Nationaal/StationsNationaal.csv"
-    connections_file = "data/Nationaal/ConnectiesNationaal.csv"
+    stations_file = "data/Holland/StationsHolland.csv"
+    connections_file = "data/Holland/ConnectiesHolland.csv"
     
-    max_number_of_trains = 20
-    time_frame = 180
+    max_number_of_trains = 7
+    time_frame = 120
 
     highest_score = 0
     lowest_score = 10000
 
-    run_freq = 10
+    run_freq = 100
     scores_sum = 0
 
     for _ in range(run_freq):
@@ -131,11 +131,12 @@ if __name__ == '__main__':
 
     # print(best_map.trains)
     best_map.create_output("output1.csv")
+    visualise(best_map)
 
     # print(best_map.all_ridden_connections)
 
     hill_climber = HillClimber(best_map)
-    best_map = hill_climber.run(8900)
+    best_map = hill_climber.run(40000)
     print("\n")
     print("Output2: ================================================================")
     print(f"Number of ridden connections: {best_map.number_of_ridden_connections}")
@@ -145,4 +146,4 @@ if __name__ == '__main__':
     print(f"Total distance: {best_map.total_distance}")
     print(f"New HC score: {best_map.calculate_score()}")
     best_map.create_output("output2.csv")
-    # visualise(best_map)
+    visualise(best_map)

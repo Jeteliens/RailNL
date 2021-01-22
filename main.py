@@ -81,11 +81,11 @@ if __name__ == '__main__':
 
     # --------------------------- Opdracht 3 ---------------------------------------
 
-    stations_file = "data/Holland/StationsHolland.csv"
-    connections_file = "data/Holland/ConnectiesHolland.csv"
+    stations_file = "data/Nationaal/StationsNationaal.csv"
+    connections_file = "data/Nationaal/ConnectiesNationaal.csv"
     
-    max_number_of_trains = 7
-    time_frame = 120
+    max_number_of_trains = 20
+    time_frame = 180
 
     highest_score = 0
     lowest_score = 10000
@@ -135,7 +135,7 @@ if __name__ == '__main__':
     # print(best_map.all_ridden_connections)
 
     hill_climber = HillClimber(best_map)
-    best_map = hill_climber.run(20)
+    best_map = hill_climber.run(8900)
     print("\n")
     print("Output2: ================================================================")
     print(f"Number of ridden connections: {best_map.number_of_ridden_connections}")

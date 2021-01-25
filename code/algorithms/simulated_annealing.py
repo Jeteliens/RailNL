@@ -48,6 +48,10 @@ class SimulatedAnnealing():
         index = random.randint(0, len(map.trains) - 1)
         trajectory = map.trains[index]
         train = trajectory['stations']
+        # print(f"1. Train: {train}")
+        # print(f"Old train distances: {map.train_distances}")
+        # print(map.all_ridden_connections)
+        # print(f"Old: {map.ridden_connections}")
 
         # make small change to the chosen train
         if len(train[-1].directions) == 1:
@@ -69,12 +73,15 @@ class SimulatedAnnealing():
                 new_direction = random.choice(possible_new_directions)
                 new_station = new_direction[0]
                 distance_new_direction = new_direction[1]
+                new_cnx_id = new_direction[2]
                                 
                 # determine the distance to the station to be removed
                 distance_old_direction = 0
+                # print(f"2. Train: {train}")
                 for direction in train[-1].directions:
                     if direction[0] == train[-2]:
                         distance_old_direction = direction[1]
+                        old_cnx_id = direction[2]
                         break
                     
                 train_distance = map.train_distances[index] 
@@ -84,6 +91,8 @@ class SimulatedAnnealing():
                     trajectory['stations'].pop()
                     trajectory['stations'].insert(0, new_station)
                     map.train_distances[index] = train_distance
+                    map.all_ridden_connections.remove(old_cnx_id)
+                    map.all_ridden_connections.append(new_cnx_id)
                     
         elif len(train[0].directions) == 1:
             possible_new_directions = [direction for direction in train[-1].directions if direction[0] != train[-2]]
@@ -103,12 +112,14 @@ class SimulatedAnnealing():
                 new_direction = random.choice(possible_new_directions)
                 new_station = new_direction[0]
                 distance_new_direction = new_direction[1]
+                new_cnx_id = new_direction[2]
                                 
                 # determine the distance to the station to be removed
                 distance_old_direction = 0
                 for direction in train[0].directions:
                     if direction[0] == train[1]:
                         distance_old_direction = direction[1]
+                        old_cnx_id = direction[2]
                         break
                     
                 train_distance = map.train_distances[index] 
@@ -118,18 +129,32 @@ class SimulatedAnnealing():
                     trajectory['stations'].pop(0)
                     trajectory['stations'].append(new_station)
                     map.train_distances[index] = train_distance
-        else:                  
-            # determine the distance to the station to be removed
-            distance_old_direction = 0
-            for direction in train[-1].directions:
-                if direction[0] == train[-2]:
-                    distance_old_direction = direction[1]
-                    break
-                    
-            train_distance = map.train_distances[index] 
-            train_distance -= distance_old_direction
-            trajectory['stations'].pop()
-            map.train_distances[index] = train_distance
+                    map.all_ridden_connections.remove(old_cnx_id)
+                    map.all_ridden_connections.append(new_cnx_id)
+        # else:                  
+        #     # determine the distance to the station to be removed
+        #     distance_old_direction = 0
+        #     # print(f"3. Train: {train}")
+        #     for direction in train[-1].directions:
+        #         if direction[0] == train[-2]:
+        #             distance_old_direction = direction[1]
+        #             old_cnx_id = direction[2]
+        #             break
+        #     if len(train) > 2:        
+        #         train_distance = map.train_distances[index] 
+        #         train_distance -= distance_old_direction
+        #         trajectory['stations'].pop()
+        #         map.train_distances[index] = train_distance
+        #         map.all_ridden_connections.remove(old_cnx_id)
+
+        # map.calculate_score()
+
+        map.total_distance = sum(map.train_distances)
+        map.ridden_connections = self.remove_duplicates(map.all_ridden_connections)
+        self.map.number_of_ridden_connections = len(self.map.ridden_connections)
+        # print(f"New train distances: {map.train_distances}")
+        # print(f"New: {map.ridden_connections}")
+        return map
 
     def check_solution(self, new_map):
         """
@@ -139,7 +164,7 @@ class SimulatedAnnealing():
         """
         old_score = self.score
         new_score = new_map.calculate_score()
-        
+
         # Calculate the probability of accepting this new map
         delta = new_score - old_score
         probability = math.exp(-delta / self.T)
@@ -160,9 +185,17 @@ class SimulatedAnnealing():
         self.iterations = iterations
 
         random_map = self.map
-        
-        for _ in range(iterations):
-            self.make_small_change(random_map)
-            self.check_solution(random_map)
+  
+        for iteration in range(iterations):
+            # print(f"Iteration {iteration}")      
+            map = self.make_small_change(random_map)
+            self.check_solution(map)
 
         return self.map
+
+    def remove_duplicates(self, input_list):
+        """Removes duplicated elements from a list"""
+        
+        temp_list = [] 
+        [temp_list.append(element) for element in input_list if element not in temp_list]
+        return temp_list

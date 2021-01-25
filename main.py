@@ -160,17 +160,16 @@ if __name__ == '__main__':
     highest_score = 0
     lowest_score = 10000
 
-    # run_freq = 2
-    scores_sum = 0
+    iterations = 10000
 
-    simanneal = SimulatedAnnealing(stations_file, connections_file, max_number_of_trains, time_frame, temperature=20)
+    simanneal = SimulatedAnnealing(stations_file, connections_file, max_number_of_trains, time_frame, temperature=1000)
     simanneal.map.create_output("output1.csv")
     print(f"Old score: {simanneal.map.score}")
+    print(f"Total distance: {simanneal.map.total_distance}")
 
-    best_map = simanneal.run(10)
+    best_map = simanneal.run(iterations)
 
-    print(f"Max number of train: {max_number_of_trains}")
-    # print(f"Number of states searched: {run_freq}")
+    print(f"Number of iterations: {iterations}")
     print("=================================")
     print(f"Number of ridden connections: {best_map.number_of_ridden_connections}")
     print(f"Number of connections: {best_map.number_of_connections}")

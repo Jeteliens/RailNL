@@ -90,7 +90,7 @@ if __name__ == '__main__':
     highest_score = 0
     lowest_score = 10000
 
-    run_freq = 100
+    run_freq = 2
     scores_sum = 0
 
     for _ in range(run_freq):
@@ -131,12 +131,12 @@ if __name__ == '__main__':
 
     # print(best_map.trains)
     best_map.create_output("output1.csv")
-    visualise(best_map)
+    # visualise(best_map)
 
     # print(best_map.all_ridden_connections)
 
     hill_climber = HillClimber(best_map)
-    best_map = hill_climber.run(40000)
+    best_map = hill_climber.run(2)
     print("\n")
     print("Output2: ================================================================")
     print(f"Number of ridden connections: {best_map.number_of_ridden_connections}")
@@ -146,4 +146,4 @@ if __name__ == '__main__':
     print(f"Total distance: {best_map.total_distance}")
     print(f"New HC score: {best_map.calculate_score()}")
     best_map.create_output("output2.csv")
-    visualise(best_map)
+    # visualise(best_map)

@@ -1,6 +1,7 @@
 import random
 import math
-from code.classes.map import Map
+from .classes.map import Map
+from .classes.randomise2 import Randomise
 
 class SimulatedAnnealing():
     """
@@ -9,12 +10,12 @@ class SimulatedAnnealing():
     Also sometimes accepts solutions that are worse, depending on the current temperature.
     """
 
-    def __init__(self, stations_file, connections_file  max_number_of_trains, time_frame, temperature):
+    def __init__(self, stations_file, connections_file, max_number_of_trains, time_frame, temperature):
         self.station_file = stations_file
         self.connections_file = connections_file
         self.max_number_of_trains = max_number_of_trains
         self.time_frame = time_frame
-        self.map = create_random_map(stations_file, connections_file)
+        self.map = self.create_random_map(stations_file, connections_file)
         self.T0 = temperature
         self.T = temperature
         self.score = self.map.calculate_score()
@@ -29,11 +30,12 @@ class SimulatedAnnealing():
         return random_map
 
     def update_temperature(self):
-            """
+        """
         This function implements a *linear* cooling scheme.
         Temperature will become zero after all iterations passed to the run()
         method have passed.
         """
+        
         self.T = self.T - (self.T0 / self.iterations)
 
         # Exponential would look like this:
@@ -43,10 +45,81 @@ class SimulatedAnnealing():
         # where alpha can be any value below 1 but above 0
 
     def make_small_change(self, map):
-        trajectory = random.choice(map.trains)
-        trajectory['stations']
+        while True:
+            index = random.randint(0, len(map.trains) - 1)
+            trajectory = map.trains[index]
+            train = trajectory['stations']
 
-        # make small change to the chosen train
+            # make small change to the chosen train
+            if len(train[-1].directions) == 1:
+                # possible_new_directions = train[0].directions.remove[train[1]]
+                possible_new_directions = [direction for direction in train[0].directions if direction[0] != train[1]]
+                
+                # for direction in train[0].directions:
+                #     if direction[0] != train[1]:
+                #         possible_new_stations.append(direction[0])
+
+                # remove ridden stations
+                for direction in possible_new_directions:
+                    for station in train:
+                        if direction[0] == station:
+                            possible_new_directions.remove(direction)
+
+                # add new train to the front
+                if possible_new_directions:     
+                    new_direction = random.choice(possible_new_directions)
+                    new_station = new_direction[0]
+                    distance_new_direction = new_direction[1]
+                                
+                    # determine the distance to the station to be removed
+                    distance_old_direction = 0
+                    for direction in train[-1].directions:
+                        if direction[0] == train[-2]:
+                            distance_old_direction = direction[1]
+                            break
+                    
+                    train_distance = map.train_distances[index] 
+                    train_distance += distance_new_direction - distance_old_direction
+                    
+                    if train_distance <= map.time_frame:
+                        trajectory['stations'].pop()
+                        trajectory['stations'].insert(0, new_station)
+                        map.train_distances[index] = train_distance
+                        break
+            else:
+                possible_new_directions = [direction for direction in train[-1].directions if direction[0] != train[-2]]
+                
+                # for direction in train[0].directions:
+                #     if direction[0] != train[1]:
+                #         possible_new_stations.append(direction[0])
+
+                # remove ridden stations
+                for direction in possible_new_directions:
+                    for station in train:
+                        if direction[0] == station:
+                            possible_new_directions.remove(direction)
+
+                # add new train to the front
+                if possible_new_directions:     
+                    new_direction = random.choice(possible_new_directions)
+                    new_station = new_direction[0]
+                    distance_new_direction = new_direction[1]
+                                
+                    # determine the distance to the station to be removed
+                    distance_old_direction = 0
+                    for direction in train[0].directions:
+                        if direction[0] == train[1]:
+                            distance_old_direction = direction[1]
+                            break
+                    
+                    train_distance = map.train_distances[index] 
+                    train_distance += distance_new_direction - distance_old_direction
+                    
+                    if train_distance <= map.time_frame:
+                        trajectory['stations'].pop(0)
+                        trajectory['stations'].append(new_station)
+                        map.train_distances[index] = train_distance
+                        break
 
     def check_solution(self, new_map):
         """
@@ -54,7 +127,7 @@ class SimulatedAnnealing():
         Also sometimes accepts solutions that are worse, depending on the current
         temperature.
         """
-        old_score = self.old_score
+        old_score = self.score
         new_score = new_map.calculate_score()
         
         # Calculate the probability of accepting this new map
@@ -76,9 +149,9 @@ class SimulatedAnnealing():
     def run(self, iterations):
         self.iterations = iterations
 
-        random_map = self.create_random_map()
+        random_map = self.map
         
-        for iteration in range(iterations):
+        for _ in range(iterations):
             random_map.make_small_change()
             self.check_solution(random_map)
 

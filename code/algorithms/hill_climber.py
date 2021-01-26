@@ -1,69 +1,92 @@
 from .randomise2 import Randomise
+from code.classes.map import Map
 import csv
 import copy
+import random
 
-class HillClimber:
+class HillClimber():
     """
-    The HillClimber class that iterates through the trains in a map and replaces each train with a random train. Each improvement or
+    The HillClimber class that iterates through the trains in a map and replaces a random train with another. Each improvement or
     equivalent solution is kept for the next iteration.
     """
 
-    def __init__(self, map):
-        self.map = copy.deepcopy(map)
-        self.best_map = copy.deepcopy(map)
+    def __init__(self, stations_file, connections_file, max_number_of_trains, time_frame):
+        self.max_number_of_trains = max_number_of_trains
+        self.time_frame = time_frame
+        self.map = copy.deepcopy(self.create_random_map(stations_file, connections_file))
+        # self.best_map = copy.deepcopy(self.map)
+        self.score = self.map.calculate_score()
     
-    def run(self, number_of_runs):
+    def create_random_map(self, stations_file, connections_file):
+        random_map = Map(stations_file, connections_file)
 
-        for i in range(number_of_runs):        
-            # n = 0
-            
-            # print("******************************************************************")
-            # print(self.map.trains)
+        randomise = Randomise(random_map)
+        randomise.run(self.max_number_of_trains, self.time_frame)
+        random_map = randomise.map
 
-            n = i%len(self.map.trains)
-            trajectory = self.map.trains[n]
-            # for trajectory in self.map.trains:
-            # print(f"Train {n+1}: ========================================")  
-            old_score = self.map.calculate_score()
-            randomise = Randomise(self.map)
-            new_train_data = randomise.create_train()
+        return random_map
 
-            old_train = trajectory['stations']
-            new_train = new_train_data['train']
-            new_train_distance = new_train_data['train_distance']
-            trajectory['stations'] = new_train
-            old_train_distance = self.map.train_distances[n]
-            self.map.train_distances[n] = new_train_distance
+    def make_change(self, map):
+        # print(f"Before: {map.ridden_connections}")
+        n = random.randint(0, len(map.trains) - 1)
+        trajectory = map.trains[n]
+        randomise = Randomise(map)
+        new_train_data = randomise.create_train()
 
-            self.map.total_distance = self.map.total_distance + new_train_distance - old_train_distance
+        old_train = trajectory['stations']
+        new_train = new_train_data['train']
+        new_train_distance = new_train_data['train_distance']
+        trajectory['stations'] = new_train
+        old_train_distance = map.train_distances[n]
+        map.train_distances[n] = new_train_distance
 
-            ridden_connections_old_train = self.determine_ridden_connections(old_train)
+        map.total_distance = map.total_distance + new_train_distance - old_train_distance
 
-            # print(f"Old train connections: {ridden_connections_old_train}")
-            # print(f"All ridden connections: {self.map.all_ridden_connections}")
-            # print(i)
-            for cnx_id in ridden_connections_old_train:
-                self.map.all_ridden_connections.remove(cnx_id)
-                    
-            self.map.ridden_connections = self.remove_duplicates(self.map.all_ridden_connections)
+        ridden_connections_old_train = self.determine_ridden_connections(old_train)
 
-            # print(f"Ridden connections: {self.map.ridden_connections}")
+        for cnx_id in ridden_connections_old_train:
+            map.all_ridden_connections.remove(cnx_id)
+                
+        self.map.ridden_connections = self.remove_duplicates(map.all_ridden_connections)
 
-            self.map.number_of_ridden_connections = len(self.map.ridden_connections)
+        self.map.number_of_ridden_connections = len(map.ridden_connections)
 
-            new_score = self.map.calculate_score()
+        # print(f"After: {map.ridden_connections}")
+        # print(f"Score after change method: {map.calculate_score()}")
+        return map
 
-            if new_score > old_score:
-                self.best_map = copy.deepcopy(self.map)
-                # self.map = copy.deepcopy(self.map)
-                print(f"New high score: {new_score}")
-            else:
-                self.map = copy.deepcopy(self.best_map)
+    def check_solution(self, new_map):
+        """
+        Checks and accepts better solutions than the current solution.
+        Also sometimes accepts solutions that are worse, depending on the current
+        temperature.
+        """
+        old_score = self.score
+        new_score = new_map.calculate_score()
+        print(f"Old score: {old_score}")
+        print(f"New score: {new_score}")
 
-            # n += 1
+        if new_score >= old_score:
+            self.map = copy.deepcopy(new_map)
+            self.score = new_score
+            self.map.score = new_score
+            print(f"New high score: {new_score}")
 
-        return self.best_map
+    def run(self, iterations):
+        self.iterations = iterations
 
+        # random_map = self.map
+  
+        for _ in range(iterations):
+            new_map = copy.deepcopy(self.map)
+            map = self.make_change(new_map)
+            # print(f"Score after change method: {new_map.calculate_score()}")
+            self.check_solution(map)
+            # print(f"Score of self.map: {self.score}")
+
+        self.map.score = self.score
+        return self.map
+    
     def determine_ridden_connections(self, train):
 
         ridden_connections = []

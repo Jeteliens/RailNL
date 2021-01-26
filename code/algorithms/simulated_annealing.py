@@ -11,8 +11,6 @@ class SimulatedAnnealing():
     """
 
     def __init__(self, stations_file, connections_file, max_number_of_trains, time_frame, temperature):
-        self.station_file = stations_file
-        self.connections_file = connections_file
         self.max_number_of_trains = max_number_of_trains
         self.time_frame = time_frame
         self.map = self.create_random_map(stations_file, connections_file)
@@ -186,7 +184,7 @@ class SimulatedAnnealing():
 
         random_map = self.map
   
-        for iteration in range(iterations):
+        for _ in range(iterations):
             # print(f"Iteration {iteration}")      
             map = self.make_small_change(random_map)
             self.check_solution(map)

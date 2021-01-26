@@ -1,5 +1,6 @@
 import random
 import numpy as np
+import copy
 from code.classes.map import Map
 from code.algorithms.randomise2 import Randomise
 
@@ -13,7 +14,7 @@ class SimulatedAnnealing():
     def __init__(self, stations_file, connections_file, max_number_of_trains, time_frame, temperature):
         self.max_number_of_trains = max_number_of_trains
         self.time_frame = time_frame
-        self.map = self.create_random_map(stations_file, connections_file)
+        self.map = copy.deepcopy(self.create_random_map(stations_file, connections_file))
         self.T0 = temperature
         self.T = temperature
         self.score = self.map.calculate_score()
@@ -149,10 +150,10 @@ class SimulatedAnnealing():
 
         map.total_distance = sum(map.train_distances)
         map.ridden_connections = self.remove_duplicates(map.all_ridden_connections)
-        self.map.number_of_ridden_connections = len(self.map.ridden_connections)
+        map.number_of_ridden_connections = len(map.ridden_connections)
         # print(f"New train distances: {map.train_distances}")
         # print(f"New: {map.ridden_connections}")
-        return map
+        # return map
 
     def check_solution(self, new_map):
         """
@@ -175,6 +176,7 @@ class SimulatedAnnealing():
         if random.random() < probability:
             self.map = new_map
             self.score = new_score
+            # print(f"New high score: {new_score}")
 
         # Update the temperature
         self.update_temperature()
@@ -182,13 +184,11 @@ class SimulatedAnnealing():
 
     def run(self, iterations):
         self.iterations = iterations
-
-        random_map = self.map
   
         for _ in range(iterations):
-            # print(f"Iteration {iteration}")      
-            map = self.make_small_change(random_map)
-            self.check_solution(map)
+            new_map = copy.deepcopy(self.map)  
+            self.make_small_change(new_map)
+            self.check_solution(new_map)
 
         return self.map
 

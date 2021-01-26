@@ -5,6 +5,7 @@ from code.algorithms.hill_climber import HillClimber
 from code.algorithms.simulated_annealing import SimulatedAnnealing
 # from code.algorithms.randomise1 import randomise
 from code.visualisation.visualise import visualise
+from code.visualisation.plot import plot
 import csv
 import random
 
@@ -183,6 +184,7 @@ if __name__ == '__main__':
     # print(best_map.trains)
     best_map.create_output("output2.csv")
     # visualise(best_map)
+    plot(iterations)
 
     # print(best_map.all_ridden_connections)
 

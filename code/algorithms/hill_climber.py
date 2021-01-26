@@ -14,7 +14,6 @@ class HillClimber():
         self.max_number_of_trains = max_number_of_trains
         self.time_frame = time_frame
         self.map = copy.deepcopy(self.create_random_map(stations_file, connections_file))
-        # self.best_map = copy.deepcopy(self.map)
         self.score = self.map.calculate_score()
     
     def create_random_map(self, stations_file, connections_file):
@@ -27,7 +26,6 @@ class HillClimber():
         return random_map
 
     def make_change(self, map):
-        # print(f"Before: {map.ridden_connections}")
         n = random.randint(0, len(map.trains) - 1)
         trajectory = map.trains[n]
         randomise = Randomise(map)
@@ -47,13 +45,8 @@ class HillClimber():
         for cnx_id in ridden_connections_old_train:
             map.all_ridden_connections.remove(cnx_id)
                 
-        self.map.ridden_connections = self.remove_duplicates(map.all_ridden_connections)
-
-        self.map.number_of_ridden_connections = len(map.ridden_connections)
-
-        # print(f"After: {map.ridden_connections}")
-        # print(f"Score after change method: {map.calculate_score()}")
-        return map
+        map.ridden_connections = self.remove_duplicates(map.all_ridden_connections)
+        map.number_of_ridden_connections = len(map.ridden_connections)
 
     def check_solution(self, new_map):
         """
@@ -63,8 +56,6 @@ class HillClimber():
         """
         old_score = self.score
         new_score = new_map.calculate_score()
-        print(f"Old score: {old_score}")
-        print(f"New score: {new_score}")
 
         if new_score >= old_score:
             self.map = copy.deepcopy(new_map)
@@ -74,17 +65,12 @@ class HillClimber():
 
     def run(self, iterations):
         self.iterations = iterations
-
-        # random_map = self.map
   
         for _ in range(iterations):
             new_map = copy.deepcopy(self.map)
-            map = self.make_change(new_map)
-            # print(f"Score after change method: {new_map.calculate_score()}")
-            self.check_solution(map)
-            # print(f"Score of self.map: {self.score}")
+            self.make_change(new_map)
+            self.check_solution(new_map)
 
-        self.map.score = self.score
         return self.map
     
     def determine_ridden_connections(self, train):

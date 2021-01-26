@@ -188,11 +188,11 @@ if __name__ == '__main__':
 
     # --------------------------- Hill Climber ---------------------------------------
 
-    stations_file = "data/Holland/StationsHolland.csv"
-    connections_file = "data/Holland/ConnectiesHolland.csv"
+    stations_file = "data/Nationaal/StationsNationaal.csv"
+    connections_file = "data/Nationaal/ConnectiesNationaal.csv"
     
-    max_number_of_trains = 7
-    time_frame = 120
+    max_number_of_trains = 20
+    time_frame = 180
 
     highest_score = 0
     lowest_score = 10000

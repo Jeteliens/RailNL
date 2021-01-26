@@ -60,7 +60,6 @@ class HillClimber():
         if new_score >= old_score:
             self.map = copy.deepcopy(new_map)
             self.score = new_score
-            self.map.score = new_score
             print(f"New high score: {new_score}")
 
     def run(self, iterations):

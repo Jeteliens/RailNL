@@ -151,62 +151,27 @@ if __name__ == '__main__':
 
     # --------------------------- Simulated Annealing ---------------------------------------
 
-    # stations_file = "data/Holland/StationsHolland.csv"
-    # connections_file = "data/Holland/ConnectiesHolland.csv"
+    stations_file = "data/Holland/StationsHolland.csv"
+    connections_file = "data/Holland/ConnectiesHolland.csv"
     
-    # max_number_of_trains = 7
-    # time_frame = 120
-
-    # highest_score = 0
-    # lowest_score = 10000
-
-    # iterations = 10000
-    # temperature = 0.5
-
-    # simanneal = SimulatedAnnealing(stations_file, connections_file, max_number_of_trains, time_frame, temperature)
-    # simanneal.map.create_output("output1.csv")
-    # print(f"Old score: {simanneal.map.score}")
-    # print(f"Total distance: {simanneal.map.total_distance}")
-
-    # best_map = simanneal.run(iterations)
-
-    # print(f"Number of iterations: {iterations}")
-    # print(f"Temperature: {temperature}")
-    # print("=================================")
-    # print(f"Number of ridden connections: {best_map.number_of_ridden_connections}")
-    # print(f"Number of connections: {best_map.number_of_connections}")
-    # print(f"Number of trains: {best_map.number_of_trains}")
-    # print(f"Train distances: {best_map.train_distances}")
-    # print(f"Total distance: {best_map.total_distance}")
-    # print(f"New score: {best_map.score}")
-
-    # # print(best_map.trains)
-    # best_map.create_output("output2.csv")
-    # # visualise(best_map)
-
-    # # print(best_map.all_ridden_connections)
-
-    # --------------------------- Hill Climber ---------------------------------------
-
-    stations_file = "data/Nationaal/StationsNationaal.csv"
-    connections_file = "data/Nationaal/ConnectiesNationaal.csv"
-    
-    max_number_of_trains = 20
-    time_frame = 180
+    max_number_of_trains = 7
+    time_frame = 120
 
     highest_score = 0
     lowest_score = 10000
 
     iterations = 100
+    temperature = 0.5
 
-    hc = HillClimber(stations_file, connections_file, max_number_of_trains, time_frame)
-    hc.map.create_output("output1.csv")
-    print(f"Old score: {hc.map.score}")
-    print(f"Total distance: {hc.map.total_distance}")
+    simanneal = SimulatedAnnealing(stations_file, connections_file, max_number_of_trains, time_frame, temperature)
+    simanneal.map.create_output("output1.csv")
+    print(f"Old score: {simanneal.map.score}")
+    print(f"Total distance: {simanneal.map.total_distance}")
 
-    best_map = hc.run(iterations)
+    best_map = simanneal.run(iterations)
 
     print(f"Number of iterations: {iterations}")
+    print(f"Temperature: {temperature}")
     print("=================================")
     print(f"Number of ridden connections: {best_map.number_of_ridden_connections}")
     print(f"Number of connections: {best_map.number_of_connections}")
@@ -220,3 +185,38 @@ if __name__ == '__main__':
     # visualise(best_map)
 
     # print(best_map.all_ridden_connections)
+
+    # --------------------------- Hill Climber ---------------------------------------
+
+    # stations_file = "data/Nationaal/StationsNationaal.csv"
+    # connections_file = "data/Nationaal/ConnectiesNationaal.csv"
+    
+    # max_number_of_trains = 20
+    # time_frame = 180
+
+    # highest_score = 0
+    # lowest_score = 10000
+
+    # iterations = 100
+
+    # hc = HillClimber(stations_file, connections_file, max_number_of_trains, time_frame)
+    # hc.map.create_output("output1.csv")
+    # print(f"Old score: {hc.map.score}")
+    # print(f"Total distance: {hc.map.total_distance}")
+
+    # best_map = hc.run(iterations)
+
+    # print(f"Number of iterations: {iterations}")
+    # print("=================================")
+    # print(f"Number of ridden connections: {best_map.number_of_ridden_connections}")
+    # print(f"Number of connections: {best_map.number_of_connections}")
+    # print(f"Number of trains: {best_map.number_of_trains}")
+    # print(f"Train distances: {best_map.train_distances}")
+    # print(f"Total distance: {best_map.total_distance}")
+    # print(f"New score: {best_map.score}")
+
+    # # print(best_map.trains)
+    # best_map.create_output("output2.csv")
+    # # visualise(best_map)
+
+    # # print(best_map.all_ridden_connections)

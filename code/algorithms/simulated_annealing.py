@@ -1,5 +1,5 @@
 import random
-import math
+import numpy as np
 from code.classes.map import Map
 from code.algorithms.randomise2 import Randomise
 
@@ -164,8 +164,9 @@ class SimulatedAnnealing():
         new_score = new_map.calculate_score()
 
         # Calculate the probability of accepting this new map
-        delta = new_score - old_score
-        probability = math.exp(-delta / self.T)
+        # use np.float128 to prevent an overflow error
+        delta = np.float128(new_score - old_score)
+        probability = np.exp(-delta / self.T)
 
         # NOTE: Keep in mind that if we want to maximize the value, we use:
         # delta = old_value - new_value

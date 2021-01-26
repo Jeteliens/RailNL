@@ -1,6 +1,6 @@
 <diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><help_text>Kaart
 --
-</help_text><element><id>UMLClass</id><coordinates><x>530</x><y>278</y><w>250</w><h>180</h></coordinates><panel_attributes>Station
+</help_text><element><id>UMLClass</id><coordinates><x>530</x><y>276</y><w>250</w><h>150</h></coordinates><panel_attributes>Station
 --
 directions: [Station:distance]
 name: string
@@ -9,7 +9,7 @@ y_position: float
 times_visited: int
 --
 add_directions(self, source_file): None
-set_visited(self): None</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>0</x><y>278</y><w>340</w><h>200</h></coordinates><panel_attributes>Map
+set_visited(self): None</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>0</x><y>276</y><w>340</w><h>200</h></coordinates><panel_attributes>Map
 --
 stations: Stations
 trains: []
@@ -23,10 +23,25 @@ load_stations(self, stations_file): [stations]
 add_train(self, train_id, train_trajectory, train_distance): None
 calculate_score: int
 create_output: csv_file
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>330</x><y>278</y><w>220</w><h>40</h></coordinates><panel_attributes>lt=&lt;-
-m1=0..n</panel_attributes><additional_attributes>10;10;200;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>180</x><y>30</y><w>290</w><h>80</h></coordinates><panel_attributes>Randomise
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>330</x><y>276</y><w>220</w><h>40</h></coordinates><panel_attributes>lt=&lt;-
+m1=0..n</panel_attributes><additional_attributes>10;10;200;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>30</x><y>88</y><w>220</w><h>80</h></coordinates><panel_attributes>Randomise
 --
+train_data: {}
+--
+run(number_of_trains, time_frame)
+create_train(): {train_data}</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>300</x><y>78</y><w>200</w><h>150</h></coordinates><panel_attributes>HillClimber
+--
+best_map: []
+--
+run(number_of_runs): [best_map]</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>530</x><y>89</y><w>370</w><h>150</h></coordinates><panel_attributes>SimulatedAnnealing
+--
+random_map: []
+map: []
+--
+create_random_map(stations_file, connections_file): [random_map]
+update_temperature()
+make_small_change(map)
+check_solution(new_map)
+run(iterations): [map]
 
---
-randomise_train(test_map, number_of_trains): []
 </panel_attributes><additional_attributes></additional_attributes></element></diagram>

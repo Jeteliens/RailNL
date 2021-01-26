@@ -1,10 +1,19 @@
 # RailNL
 
+Bij RailNL is het de bedoeling om een zo efficiënt mogelijke lijnvoering te maken tussen alle intercitystations van Nederland. Een lijnvoering is een lijst van verschillende trajecten. Een traject bestaat dan weer uit een lijst met stations. De informatie die hiervoor nodig is zijn alle stations en hun x en y coördinaten en alle connecties tussen de stations met daarbij de tijd die het kost om de connectie te berijden. 
+
+
 ### Gebruik
 Om een voorbeeld te genereren van een lijnvoering kan de volgende regel worden aangeroepen:
 ```
-python main.py runserver  
+python main.py 
 ```
+Vervolgens worden verschillende inputs gevraagd om te bepalen waar de lijnvoering voor moet worden gemaakt en wat de constraints zijn.
+Holland of Nationaal?
+Algoritme: Hillclimber of Simulated Annealing?
+Tijdsframe: 120 of 180?
+Aantal runs randomise?
+Aantal runs volgend algoritme?
 &nbsp;
 
 ### Inhoud van de repository:
@@ -13,8 +22,11 @@ In deze map staat de inhoudelijke code van het resultaten maken in 3 mappen opge
 ##### algorithms 
 Hierin staan de verschillende algoritmes die geimplementeerd zijn.
 ###### randomise.py 
-Het random algoritme kiest tijdens het maken van een traject steeds een willekeurige richting vanuit een bepaald station.
-De resultaten die hier uit voort komen zijn dan ook niet 'slim'.
+Het randomise algoritme maakt alle trajecten willekeurig. Bij het maken van een traject wordt een willekeurige beginstation gekozen en van daar uit een willekeurige richting naar een volgend station. Dit gaat door totdat het tijdsframe bereikt is of het gekozen station doodlopend is.
+###### hillclimber.py
+Het hillclimber algoritme heeft als basis een willekeurige lijnvoering. Vervolgens wordt steeds een traject uit de lijnvoering gepakt en vervangen door een ander traject wat willekeurig is gemaakt. De scores van de lijnvoering voor en na de vervanging worden berekend en vergeleken. Als de score met het nieuwe traject voor een betere score zorgt, is de vervanging definitief. Als het lager is, wordt de vervanging ongedaan gemaakt. Op die manier worden alle trajecten afgegaan voor ‘n’ aantal keer.
+###### simulatedannealing.py
+Het simulated annealing algoritme heeft als basis een willekeurige lijnvoering. Vervolgens wordt steeds uit een traject het begin- of eindstations weggehaald. Bij het verwijderen van een beginstation wordt een random extra station aan het einde toegevoegd, bij het verwijderen van een eindstation wordt een random extra station aan het begin toegevoegd. Aan het begin wordt een temperatuur vastgesteld, die temperatuur bepaalt of een verandering wordt geaccepteerd of niet. Het kan zijn dat een verslechtering wordt geaccepteerd. Dit gebeurt voor ‘n’ aantal keer.
 &nbsp;
 
 ##### classes 

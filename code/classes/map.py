@@ -2,6 +2,7 @@ import csv
 from .station import Station
 from helpers.remove_duplicates import remove_duplicates
 
+
 class Map:
     """Put a map together with trajectories.
 
@@ -104,6 +105,7 @@ class Map:
 
             # end with the quality score
             output.write(f"score,{self.calculate_score()}")
+
 
     def determine_ridden_stations(self):
         ridden_stations = []

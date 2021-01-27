@@ -1,47 +1,47 @@
 <diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><help_text>Kaart
 --
-</help_text><element><id>UMLClass</id><coordinates><x>530</x><y>276</y><w>250</w><h>150</h></coordinates><panel_attributes>Station
+</help_text><element><id>UMLClass</id><coordinates><x>590</x><y>258</y><w>320</w><h>120</h></coordinates><panel_attributes>Station
 --
-directions: [Station:distance]
 name: string
-x_position: float
-y_position: float
-times_visited: int
 --
-add_directions(self, source_file): None
-set_visited(self): None</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>0</x><y>276</y><w>340</w><h>200</h></coordinates><panel_attributes>Map
+add_directions(self, connections_file, stations_list): None
+__repr___(self): string</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>0</x><y>258</y><w>340</w><h>200</h></coordinates><panel_attributes>Map
 --
 stations: Stations
-trains: []
-number_of_trains: int
-ridden_stations: []
-total_distance: int
 number_of_connections: int
-number_of_ridden_connections: int
+quality_score: int
+ridden_stations: []
 --
 load_stations(self, stations_file): [stations]
+calculate_number_of_connections(self, connections_file): int
 add_train(self, train_id, train_trajectory, train_distance): None
-calculate_score: int
-create_output: csv_file
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>330</x><y>276</y><w>220</w><h>40</h></coordinates><panel_attributes>lt=&lt;-
-m1=0..n</panel_attributes><additional_attributes>10;10;200;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>30</x><y>88</y><w>220</w><h>80</h></coordinates><panel_attributes>Randomise
+calculate_score(self): int
+create_output(self, output_name): None
+determine_ridden_stations(self): [ridden_stations]
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>330</x><y>258</y><w>280</w><h>40</h></coordinates><panel_attributes>lt=&lt;-
+m1=0..n</panel_attributes><additional_attributes>10;10;260;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>0</x><y>70</y><w>220</w><h>80</h></coordinates><panel_attributes>Randomise
 --
 train_data: {}
 --
-run(number_of_trains, time_frame)
-create_train(): {train_data}</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>300</x><y>78</y><w>200</w><h>150</h></coordinates><panel_attributes>HillClimber
+run(self, number_of_trains, time_frame): None
+create_train(self): {train_data}</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>260</x><y>0</y><w>400</w><h>210</h></coordinates><panel_attributes>HillClimber
 --
-best_map: []
---
-run(number_of_runs): [best_map]</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>530</x><y>89</y><w>370</w><h>150</h></coordinates><panel_attributes>SimulatedAnnealing
---
-random_map: []
+random_map: Map
 map: []
+ridden_connections: []
 --
-create_random_map(stations_file, connections_file): [random_map]
-update_temperature()
-make_small_change(map)
-check_solution(new_map)
-run(iterations): [map]
+create_random_map(self, stations_file, connections_file): [random_map]
+change_train(self, train_map): None
+change_station(self, train_map): None
+check_solution(self, new_map): None
+run(self, iterations): [map]
+determine_ridden_connections(self, train): [ridden_connections]
+remove_last_station(self, trajectory, train_map, index): None
+remove_first_station(self, trajectory, train_map, index): None</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>710</x><y>71</y><w>210</w><h>150</h></coordinates><panel_attributes>SimulatedAnnealing
+--
+
+--
+update_temperature(self): None
+check_solution(self, new_map): None
 
 </panel_attributes><additional_attributes></additional_attributes></element></diagram>

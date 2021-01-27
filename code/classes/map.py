@@ -23,7 +23,7 @@ class Map:
         self.trains = []
         self.number_of_trains = 0
         self.stations = self.load_stations(stations_file, connections_file)
-        self.ridden_stations = []
+        # self.ridden_stations = self.determine_ridden_stations()
         self.train_distances = []
         self.total_distance = 0
         self.number_of_connections = self.calculate_number_of_connections(connections_file)
@@ -69,12 +69,6 @@ class Map:
         trajectory["stations"] = train_trajectory
         self.trains.append(trajectory)
 
-        for station in train_trajectory:
-            self.ridden_stations.append(station)
-
-        # remove duplicate ridden stations from the list
-        self.ridden_stations = remove_duplicates(self.ridden_stations)
-
         self.number_of_trains = len(self.trains)
         # sum all train distances
         self.total_distance += train_distance
@@ -98,7 +92,7 @@ class Map:
     def create_output(self, output_name):
         """Build an output csvfile with alle trajectory information."""
         csv_colums = ['train', 'stations']
-        output_file = output_name
+        output_file = "results/" + output_name
         
         with open(output_file, "w") as output:
             writer = csv.DictWriter(output, fieldnames=csv_colums)
@@ -110,3 +104,15 @@ class Map:
 
             # end with the quality score
             output.write(f"score,{self.calculate_score()}")
+
+    def determine_ridden_stations(self):
+        ridden_stations = []
+        
+        for train in self.trains:
+            for station in train["stations"]:
+                ridden_stations.append(station)
+
+        # remove duplicate ridden stations from the list
+        ridden_stations = remove_duplicates(ridden_stations)
+
+        return ridden_stations

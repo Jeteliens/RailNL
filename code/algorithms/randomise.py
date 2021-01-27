@@ -1,6 +1,7 @@
 import random
 import copy
 from code.classes.map import Map
+from helpers.remove_duplicates import remove_duplicates
 # time_frame = 120
 
 class Randomise:
@@ -34,7 +35,7 @@ class Randomise:
             t_id += 1
 
             # remove duplicated (ridden) connection ids from the list
-            self.ridden_connections = self.remove_duplicates(self.ridden_connections)
+            self.ridden_connections = remove_duplicates(self.ridden_connections)
 
         # determine the number of ridden connections
         self.map.number_of_ridden_connections = len(self.ridden_connections)
@@ -86,10 +87,3 @@ class Randomise:
         train_data['train_distance'] = train_distance
 
         return train_data
-
-    def remove_duplicates(self, input_list):
-        """Removes duplicated elements from a list"""
-        
-        temp_list = [] 
-        [temp_list.append(element) for element in input_list if element not in temp_list]
-        return temp_list

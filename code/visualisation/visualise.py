@@ -5,7 +5,7 @@ from adjustText import adjust_text
 import random
 
 
-def visualise(map):
+def visualise(train_map):
     """View all trajectories in a map."""
 
     used_colors = []
@@ -17,7 +17,7 @@ def visualise(map):
     background = plt.imread(r"code/visualisation/mapnederland.jpg")
 
     # initialize figure
-    fig, ax = plt.subplots(figsize=(10,9))
+    ax = plt.subplots(figsize=(10,9))
 
     # delete axes
     ax = plt.axes(frameon=False)
@@ -29,8 +29,10 @@ def visualise(map):
     ax.set_xlim(BBox[0], BBox[1])
     ax.set_ylim(BBox[2], BBox[3])
 
+    ax.set_title('Trajectories')
+
     # make new lists for every trajectory
-    for train in map.trains:
+    for train in train_map.trains:
         train = train['stations']
         x = []
         y = []
@@ -54,7 +56,7 @@ def visualise(map):
     names = []
 
     # list all the stations that are ridden in the trajectory
-    for station in map.ridden_stations:
+    for station in train_map.determine_ridden_stations():
         x_positions.append(station.x_position)
         y_positions.append(station.y_position)
         names.append(station.name)
@@ -76,4 +78,4 @@ def visualise(map):
     # show the plots
     plt.show()
 
-    plt.savefig("trajectories.jpeg", format="jpeg", dpi=250)
+    plt.savefig("trajectories.jpeg", format="jpeg", dpi=175)

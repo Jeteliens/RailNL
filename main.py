@@ -12,7 +12,7 @@ import sys
 if __name__ == '__main__':
     
     while True:
-        type_of_file = input("Choose 1 to use the data of Holland\nChoose 2 to use National data:\n")
+        type_of_file = input("Choose 1 to use the data of Holland\nChoose 2 to use the data of National:\n")
         
         if type_of_file == '1':
             stations_file = "data/Holland/StationsHolland.csv"
@@ -35,9 +35,15 @@ if __name__ == '__main__':
     while True:
         algorithm = input("Choose 1 to use Randomise\nChoose 2 to use HillClimber\nChoose 3 to use Simulated Annealing:\n")
         if algorithm == '1':
+            highest_score = 0
+            lowest_score = 10000
+
             for i in range(iterations):
                 test_map = Map(stations_file, connections_file)
-                randomise(test_map, max_number_of_trains, time_frame)
+                randomise = Randomise(test_map)
+                randomise.run(max_number_of_trains, time_frame)
+                test_map = randomise.map
+
                 if test_map.calculate_score() > highest_score:
                     highest_score = test_map.calculate_score()
                     best_map = test_map
@@ -47,11 +53,12 @@ if __name__ == '__main__':
             
                     scores_sum += test_map.calculate_score()
 
-                average_score = scores_sum / run_freq
+                average_score = scores_sum / iterations
 
                 print(f"Highest score: {highest_score}")
-                best_map.create_output()
-                break
+
+            best_map.create_output("random_output.csv")
+            break
         elif algorithm == '2' or algorithm == '3':
             change = input("Choose 1 to change trains\nChoose 2 to change stations:\n")
             if algorithm == '2' and change == '1':

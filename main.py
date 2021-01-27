@@ -14,9 +14,9 @@ MAX_TRAINS_NATIONAL = 20
 TEMP = 50
 
 if __name__ == '__main__':
-    
+    # choose for which area you want to make trajectories
     while True:
-        type_of_file = input("Choose 1 to use the data of Holland\nChoose 2 to use the data of National:\n")
+        type_of_file = input("For files choose 1 or 2:\n 1: Holland\n 2: National\n")
         
         if type_of_file == '1':
             stations_file = "data/Holland/StationsHolland.csv"
@@ -31,19 +31,20 @@ if __name__ == '__main__':
             time_frame = TIME_FAME_NATIONAL
             break
     
+    # choose the amount of iterations
     while True:
         iterations = int(input("How many iterations?: "))
         if iterations > 0:
             break
   
+    # choose the algorithm
     while True:
-        algorithm = input("Choose 1 to use Randomise\nChoose 2 to use HillClimber\nChoose 3 to use Simulated Annealing:\n")
+        algorithm = input("For algorithm choose 1, 2 or 3:\n 1: Randomise\n 2: HillClimber\n 3: Simulated Annealing\n")
         if algorithm == '1':
             train_map = Map(stations_file, connections_file)
             randomise = Randomise(train_map)
             randomise.run(max_number_of_trains, time_frame, iterations)
             best_map = randomise.map
-
 
             print(f"Highest score: {randomise.score}")
             print(f"Lowest score: {randomise.lowest_score}")
@@ -51,14 +52,20 @@ if __name__ == '__main__':
 
             best_map.create_output("random_output.csv")
             break
-        elif algorithm == '2' or algorithm == '3':
-            change_choice = input("Choose 1 to change trains\nChoose 2 to change stations:\n")
-            if change_choice == '1':
-                change = "Change train"
-            elif change_choice == '2':
-                change = "Change station"
 
-            if algorithm == '2' and change == '1':
+        # choose the type of change 
+        elif algorithm == '2' or algorithm == '3':
+            while True:
+                change_choice = input("For change choose 1 or 2:\n 1: change trains\n 2: change stations\n")
+                if change_choice == '1':
+                    change = "Change train"
+                    break
+                elif change_choice == '2':
+                    change = "Change station"
+                    break
+
+            # hillclimber with changing trains
+            if algorithm == '2' and change_choice == '1':
                 hc = HillClimber(stations_file, connections_file, max_number_of_trains, time_frame)
                 hc.map.create_output("output1.csv")
                 first_score = hc.map.score
@@ -70,12 +77,16 @@ if __name__ == '__main__':
 
                 best_map.create_output("output2.csv")
                 break
-            elif algorithm == '3' and change == '2':
+            
+            # simulated annealing with changing stations
+            elif algorithm == '3' and change_choice == '2':
                 while True:
                     choice = str(input("Choose temperature yourself?(y/n): ")).lower().strip()
+                    # use chosen temperature
                     if choice[0] == 'y':
                         temperature = int(input("Temperature: "))
                         break
+                    # use standard temperature
                     elif choice[0] == 'n':
                         temperature = TEMP
                         break
@@ -88,7 +99,9 @@ if __name__ == '__main__':
 
                 best_map.create_output("output2.csv")
                 break
-            elif algorithm == '2' and change == '2':
+            
+            # hillclimber with changing stations
+            elif algorithm == '2' and change_choice == '2':
                 hc = HillClimber(stations_file, connections_file, max_number_of_trains, time_frame)
                 hc.map.create_output("output1.csv")
                 first_score = hc.map.score
@@ -100,12 +113,16 @@ if __name__ == '__main__':
 
                 best_map.create_output("output2.csv")
                 break
-            elif algorithm == '3' and change == '1':
+            
+            # simulated annealing with changing trains
+            elif algorithm == '3' and change_choice == '1':
                 while True:
                     choice = str(input("Choose temperature yourself?(y/n): ")).lower().strip()
+                    # use chosen temperature
                     if choice[0] == 'y':
                         temperature = int(input("Temperature: "))
                         break
+                    # use standard temperature
                     elif choice[0] == 'n':
                         temperature = TEMP
                         break
@@ -120,7 +137,12 @@ if __name__ == '__main__':
                 best_map.create_output("output2.csv")
                 break
     
-    visualisation = str(input("Do you want a visualisation?(y/n): ")).lower().strip()
+    # choose for a visualisation or not
+    while True:
+        visualisation = str(input("Do you want a visualisation?(y/n): ")).lower().strip()
     
-    if visualisation[0] == 'y':
-        visualise(best_map)
+        if visualisation[0] == 'y':
+            visualise(best_map)
+            break
+        if visualisation[0] == 'n':
+            break

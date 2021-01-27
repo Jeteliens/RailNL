@@ -38,7 +38,7 @@ De scores van de lijnvoering voor en na de vervanging worden berekend en vergele
 ###### simulatedannealing.py
 De simulated annealing algoritmes hebben als basis een willekeurige lijnvoering. Hier zijn dezelfde twee opties als bij hillclimber.
 
-#################iets meer over temperatuur################Aan het begin wordt een temperatuur vastgesteld, die temperatuur bepaalt of een verandering wordt geaccepteerd of niet. Het kan zijn dat een verslechtering wordt geaccepteerd. Dit gebeurt voor ‘n’ aantal keer.
+Aan het begin wordt een temperatuur vastgesteld, die temperatuur bepaalt of een verandering wordt geaccepteerd of niet. Het kan zijn dat een verslechtering wordt geaccepteerd. Dit gebeurt voor ‘n’ aantal keer.
 &nbsp;
 
 ##### classes 
@@ -65,7 +65,7 @@ Hierin staat functies die heel algemeen zijn
 &nbsp;
 
 #### results
-De resultaten van de opdrachten behorend bij de RailNL case staan in deze map opgeslagen. Daarnaast komen de output files in deze map terecht. Output1 weergeeft de willekeurige lijnvoering, output2 weergeeft de verbeterde lijnvoering. Zo is te zien wat hoe de lijnvoering verandert is door de algoritmes.
+De resultaten van de opdrachten behorend bij de RailNL case staan in deze map opgeslagen. Daarnaast komen de output files in deze map terecht. Output1 weergeeft de willekeurige lijnvoering, output2 weergeeft de verbeterde lijnvoering. Zo is te zien wat hoe de lijnvoering verandert is door de algoritmes. Ook staat de eventuele visualisatie hierin.
 &nbsp;
 
 #### main.py

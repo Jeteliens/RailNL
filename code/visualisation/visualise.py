@@ -9,8 +9,8 @@ def visualise(map):
     """View all trajectories in a map."""
 
     used_colors = []
-    colors = ['r', 'g', 'b', 'c', 'm', 'y', 'yellow', 
-            'orange', 'pink', 'lawngreen', 'silver', 
+    colors = ['r', 'g', 'b', 'c', 'm', 'orange', 'yellow', 
+            'y', 'pink', 'lawngreen', 'silver', 
             'saddlebrown', 'hotpink', 'blueviolet', 'cyan', 
             'bisque', 'darkorange', 'maroon', 'dimgray', 'k']
     
@@ -47,7 +47,6 @@ def visualise(map):
             x.append(station.x_position)
             y.append(station.y_position)
             
-            print(color)
             ax.plot(y, x, c=color, zorder=1)
 
     x_positions = []
@@ -60,8 +59,8 @@ def visualise(map):
         y_positions.append(station.y_position)
         names.append(station.name)
     
-        # place a point for each ridden station
-        ax.scatter(y_positions, x_positions, c='k', marker=("."), zorder=2)
+    # place a point for each ridden station
+    ax.scatter(y_positions, x_positions, c='k', marker=("."), zorder=2)
     
     # write the names of stations by each point
     texts = []

@@ -31,40 +31,36 @@ Het simulated annealing algoritme heeft als basis een willekeurige lijnvoering. 
 
 ##### classes 
 ###### map.py
-Hier worden de trajecten die samene en map vormen gemaakt. Ook de kwaliteitsscore wordt hiervan berekend. Al deze informatie wordt samengevoegd en in een output bestand gezet. 
+Hier worden de trajecten die samen een map vormen, gemaakt. Ook de kwaliteitsscore wordt hiervan berekend. Al deze informatie wordt samengevoegd en in een output bestand gezet. 
 ###### station.py
 Aan de hand van de connections bestand worden alle stations met de daarbij behorende connecties geordend.  
 &nbsp;
 
 ##### visualisation
-Dit bestand zorgt ervoor dat er een kaart van Nederland met daarbij de lijnvoering wordt gemaakt, passend bij de output.  
+Hier Dit bestand zorgt ervoor dat er een kaart van Nederland met daarbij de lijnvoering wordt gemaakt, passend bij de output.  
 &nbsp;
 
 #### data
-##### Holland
-Alleen stationinformatie over de de intercitystations in Noord- en Zuid-Holland. 
-##### Nationaal
-Stationsinformatie over alle intercitystations in heel Nederland.  
+Stationsinformatie over alle intercitystations in Holland en van heel Nederland.  
 &nbsp;
 
 #### docs
-##### design.uxf
 Het designdocument, een UML met daarin alle classes en algoritmes.  
 &nbsp;
 
 #### results
-De resultaten van de opdrachten behorend bij de RailNL case staan in deze map opgeslagen. In `main.py` staat hoe elk van deze opdrachten tot stand zijn gekomen.  
+De resultaten van de opdrachten behorend bij de RailNL case staan in deze map opgeslagen. 
 &nbsp;
 
 #### main.py
-De main roept de bestanden aan met de inhoudelijke code om zo tot resultaten te komen.  
+De main vraagt om input van de gebruiker. Er wordt eerst gevraagd met welke files de code gerund moet worden, Holland of Nationaal. Vervolgens mag de gebruiker zelf bepalen hoeveel iterations er worden gedaan. Daarna kies je voor een algoritme en heb je bij HillClimber en Simulated Annealing nog twee opties waar je uit kunt kiezen. Dan zal de code gaan runnen en word op het eind nog gevraagd of een visualisatie bij de lijnvoering moet worden gemaakt.
 &nbsp;
 
 #### output.csv
 Een bestand die in een specifiek format, met header beginnend, de verschillende trajecten weergeeft die zijn gemaakt. Onderaan de lijst van trajecten staat de score weergegeven die de kwaliteit van de lijnvoering bepaald.  
 &nbsp;
 
-#### requirements.txt
+#### requirements
 Om succesvol de code te draaien zijn in dit bestand alle benodigde packages op een rij gezet. 
 ```
 pip install -r requirements.txt  

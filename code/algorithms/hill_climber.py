@@ -33,7 +33,7 @@ class HillClimber:
         """Creates a valid eandom map."""
         random_map = Map(stations_file, connections_file)
         randomise = Randomise(random_map)
-        randomise.run(self.max_number_of_trains, self.time_frame)
+        randomise.run(self.max_number_of_trains, self.time_frame, 1)
         random_map = randomise.map
 
         return random_map
@@ -47,7 +47,7 @@ class HillClimber:
 
         # create a new random train
         randomise = Randomise(train_map)
-        new_train_data = randomise.create_train()
+        new_train_data = randomise.create_train(train_map)
         new_train = new_train_data['train']
         new_train_distance = new_train_data['train_distance']
 
@@ -102,16 +102,23 @@ class HillClimber:
             print(f"New high score: {new_score}")
 
 
-    def run(self, iterations):
+    def run(self, iterations, change):
         """Iterate through algorithm."""
         self.iterations = iterations
   
-        for _ in range(iterations):
+        for iteration in range(iterations):
             new_map = copy.deepcopy(self.map)
-            # new_map = self.map
-            # self.change_station(new_map)
-            self.change_train(new_map)
+            
+            if change == "Change train":
+                self.change_station(new_map)
+            elif change == "Change station":
+                self.change_train(new_map)
+
             self.check_solution(new_map)
+
+            if iteration%5000 == 0:
+                print(f"Iteration {iteration} reached. {iterations - iteration} iterations left")
+                print(f"Highest score: {self.score}\n")
 
         return self.map
     

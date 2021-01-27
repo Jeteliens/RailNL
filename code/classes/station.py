@@ -39,7 +39,7 @@ class Station:
                 elif row['station2'] == self.name:
                     self.directions.append([row['station1'], float(row['distance']), connection_id])
 
-        # connect station to directions
+        # replace station name with the right station object
         for direction in self.directions:
             for station in stations_list:
                 if direction[0] == station.name:

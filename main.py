@@ -39,34 +39,12 @@ if __name__ == '__main__':
     while True:
         algorithm = input("Choose 1 to use Randomise\nChoose 2 to use HillClimber\nChoose 3 to use Simulated Annealing:\n")
         if algorithm == '1':
-            # highest_score = 0
-            # lowest_score = 10000
-
-            # for i in range(iterations):
-            #     test_map = Map(stations_file, connections_file)
-            #     randomise = Randomise(test_map)
-            #     randomise.run(max_number_of_trains, time_frame)
-            #     test_map = randomise.map
-
-            #     if test_map.calculate_score() > highest_score:
-            #         highest_score = test_map.calculate_score()
-            #         best_map = test_map
-            #         print(f"New highest score: {highest_score}")
-            #     elif test_map.calculate_score() < lowest_score:
-            #         lowest_score = test_map.calculate_score()
-            
-            #         scores_sum += test_map.calculate_score()
-
-            #     average_score = scores_sum / iterations
-
-            #     print(f"Highest score: {highest_score}")
-
             train_map = Map(stations_file, connections_file)
             randomise = Randomise(train_map)
             randomise.run(max_number_of_trains, time_frame, iterations)
             best_map = randomise.map
 
-            
+
             print(f"Highest score: {randomise.score}")
             print(f"Lowest score: {randomise.lowest_score}")
             print(f"Average score: {randomise.average_score}")
@@ -74,14 +52,19 @@ if __name__ == '__main__':
             best_map.create_output("random_output.csv")
             break
         elif algorithm == '2' or algorithm == '3':
-            change = input("Choose 1 to change trains\nChoose 2 to change stations:\n")
+            change_choice = input("Choose 1 to change trains\nChoose 2 to change stations:\n")
+            if change_choice == '1':
+                change = "Change train"
+            elif change_choice == '2':
+                change = "Change station"
+
             if algorithm == '2' and change == '1':
                 hc = HillClimber(stations_file, connections_file, max_number_of_trains, time_frame)
                 hc.map.create_output("output1.csv")
                 first_score = hc.map.score
                 print(f"Old score: {first_score}")
 
-                best_map = hc.run(iterations)
+                best_map = hc.run(iterations, change)
 
                 print(f"New score: {best_map.score}")
 
@@ -111,7 +94,7 @@ if __name__ == '__main__':
                 first_score = hc.map.score
                 print(f"Old score: {first_score}")
 
-                best_map = hc.run(iterations)
+                best_map = hc.run(iterations, change)
 
                 print(f"New score: {best_map.score}")
 
@@ -131,7 +114,7 @@ if __name__ == '__main__':
                 simanneal.map.create_output("output1.csv")
                 print(f"Old score: {simanneal.map.score}")
 
-                best_map = simanneal.run(iterations)
+                best_map = simanneal.run(iterations, change)
                 print(f"New score: {best_map.score}")
 
                 best_map.create_output("output2.csv")

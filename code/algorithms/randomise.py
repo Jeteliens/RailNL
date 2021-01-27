@@ -3,23 +3,16 @@ import copy
 from code.classes.map import Map
 # time_frame = 120
 
-class Randomise():
+class Randomise:
     
-    def __init__(self, map):
-        self.map = map
-        # number_of_trains = None
-        # self.time_frame = None
-        # self.number_of_stations = len(self.stations)
-        # self.trains = []
-        #  = []
+    def __init__(self, train_map):
+        self.map = train_map
         # a list that contains the id's of the ridden connections
         self.ridden_connections = []
     
     def run(self, number_of_trains, time_frame):
         
         self.map.time_frame = time_frame
-
-        # train_distances = []
 
         # train id
         t_id = 1
@@ -28,21 +21,14 @@ class Randomise():
         for _ in range(number_of_trains):
             if len(self.ridden_connections) == self.map.number_of_connections:
                 break
-            
-            # randomly chose the start point
-            # start_station = random.choice(self.map.stations)
-            
+
             # create a train
             train_data = self.create_train()
             train = train_data['train']
             train_distance = train_data['train_distance']
 
-            # self.map.trains.append(train)
-            # self.map.train_distances.append(train_distance)
-
             # add train to the map
             train_id = f"train_{t_id}"
-            # train_distance = [t_id - 1]
             self.map.add_train(train_id, train, train_distance)
                 
             t_id += 1
@@ -52,7 +38,7 @@ class Randomise():
 
         # determine the number of ridden connections
         self.map.number_of_ridden_connections = len(self.ridden_connections)
-        # print(map.number_of_ridden_connections)
+
 
     def create_train(self):
 
@@ -73,10 +59,7 @@ class Randomise():
             # assure that no station is ridden more than once in a single trejectory
             for direction in station.directions:
                 if direction[0] not in train:
-                    # if direction[2] not in self.ridden_connections:
                     possible_directions.append(direction)
-                
-                # possible_directions.append(direction)
 
             if possible_directions:
                 next_station_data = random.choice(possible_directions)
@@ -88,9 +71,6 @@ class Randomise():
             distance_to_next_station = next_station_data[1]
             connection_id = next_station_data[2]
 
-            # print(f"Train distance: {train_distance}")
-            # print(f"Distance to next station: {distance_to_next_station}")      
-            # print(f"Time frame: {self.map.time_frame}")
             if train_distance + distance_to_next_station > self.map.time_frame:
                 break
 

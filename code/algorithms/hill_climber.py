@@ -1,12 +1,13 @@
 from .randomise import Randomise
 from code.classes.map import Map
+from helpers.remove_duplicates import remove_duplicates
 import csv
 import copy
 import random
 
-class HillClimber():
+class HillClimber:
     """
-    The HillClimber class that iterates through the trains in a map and replaces a random train with another. Each improvement or
+    The HillClimber class that makes changes to a random train from a map. Each improvement or
     equivalent solution is kept for the next iteration.
     """
 
@@ -16,53 +17,69 @@ class HillClimber():
         self.map = copy.deepcopy(self.create_random_map(stations_file, connections_file))
         self.score = self.map.calculate_score()
     
-    def create_random_map(self, stations_file, connections_file):
-        random_map = Map(stations_file, connections_file)
 
+    def create_random_map(self, stations_file, connections_file):
+        """
+        Creates a valid eandom map.
+        """
+        random_map = Map(stations_file, connections_file)
         randomise = Randomise(random_map)
         randomise.run(self.max_number_of_trains, self.time_frame)
         random_map = randomise.map
 
         return random_map
 
-    def make_change(self, map):
-        n = random.randint(0, len(map.trains) - 1)
-        trajectory = map.trains[n]
-        randomise = Randomise(map)
-        new_train_data = randomise.create_train()
 
-        old_train = trajectory['stations']
+    def change_train(self, train_map):
+        """
+        Replaces a random train in the map with another.
+        """
+        # choose a random train from the map
+        index = random.randint(0, len(train_map.trains) - 1)
+        trajectory = train_map.trains[index]
+
+        # create a new random train
+        randomise = Randomise(train_map)
+        new_train_data = randomise.create_train()
         new_train = new_train_data['train']
         new_train_distance = new_train_data['train_distance']
-        trajectory['stations'] = new_train
-        old_train_distance = map.train_distances[n]
-        map.train_distances[n] = new_train_distance
 
-        map.total_distance = map.total_distance + new_train_distance - old_train_distance
+        old_train = trajectory['stations']
+        old_train_distance = train_map.train_distances[index]
+
+        # replace the old train
+        trajectory['stations'] = new_train
+        train_map.train_distances[index] = new_train_distance     
 
         ridden_connections_old_train = self.determine_ridden_connections(old_train)
 
+        # update the data of the map
         for cnx_id in ridden_connections_old_train:
-            map.all_ridden_connections.remove(cnx_id)
+            train_map.all_ridden_connections.remove(cnx_id)
                 
-        map.ridden_connections = self.remove_duplicates(map.all_ridden_connections)
-        map.number_of_ridden_connections = len(map.ridden_connections)
+        train_map.ridden_connections = remove_duplicates(train_map.all_ridden_connections)
+        train_map.number_of_ridden_connections = len(train_map.ridden_connections)
+        train_map.total_distance += new_train_distance - old_train_distance
 
-    def make_small_change(self, map):
-        index = random.randint(0, len(map.trains) - 1)
-        trajectory = map.trains[index]
+    def change_station(self, train_map):
+        """
+        Chooses a random train in the map, removes its first or last station (dead end) and adds a new valid station.
+        """
+        # choose a random train
+        index = random.randint(0, len(train_map.trains) - 1)
+        trajectory = train_map.trains[index]
         train = trajectory['stations']
        
-        # make small change to the chosen train
+        # remove either the last or first station if 
         if len(train[-1].directions) == 1:
-            self.remove_last_station(trajectory, map, index)
+            self.remove_last_station(trajectory, train_map, index)
         elif len(train[0].directions) == 1:
-            self.remove_first_station(trajectory, map, index)
+            self.remove_first_station(trajectory, train_map, index)
 
         # update map attributes
-        map.total_distance = sum(map.train_distances)
-        map.ridden_connections = self.remove_duplicates(map.all_ridden_connections)
-        map.number_of_ridden_connections = len(map.ridden_connections)
+        train_map.total_distance = sum(train_map.train_distances)
+        train_map.ridden_connections = remove_duplicates(train_map.all_ridden_connections)
+        train_map.number_of_ridden_connections = len(train_map.ridden_connections)
 
     def check_solution(self, new_map):
         """
@@ -86,8 +103,8 @@ class HillClimber():
         for _ in range(iterations):
             new_map = copy.deepcopy(self.map)
             # new_map = self.map
-            # self.make_change(new_map)
-            self.make_change(new_map)
+            # self.change_station(new_map)
+            self.change_train(new_map)
             self.check_solution(new_map)
 
         return self.map
@@ -116,14 +133,8 @@ class HillClimber():
 
         return ridden_connections
 
-    def remove_duplicates(self, input_list):
-        """Removes duplicated elements from a list"""
-        
-        temp_list = [] 
-        [temp_list.append(element) for element in input_list if element not in temp_list]
-        return temp_list
 
-    def remove_last_station(self, trajectory, map, index):
+    def remove_last_station(self, trajectory, train_map, index):
         
         train = trajectory['stations']
         possible_new_directions = [direction for direction in train[0].directions if direction[0] != train[1]]
@@ -149,18 +160,18 @@ class HillClimber():
                     old_cnx_id = direction[2]
                     break
                 
-            train_distance = map.train_distances[index] 
+            train_distance = train_map.train_distances[index] 
             train_distance += distance_new_direction - distance_old_direction
             
             # make change to the map
-            if train_distance <= map.time_frame:
+            if train_distance <= train_map.time_frame:
                 trajectory['stations'].pop()
                 trajectory['stations'].insert(0, new_station)
-                map.train_distances[index] = train_distance
-                map.all_ridden_connections.remove(old_cnx_id)
-                map.all_ridden_connections.append(new_cnx_id)
+                train_map.train_distances[index] = train_distance
+                train_map.all_ridden_connections.remove(old_cnx_id)
+                train_map.all_ridden_connections.append(new_cnx_id)
 
-    def remove_first_station(self, trajectory, map, index):
+    def remove_first_station(self, trajectory, train_map, index):
 
         train = trajectory['stations']
         possible_new_directions = [direction for direction in train[-1].directions if direction[0] != train[-2]]
@@ -186,12 +197,12 @@ class HillClimber():
                     old_cnx_id = direction[2]
                     break
                 
-            train_distance = map.train_distances[index] 
+            train_distance = train_map.train_distances[index] 
             train_distance += distance_new_direction - distance_old_direction
             
-            if train_distance <= map.time_frame:
+            if train_distance <= train_map.time_frame:
                 trajectory['stations'].pop(0)
                 trajectory['stations'].append(new_station)
-                map.train_distances[index] = train_distance
-                map.all_ridden_connections.remove(old_cnx_id)
-                map.all_ridden_connections.append(new_cnx_id)
+                train_map.train_distances[index] = train_distance
+                train_map.all_ridden_connections.remove(old_cnx_id)
+                train_map.all_ridden_connections.append(new_cnx_id)

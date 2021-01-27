@@ -1,6 +1,6 @@
 import csv
 
-class Station():
+class Station:
     """State the connections every train station has.
 
     Read the connections information.

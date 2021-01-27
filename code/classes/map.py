@@ -1,8 +1,8 @@
 import csv
 from .station import Station
-# import json
+from helpers.remove_duplicates import remove_duplicates
 
-class Map():
+class Map:
     """Put a map together with trajectories.
 
     Read the object and connections information.
@@ -73,7 +73,7 @@ class Map():
             self.ridden_stations.append(station)
 
         # remove duplicate ridden stations from the list
-        self.ridden_stations = self.remove_duplicates(self.ridden_stations)
+        self.ridden_stations = remove_duplicates(self.ridden_stations)
 
         self.number_of_trains = len(self.trains)
         # sum all train distances
@@ -110,11 +110,3 @@ class Map():
 
             # end with the quality score
             output.write(f"score,{self.calculate_score()}")
-
-            
-    def remove_duplicates(self, input_list):
-        """Removes duplicated elements from a list"""
-        
-        temp_list = [] 
-        [temp_list.append(element) for element in input_list if element not in temp_list]
-        return temp_list

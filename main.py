@@ -56,8 +56,8 @@ if __name__ == '__main__':
             change = input("Choose 1 to change trains\nChoose 2 to change stations:\n")
             if algorithm == '2' and change == '1':
                 hc = HillClimber(stations_file, connections_file, max_number_of_trains, time_frame)
-                hc.train_map.create_output("output1.csv")
-                first_score = hc.train_map.score
+                hc.map.create_output("output1.csv")
+                first_score = hc.map.score
                 print(f"Old score: {first_score}")
 
                 best_map = hc.run(iterations)
@@ -69,8 +69,8 @@ if __name__ == '__main__':
             elif algorithm == '3' and change == '2':
                 temperature = 50
                 simanneal = SimulatedAnnealing(stations_file, connections_file, max_number_of_trains, time_frame, temperature)
-                simanneal.train_map.create_output("results/output1.csv")
-                print(f"Old score: {simanneal.train_map.score}")
+                simanneal.map.create_output("results/output1.csv")
+                print(f"Old score: {simanneal.map.score}")
 
                 best_map = simanneal.run(iterations)
                 print(f"New score: {best_map.score}")
@@ -79,8 +79,8 @@ if __name__ == '__main__':
                 break
             elif algorithm == '2' and change == '2':
                 hc = HillClimber(stations_file, connections_file, max_number_of_trains, time_frame)
-                hc.train_map.create_output("output1.csv")
-                first_score = hc.train_map.score
+                hc.map.create_output("output1.csv")
+                first_score = hc.map.score
                 print(f"Old score: {first_score}")
 
                 best_map = hc.run(iterations)
@@ -92,8 +92,8 @@ if __name__ == '__main__':
             elif algorithm == '3' and change == '1':
                 temperature = 50
                 simanneal = SimulatedAnnealing(stations_file, connections_file, max_number_of_trains, time_frame, temperature)
-                simanneal.train_map.create_output("results/output1.csv")
-                print(f"Old score: {simanneal.train_map.score}")
+                simanneal.map.create_output("results/output1.csv")
+                print(f"Old score: {simanneal.map.score}")
 
                 best_map = simanneal.run(iterations)
                 print(f"New score: {best_map.score}")

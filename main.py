@@ -4,10 +4,14 @@ from code.algorithms.randomise import Randomise
 from code.algorithms.hill_climber import HillClimber
 from code.algorithms.simulated_annealing import SimulatedAnnealing
 from code.visualisation.visualise import visualise
-from code.visualisation.plot import plot
 import csv
 import random
-import sys
+
+TIME_FAME_HOLLAND = 120
+MAX_TRAINS_HOLLAND = 7
+TIME_FAME_NATIONAL = 180
+MAX_TRAINS_NATIONAL = 20
+TEMP = 50
 
 if __name__ == '__main__':
     
@@ -17,14 +21,14 @@ if __name__ == '__main__':
         if type_of_file == '1':
             stations_file = "data/Holland/StationsHolland.csv"
             connections_file = "data/Holland/ConnectiesHolland.csv"
-            max_number_of_trains = 7
-            time_frame = 120
+            max_number_of_trains = MAX_TRAINS_HOLLAND
+            time_frame = TIME_FAME_HOLLAND
             break
         elif type_of_file == '2':
             stations_file = "data/Nationaal/StationsNationaal.csv"
             connections_file = "data/Nationaal/ConnectiesNationaal.csv"
-            max_number_of_trains = 20
-            time_frame = 180
+            max_number_of_trains = MAX_TRAINS_NATIONAL
+            time_frame = TIME_FAME_NATIONAL
             break
     
     while True:
@@ -35,27 +39,37 @@ if __name__ == '__main__':
     while True:
         algorithm = input("Choose 1 to use Randomise\nChoose 2 to use HillClimber\nChoose 3 to use Simulated Annealing:\n")
         if algorithm == '1':
-            highest_score = 0
-            lowest_score = 10000
+            # highest_score = 0
+            # lowest_score = 10000
 
-            for i in range(iterations):
-                test_map = Map(stations_file, connections_file)
-                randomise = Randomise(test_map)
-                randomise.run(max_number_of_trains, time_frame)
-                test_map = randomise.map
+            # for i in range(iterations):
+            #     test_map = Map(stations_file, connections_file)
+            #     randomise = Randomise(test_map)
+            #     randomise.run(max_number_of_trains, time_frame)
+            #     test_map = randomise.map
 
-                if test_map.calculate_score() > highest_score:
-                    highest_score = test_map.calculate_score()
-                    best_map = test_map
-                    print(f"New highest score: {highest_score}")
-                elif test_map.calculate_score() < lowest_score:
-                    lowest_score = test_map.calculate_score()
+            #     if test_map.calculate_score() > highest_score:
+            #         highest_score = test_map.calculate_score()
+            #         best_map = test_map
+            #         print(f"New highest score: {highest_score}")
+            #     elif test_map.calculate_score() < lowest_score:
+            #         lowest_score = test_map.calculate_score()
             
-                    scores_sum += test_map.calculate_score()
+            #         scores_sum += test_map.calculate_score()
 
-                average_score = scores_sum / iterations
+            #     average_score = scores_sum / iterations
 
-                print(f"Highest score: {highest_score}")
+            #     print(f"Highest score: {highest_score}")
+
+            train_map = Map(stations_file, connections_file)
+            randomise = Randomise(train_map)
+            randomise.run(max_number_of_trains, time_frame, iterations)
+            best_map = randomise.map
+
+            
+            print(f"Highest score: {randomise.score}")
+            print(f"Lowest score: {randomise.lowest_score}")
+            print(f"Average score: {randomise.average_score}")
 
             best_map.create_output("random_output.csv")
             break
@@ -80,7 +94,7 @@ if __name__ == '__main__':
                         temperature = int(input("Temperature: "))
                         break
                     elif choice[0] == 'n':
-                        temperature = 50
+                        temperature = TEMP
                         break
                 simanneal = SimulatedAnnealing(stations_file, connections_file, max_number_of_trains, time_frame, temperature)
                 simanneal.map.create_output("output1.csv")
@@ -110,7 +124,7 @@ if __name__ == '__main__':
                         temperature = int(input("Temperature: "))
                         break
                     elif choice[0] == 'n':
-                        temperature = 50
+                        temperature = TEMP
                         break
                 
                 simanneal = SimulatedAnnealing(stations_file, connections_file, max_number_of_trains, time_frame, temperature)

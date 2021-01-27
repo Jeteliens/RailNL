@@ -1,4 +1,4 @@
-from .randomise2 import Randomise
+from .randomise import Randomise
 from code.classes.map import Map
 import csv
 import copy
@@ -56,7 +56,6 @@ class HillClimber():
         # make small change to the chosen train
         if len(train[-1].directions) == 1:
             self.remove_last_station(trajectory, map, index)
-                    
         elif len(train[0].directions) == 1:
             self.remove_first_station(trajectory, map, index)
 

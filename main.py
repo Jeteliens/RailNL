@@ -1,6 +1,6 @@
 from code.classes.map import Map
 from code.classes.station import Station
-from code.algorithms.randomise2 import Randomise
+from code.algorithms.randomise import Randomise
 from code.algorithms.hill_climber import HillClimber
 from code.algorithms.simulated_annealing import SimulatedAnnealing
 # from code.algorithms.randomise1 import randomise
@@ -165,7 +165,7 @@ if __name__ == '__main__':
     temperature = 100
 
     simanneal = SimulatedAnnealing(stations_file, connections_file, max_number_of_trains, time_frame, temperature)
-    simanneal.map.create_output("output1.csv")
+    simanneal.map.create_output("results/output1.csv")
     print(f"Old score: {simanneal.map.score}")
     print(f"Total distance: {simanneal.map.total_distance}")
 
@@ -182,7 +182,7 @@ if __name__ == '__main__':
     print(f"New score: {best_map.score}")
 
     # print(best_map.trains)
-    best_map.create_output("output2.csv")
+    best_map.create_output("results/output2.csv")
     # visualise(best_map)
     # plot(iterations)
 

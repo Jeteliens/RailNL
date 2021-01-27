@@ -14,9 +14,6 @@ class Map:
     Attributes:
         stations_file: reference to the file with object information
         connections_file: reference to the file with object information
-        train_id: specific number for every trajectory
-        train_trajectory: list of stations in a trajectory
-        train_distance: the sum of distances between all stations in a trajectory
     """
 
     def __init__(self, stations_file, connections_file):

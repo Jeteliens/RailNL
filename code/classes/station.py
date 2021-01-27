@@ -11,8 +11,6 @@ class Station:
         name: name of the object
         x: x coordinate of the object
         y: y coordinate of the object
-        connections_file: reference to file with directions
-        stations_list: reference to list with object information
     """
 
     def __init__(self, name, x, y):

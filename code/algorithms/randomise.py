@@ -4,14 +4,21 @@ from code.classes.map import Map
 from helpers.remove_duplicates import remove_duplicates
 
 class Randomise:
-    
+    """Make random trajectories.
+
+    Attributes:
+        train_map: input map
+    """
+
     def __init__(self, train_map):
         self.map = train_map
         self.score = 0
         self.average_score = 0
         self.lowest_score = 0
     
+
     def run(self, number_of_trains, time_frame, iterations):
+    """Iterate through algorithm."""
         self.map.time_frame = time_frame
 
         scores_sum = 0
@@ -41,6 +48,7 @@ class Randomise:
         self.score = self.map.calculate_score()
         self.average_score = scores_sum / iterations
         self.lowest_score = lowest_score
+
 
     def create_map(self, number_of_trains):
         
@@ -72,6 +80,7 @@ class Randomise:
         train_map.number_of_ridden_connections = len(train_map.ridden_connections)
 
         return train_map
+
 
     def create_train(self, train_map):
 

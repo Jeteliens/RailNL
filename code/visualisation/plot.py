@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 def plot(iterations):
     """Make a plot of the evolvement of the score."""
     
-    scores = [1234, 1345, 1345, 1456, 1456, 1678, 1678, 1678]
+    # scores = [1234, 1345, 1345, 1456, 1456, 1678, 1678, 1678]
     # initialize figure
     fig, ax = plt.subplots(figsize=(5,6))
     ax.set_title('Evolvement of score')

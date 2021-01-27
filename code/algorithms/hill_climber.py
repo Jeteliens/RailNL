@@ -48,6 +48,100 @@ class HillClimber():
         map.ridden_connections = self.remove_duplicates(map.all_ridden_connections)
         map.number_of_ridden_connections = len(map.ridden_connections)
 
+    def make_small_change(self, map):
+        index = random.randint(0, len(map.trains) - 1)
+        trajectory = map.trains[index]
+        train = trajectory['stations']
+       
+        # make small change to the chosen train
+        if len(train[-1].directions) == 1:
+            possible_new_directions = [direction for direction in train[0].directions if direction[0] != train[1]]
+    
+            # remove ridden stations
+            for direction in possible_new_directions:
+                for station in train:
+                    if direction[0] == station:
+                        possible_new_directions.remove(direction)
+
+            # add new station to the front
+            if possible_new_directions:     
+                new_direction = random.choice(possible_new_directions)
+                new_station = new_direction[0]
+                distance_new_direction = new_direction[1]
+                new_cnx_id = new_direction[2]
+                                
+                # determine the distance to the station to be removed
+                distance_old_direction = 0
+                for direction in train[-1].directions:
+                    if direction[0] == train[-2]:
+                        distance_old_direction = direction[1]
+                        old_cnx_id = direction[2]
+                        break
+                    
+                train_distance = map.train_distances[index] 
+                train_distance += distance_new_direction - distance_old_direction
+                
+                if train_distance <= map.time_frame:
+                    trajectory['stations'].pop()
+                    trajectory['stations'].insert(0, new_station)
+                    map.train_distances[index] = train_distance
+                    map.all_ridden_connections.remove(old_cnx_id)
+                    map.all_ridden_connections.append(new_cnx_id)
+                    
+        elif len(train[0].directions) == 1:
+            possible_new_directions = [direction for direction in train[-1].directions if direction[0] != train[-2]]
+
+            # remove ridden stations
+            for direction in possible_new_directions:
+                for station in train:
+                    if direction[0] == station:
+                        possible_new_directions.remove(direction)
+
+            # add new train to the front
+            if possible_new_directions:     
+                new_direction = random.choice(possible_new_directions)
+                new_station = new_direction[0]
+                distance_new_direction = new_direction[1]
+                new_cnx_id = new_direction[2]
+                                
+                # determine the distance to the station to be removed
+                distance_old_direction = 0
+                for direction in train[0].directions:
+                    if direction[0] == train[1]:
+                        distance_old_direction = direction[1]
+                        old_cnx_id = direction[2]
+                        break
+                    
+                train_distance = map.train_distances[index] 
+                train_distance += distance_new_direction - distance_old_direction
+                
+                if train_distance <= map.time_frame:
+                    trajectory['stations'].pop(0)
+                    trajectory['stations'].append(new_station)
+                    map.train_distances[index] = train_distance
+                    map.all_ridden_connections.remove(old_cnx_id)
+                    map.all_ridden_connections.append(new_cnx_id)
+
+        else:                  
+            # determine the distance to the station to be removed
+            distance_old_direction = 0
+            # print(f"3. Train: {train}")
+            for direction in train[-1].directions:
+                if direction[0] == train[-2]:
+                    distance_old_direction = direction[1]
+                    old_cnx_id = direction[2]
+                    break
+            if len(train) > 2:        
+                train_distance = map.train_distances[index] 
+                train_distance -= distance_old_direction
+                trajectory['stations'].pop()
+                map.train_distances[index] = train_distance
+                map.all_ridden_connections.remove(old_cnx_id)
+        
+        map.total_distance = sum(map.train_distances)
+        map.ridden_connections = self.remove_duplicates(map.all_ridden_connections)
+        map.number_of_ridden_connections = len(map.ridden_connections)
+
     def check_solution(self, new_map):
         """
         Checks and accepts better solutions than the current solution.
@@ -60,6 +154,8 @@ class HillClimber():
         if new_score >= old_score:
             self.map = copy.deepcopy(new_map)
             self.score = new_score
+
+        if new_score > old_score:
             print(f"New high score: {new_score}")
 
     def run(self, iterations):
@@ -67,6 +163,8 @@ class HillClimber():
   
         for _ in range(iterations):
             new_map = copy.deepcopy(self.map)
+            # new_map = self.map
+            # self.make_change(new_map)
             self.make_change(new_map)
             self.check_solution(new_map)
 

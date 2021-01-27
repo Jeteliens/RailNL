@@ -74,7 +74,14 @@ if __name__ == '__main__':
                 best_map.create_output("output2.csv")
                 break
             elif algorithm == '3' and change == '2':
-                temperature = 50
+                while True:
+                    choice = str(input("Choose temperature yourself?(y/n): ")).lower().strip()
+                    if choice[0] == 'y':
+                        temperature = input("Temperature: ")
+                        break
+                    elif choice[0] == 'n':
+                        temperature = 50
+                        break
                 simanneal = SimulatedAnnealing(stations_file, connections_file, max_number_of_trains, time_frame, temperature)
                 simanneal.map.create_output("results/output1.csv")
                 print(f"Old score: {simanneal.map.score}")
@@ -97,7 +104,14 @@ if __name__ == '__main__':
                 best_map.create_output("output2.csv")
                 break
             elif algorithm == '3' and change == '1':
-                temperature = 50
+                while True:
+                    choice = str(input("Choose temperature yourself?(y/n): ")).lower().strip()
+                    if choice[0] == 'y':
+                        temperature = input("Temperature: ")
+                        break
+                    elif choice[0] == 'n':
+                        temperature = 50
+                        break
                 simanneal = SimulatedAnnealing(stations_file, connections_file, max_number_of_trains, time_frame, temperature)
                 simanneal.map.create_output("results/output1.csv")
                 print(f"Old score: {simanneal.map.score}")

@@ -161,8 +161,8 @@ if __name__ == '__main__':
     highest_score = 0
     lowest_score = 10000
 
-    iterations = 10000
-    temperature = 0.01
+    iterations = 1000
+    temperature = 100
 
     simanneal = SimulatedAnnealing(stations_file, connections_file, max_number_of_trains, time_frame, temperature)
     simanneal.map.create_output("output1.csv")

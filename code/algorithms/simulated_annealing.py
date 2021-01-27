@@ -1,5 +1,6 @@
 import random
-import numpy as np
+# import numpy as np
+import math
 import copy
 from .hill_climber import HillClimber
 
@@ -43,8 +44,15 @@ class SimulatedAnnealing(HillClimber):
 
         # Calculate the probability of accepting this new map
         # use np.float128 to prevent an overflow error
-        delta = np.float128(old_score - new_score)
-        probability = np.exp(-delta / self.T)
+        delta = old_score - new_score
+        try:
+            probability = math.exp(-delta / self.T)
+        except OverflowError:
+            print(delta)
+            print(old_score, new_score)
+            print(self.T)
+            exit("OverflowError")
+        
 
         # NOTE: Keep in mind that if we want to maximize the value, we use:
         # delta = old_value - new_value

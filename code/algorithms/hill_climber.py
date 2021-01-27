@@ -55,89 +55,12 @@ class HillClimber():
        
         # make small change to the chosen train
         if len(train[-1].directions) == 1:
-            possible_new_directions = [direction for direction in train[0].directions if direction[0] != train[1]]
-    
-            # remove ridden stations
-            for direction in possible_new_directions:
-                for station in train:
-                    if direction[0] == station:
-                        possible_new_directions.remove(direction)
-
-            # add new station to the front
-            if possible_new_directions:     
-                new_direction = random.choice(possible_new_directions)
-                new_station = new_direction[0]
-                distance_new_direction = new_direction[1]
-                new_cnx_id = new_direction[2]
-                                
-                # determine the distance to the station to be removed
-                distance_old_direction = 0
-                for direction in train[-1].directions:
-                    if direction[0] == train[-2]:
-                        distance_old_direction = direction[1]
-                        old_cnx_id = direction[2]
-                        break
-                    
-                train_distance = map.train_distances[index] 
-                train_distance += distance_new_direction - distance_old_direction
-                
-                if train_distance <= map.time_frame:
-                    trajectory['stations'].pop()
-                    trajectory['stations'].insert(0, new_station)
-                    map.train_distances[index] = train_distance
-                    map.all_ridden_connections.remove(old_cnx_id)
-                    map.all_ridden_connections.append(new_cnx_id)
+            self.remove_last_station(trajectory, map, index)
                     
         elif len(train[0].directions) == 1:
-            possible_new_directions = [direction for direction in train[-1].directions if direction[0] != train[-2]]
+            self.remove_first_station(trajectory, map, index)
 
-            # remove ridden stations
-            for direction in possible_new_directions:
-                for station in train:
-                    if direction[0] == station:
-                        possible_new_directions.remove(direction)
-
-            # add new train to the front
-            if possible_new_directions:     
-                new_direction = random.choice(possible_new_directions)
-                new_station = new_direction[0]
-                distance_new_direction = new_direction[1]
-                new_cnx_id = new_direction[2]
-                                
-                # determine the distance to the station to be removed
-                distance_old_direction = 0
-                for direction in train[0].directions:
-                    if direction[0] == train[1]:
-                        distance_old_direction = direction[1]
-                        old_cnx_id = direction[2]
-                        break
-                    
-                train_distance = map.train_distances[index] 
-                train_distance += distance_new_direction - distance_old_direction
-                
-                if train_distance <= map.time_frame:
-                    trajectory['stations'].pop(0)
-                    trajectory['stations'].append(new_station)
-                    map.train_distances[index] = train_distance
-                    map.all_ridden_connections.remove(old_cnx_id)
-                    map.all_ridden_connections.append(new_cnx_id)
-
-        else:                  
-            # determine the distance to the station to be removed
-            distance_old_direction = 0
-            # print(f"3. Train: {train}")
-            for direction in train[-1].directions:
-                if direction[0] == train[-2]:
-                    distance_old_direction = direction[1]
-                    old_cnx_id = direction[2]
-                    break
-            if len(train) > 2:        
-                train_distance = map.train_distances[index] 
-                train_distance -= distance_old_direction
-                trajectory['stations'].pop()
-                map.train_distances[index] = train_distance
-                map.all_ridden_connections.remove(old_cnx_id)
-        
+        # update map attributes
         map.total_distance = sum(map.train_distances)
         map.ridden_connections = self.remove_duplicates(map.all_ridden_connections)
         map.number_of_ridden_connections = len(map.ridden_connections)
@@ -200,3 +123,76 @@ class HillClimber():
         temp_list = [] 
         [temp_list.append(element) for element in input_list if element not in temp_list]
         return temp_list
+
+    def remove_last_station(self, trajectory, map, index):
+        
+        train = trajectory['stations']
+        possible_new_directions = [direction for direction in train[0].directions if direction[0] != train[1]]
+    
+        # remove ridden stations
+        for direction in possible_new_directions:
+            for station in train:
+                if direction[0] == station:
+                    possible_new_directions.remove(direction)
+
+        # add new station to the front
+        if possible_new_directions:     
+            new_direction = random.choice(possible_new_directions)
+            new_station = new_direction[0]
+            distance_new_direction = new_direction[1]
+            new_cnx_id = new_direction[2]
+                            
+            # determine the distance to the station to be removed
+            distance_old_direction = 0
+            for direction in train[-1].directions:
+                if direction[0] == train[-2]:
+                    distance_old_direction = direction[1]
+                    old_cnx_id = direction[2]
+                    break
+                
+            train_distance = map.train_distances[index] 
+            train_distance += distance_new_direction - distance_old_direction
+            
+            # make change to the map
+            if train_distance <= map.time_frame:
+                trajectory['stations'].pop()
+                trajectory['stations'].insert(0, new_station)
+                map.train_distances[index] = train_distance
+                map.all_ridden_connections.remove(old_cnx_id)
+                map.all_ridden_connections.append(new_cnx_id)
+
+    def remove_first_station(self, trajectory, map, index):
+
+        train = trajectory['stations']
+        possible_new_directions = [direction for direction in train[-1].directions if direction[0] != train[-2]]
+
+        # remove ridden stations
+        for direction in possible_new_directions:
+            for station in train:
+                if direction[0] == station:
+                    possible_new_directions.remove(direction)
+
+        # add new train to the front
+        if possible_new_directions:     
+            new_direction = random.choice(possible_new_directions)
+            new_station = new_direction[0]
+            distance_new_direction = new_direction[1]
+            new_cnx_id = new_direction[2]
+                            
+            # determine the distance to the station to be removed
+            distance_old_direction = 0
+            for direction in train[0].directions:
+                if direction[0] == train[1]:
+                    distance_old_direction = direction[1]
+                    old_cnx_id = direction[2]
+                    break
+                
+            train_distance = map.train_distances[index] 
+            train_distance += distance_new_direction - distance_old_direction
+            
+            if train_distance <= map.time_frame:
+                trajectory['stations'].pop(0)
+                trajectory['stations'].append(new_station)
+                map.train_distances[index] = train_distance
+                map.all_ridden_connections.remove(old_cnx_id)
+                map.all_ridden_connections.append(new_cnx_id)

@@ -18,7 +18,7 @@ class Randomise:
     
 
     def run(self, number_of_trains, time_frame, iterations):
-    """Iterate through algorithm."""
+        """Iterate through algorithm."""
         self.map.time_frame = time_frame
 
         scores_sum = 0

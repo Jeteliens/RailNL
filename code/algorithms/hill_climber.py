@@ -16,10 +16,6 @@ class HillClimber:
         connections_file: reference to file with directions
         max_number_of_trains: maximum amount of trains in a map
         time_frame: maximum duration of a trajectory
-        train_map:
-        new_map: a map with a changed train
-        iterations: run frequency
-        train:
     """
 
     def __init__(self, stations_file, connections_file, max_number_of_trains, time_frame):
@@ -30,7 +26,7 @@ class HillClimber:
     
 
     def create_random_map(self, stations_file, connections_file):
-        """Creates a valid eandom map."""
+        """Creates a valid random map."""
         random_map = Map(stations_file, connections_file)
         randomise = Randomise(random_map)
         randomise.run(self.max_number_of_trains, self.time_frame, 1)
@@ -77,12 +73,18 @@ class HillClimber:
         trajectory = train_map.trains[index]
         train = trajectory['stations']
        
-        # delete either the last or first station 
+        # delete either the last or first station depending on weither it's a dead end
         if len(train[-1].directions) == 1:
             self.remove_last_station(trajectory, train_map, index)
         elif len(train[0].directions) == 1:
             self.remove_first_station(trajectory, train_map, index)
-
+        else:
+            choice = random.randint(1, 2)
+            if choice == 1:
+                self.remove_last_station(trajectory, train_map, index)
+            elif choice == 2:
+                self.remove_first_station(trajectory, train_map, index)
+        
         # update map attributes
         train_map.total_distance = sum(train_map.train_distances)
         train_map.ridden_connections = remove_duplicates(train_map.all_ridden_connections)

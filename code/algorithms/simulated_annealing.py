@@ -15,7 +15,6 @@ class SimulatedAnnealing(HillClimber):
         max_number_of_trains: maximum amount of trains in a map
         time_frame: maximum duration of a trajectory
         temperature: determines whether a change gets accepted
-        new_map: a map with a changed train
     """
 
     def __init__(self, stations_file, connections_file, max_number_of_trains, time_frame, temperature):

@@ -78,4 +78,4 @@ def visualise(train_map):
     # show the plots
     plt.show()
 
-    plt.savefig("trajectories.jpeg", format="jpeg", dpi=175)
+    plt.savefig("code/visualisation/trajectories.jpeg", format="jpeg", dpi=175)

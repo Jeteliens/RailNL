@@ -43,7 +43,7 @@ De simulated annealing algoritmes hebben als basis een willekeurige lijnvoering.
 
 ##### classes 
 ###### map.py
-Hier worden de trajecten die samen een map vormen, gemaakt. Ook de kwaliteitsscore wordt hiervan berekend. Al deze informatie wordt samengevoegd en in een output bestand gezet. 
+Hier worden de trajecten die samen een map vormen, gemaakt. Ook de kwaliteitsscore wordt hiervan berekend. Al deze informatie wordt samengevoegd en in een output bestand gezet. De outputs zijn te vinden in de map 'results'.
 ###### station.py
 Aan de hand van de connections bestand worden alle stations met de daarbij behorende connecties geordend.  
 &nbsp;
@@ -65,7 +65,7 @@ Hierin staat functies die heel algemeen zijn
 &nbsp;
 
 #### results
-De resultaten van de opdrachten behorend bij de RailNL case staan in deze map opgeslagen. 
+De resultaten van de opdrachten behorend bij de RailNL case staan in deze map opgeslagen. Daarnaast komen de output files in deze map terecht. Output1 weergeeft de willekeurige lijnvoering, output2 weergeeft de verbeterde lijnvoering. Zo is te zien wat hoe de lijnvoering verandert is door de algoritmes.
 &nbsp;
 
 #### main.py

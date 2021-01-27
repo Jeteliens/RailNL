@@ -1,11 +1,11 @@
 <diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><help_text>Kaart
 --
-</help_text><element><id>UMLClass</id><coordinates><x>590</x><y>258</y><w>320</w><h>120</h></coordinates><panel_attributes>Station
+</help_text><element><id>UMLClass</id><coordinates><x>620</x><y>258</y><w>320</w><h>120</h></coordinates><panel_attributes>Station
 --
 name: string
 --
 add_directions(self, connections_file, stations_list): None
-__repr___(self): string</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>0</x><y>258</y><w>340</w><h>200</h></coordinates><panel_attributes>Map
+__repr___(self): string</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>30</x><y>258</y><w>340</w><h>200</h></coordinates><panel_attributes>Map
 --
 stations: Stations
 number_of_connections: int
@@ -18,13 +18,13 @@ add_train(self, train_id, train_trajectory, train_distance): None
 calculate_score(self): int
 create_output(self, output_name): None
 determine_ridden_stations(self): [ridden_stations]
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>330</x><y>258</y><w>280</w><h>40</h></coordinates><panel_attributes>lt=&lt;-
-m1=0..n</panel_attributes><additional_attributes>10;10;260;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>0</x><y>70</y><w>220</w><h>80</h></coordinates><panel_attributes>Randomise
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>360</x><y>258</y><w>280</w><h>40</h></coordinates><panel_attributes>lt=&lt;-
+m1=0..n</panel_attributes><additional_attributes>10;10;260;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>0</x><y>70</y><w>260</w><h>80</h></coordinates><panel_attributes>Randomise
 --
 train_data: {}
 --
 run(self, number_of_trains, time_frame): None
-create_train(self): {train_data}</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>260</x><y>0</y><w>400</w><h>210</h></coordinates><panel_attributes>HillClimber
+create_train(self): {train_data}</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>290</x><y>0</y><w>400</w><h>210</h></coordinates><panel_attributes>HillClimber
 --
 random_map: Map
 map: []
@@ -37,7 +37,7 @@ check_solution(self, new_map): None
 run(self, iterations): [map]
 determine_ridden_connections(self, train): [ridden_connections]
 remove_last_station(self, trajectory, train_map, index): None
-remove_first_station(self, trajectory, train_map, index): None</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>710</x><y>71</y><w>210</w><h>150</h></coordinates><panel_attributes>SimulatedAnnealing
+remove_first_station(self, trajectory, train_map, index): None</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>740</x><y>71</y><w>210</w><h>150</h></coordinates><panel_attributes>SimulatedAnnealing
 --
 
 --

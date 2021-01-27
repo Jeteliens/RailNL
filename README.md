@@ -49,7 +49,7 @@ Aan de hand van de connections bestand worden alle stations met de daarbij behor
 &nbsp;
 
 ##### visualisation
-Hier Dit bestand zorgt ervoor dat er een kaart van Nederland met daarbij de lijnvoering wordt gemaakt, passend bij de output. Een visualisatie maken kan even duren, zeker m
+Dit bestand zorgt ervoor dat er een kaart van Nederland met daarbij de lijnvoering wordt gemaakt, passend bij de output. Een visualisatie maken kan even duren, zeker m
 &nbsp;
 
 #### data
@@ -61,7 +61,7 @@ Het designdocument, een UML met daarin alle classes en algoritmes.
 &nbsp;
 
 #### helpers
-Hierin staat functies die heel algemeen zijn  
+Hierin staan functies die heel algemeen zijn en overal toegepast moeten kunnen worden.
 &nbsp;
 
 #### results

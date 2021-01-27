@@ -77,19 +77,19 @@ if __name__ == '__main__':
                 while True:
                     choice = str(input("Choose temperature yourself?(y/n): ")).lower().strip()
                     if choice[0] == 'y':
-                        temperature = input("Temperature: ")
+                        temperature = int(input("Temperature: "))
                         break
                     elif choice[0] == 'n':
                         temperature = 50
                         break
                 simanneal = SimulatedAnnealing(stations_file, connections_file, max_number_of_trains, time_frame, temperature)
-                simanneal.map.create_output("results/output1.csv")
+                simanneal.map.create_output("output1.csv")
                 print(f"Old score: {simanneal.map.score}")
 
                 best_map = simanneal.run(iterations)
                 print(f"New score: {best_map.score}")
 
-                best_map.create_output("results/output2.csv")
+                best_map.create_output("output2.csv")
                 break
             elif algorithm == '2' and change == '2':
                 hc = HillClimber(stations_file, connections_file, max_number_of_trains, time_frame)
@@ -107,19 +107,20 @@ if __name__ == '__main__':
                 while True:
                     choice = str(input("Choose temperature yourself?(y/n): ")).lower().strip()
                     if choice[0] == 'y':
-                        temperature = input("Temperature: ")
+                        temperature = int(input("Temperature: "))
                         break
                     elif choice[0] == 'n':
                         temperature = 50
                         break
+                
                 simanneal = SimulatedAnnealing(stations_file, connections_file, max_number_of_trains, time_frame, temperature)
-                simanneal.map.create_output("results/output1.csv")
+                simanneal.map.create_output("output1.csv")
                 print(f"Old score: {simanneal.map.score}")
 
                 best_map = simanneal.run(iterations)
                 print(f"New score: {best_map.score}")
 
-                best_map.create_output("results/output2.csv")
+                best_map.create_output("output2.csv")
                 break
     
     visualisation = str(input("Do you want a visualisation?(y/n): ")).lower().strip()

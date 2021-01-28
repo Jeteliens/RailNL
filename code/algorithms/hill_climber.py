@@ -26,7 +26,7 @@ class HillClimber:
     
 
     def create_random_map(self, stations_file, connections_file):
-        """Creates a valid eandom map."""
+        """Creates a valid random map."""
         random_map = Map(stations_file, connections_file)
         randomise = Randomise(random_map)
         randomise.run(self.max_number_of_trains, self.time_frame, 1)

@@ -106,8 +106,9 @@ class HillClimber:
         self.iterations = iterations
   
         for iteration in range(iterations):
-            new_map = copy.deepcopy(self.map)
-            
+            new_map = self.map
+            # new_score = new_map.calculate_score()
+
             if change == "Change train":
                 self.change_station(new_map)
             elif change == "Change station":
@@ -120,7 +121,14 @@ class HillClimber:
                 print(f"Highest score: {self.score}\n")
                 # visualise(new_map)
 
-            visualise(new_map)
+            new_score = new_map.calculate_score()
+
+            output_file = "results/scores_data.csv"
+            
+            with open(output_file, "a") as output:     
+                output.write(f"{iteration},{new_score}\n")
+
+            # visualise(new_map)
 
         return self.map
     

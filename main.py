@@ -3,14 +3,14 @@ from code.classes.station import Station
 from code.algorithms.randomise import Randomise
 from code.algorithms.hill_climber import HillClimber
 from code.algorithms.simulated_annealing import SimulatedAnnealing
-from code.visualisation.visualise import visualise
+from code.visualisation.visualise_names import visualise_names
 import csv
 import random
 
 TIME_FAME_HOLLAND = 120
 MAX_TRAINS_HOLLAND = 7
-TIME_FAME_NATIONAL = 180
-MAX_TRAINS_NATIONAL = 20
+TIME_FAME_NATIONAL = 300
+MAX_TRAINS_NATIONAL = 1
 TEMP = 50
 
 if __name__ == '__main__':
@@ -105,7 +105,7 @@ if __name__ == '__main__':
         visualisation = str(input("Do you want a visualisation?(y/n): ")).lower().strip()
     
         if visualisation[0] == 'y':
-            visualise(best_map)
+            visualise_names(best_map)
             break
         if visualisation[0] == 'n':
             break

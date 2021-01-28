@@ -1,6 +1,7 @@
 from .randomise import Randomise
 from code.classes.map import Map
 from helpers.remove_duplicates import remove_duplicates
+from code.visualisation.visualise import visualise
 import csv
 import copy
 import random
@@ -114,9 +115,12 @@ class HillClimber:
 
             self.check_solution(new_map)
 
-            if iteration%5000 == 0:
+            if iteration%100 == 0:
                 print(f"Iteration {iteration} reached. {iterations - iteration} iterations left")
                 print(f"Highest score: {self.score}\n")
+                # visualise(new_map)
+
+            visualise(new_map)
 
         return self.map
     

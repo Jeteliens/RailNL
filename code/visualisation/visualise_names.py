@@ -3,10 +3,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from adjustText import adjust_text
 import random
-from helpers.unique_file import unique_file
 
 
-def visualise(train_map):
+def visualise_names(train_map):
     """View all trajectories in a map."""
 
     used_colors = []
@@ -54,24 +53,24 @@ def visualise(train_map):
 
     x_positions = []
     y_positions = []
-    # names = []
+    names = []
 
     # list all the stations that are ridden in the trajectory
     for station in train_map.determine_ridden_stations():
         x_positions.append(station.x_position)
         y_positions.append(station.y_position)
-        # names.append(station.name)
+        names.append(station.name)
     
     # place a point for each ridden station
     ax.scatter(y_positions, x_positions, c='k', marker=("."), zorder=2)
     
     # write the names of stations by each point
-    # texts = []
-    # for x, y, s in zip(y_positions, x_positions, names):
-    #     texts+=[plt.text(x, y, s, fontsize=6)]
+    texts = []
+    for x, y, s in zip(y_positions, x_positions, names):
+        texts+=[plt.text(x, y, s, fontsize=6)]
     
     # make sure annotations do not touch
-    # adjust_text(texts, arrowprops=dict(arrowstyle="-", color='k', lw=0.5), only_move={'points':'y', 'texts':'y'})
+    adjust_text(texts, arrowprops=dict(arrowstyle="-", color='k', lw=0.5), only_move={'points':'y', 'texts':'y'})
 
     # show the image
     ax.imshow(background, zorder=0, extent = BBox, aspect= 'auto')
@@ -79,4 +78,4 @@ def visualise(train_map):
     # show the plots
     plt.show()
 
-    plt.savefig(unique_file("results/trajectories", "jpeg"), format="jpeg", dpi=175)
+    plt.savefig("results/trajectories.jpeg", format="jpeg", dpi=175)

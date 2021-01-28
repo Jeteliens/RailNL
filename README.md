@@ -49,7 +49,7 @@ Aan de hand van de connections bestand worden alle stations met de daarbij behor
 &nbsp;
 
 ##### visualisation
-Dit bestand zorgt ervoor dat er een kaart van Nederland met daarbij de lijnvoering wordt gemaakt, passend bij de output. Een visualisatie maken kan even duren, zeker m
+Dit bestand zorgt ervoor dat er een kaart van Nederland met daarbij de lijnvoering wordt gemaakt, passend bij de output. Een visualisatie maken kan even duren, zeker met de nationale data.
 &nbsp;
 
 #### data

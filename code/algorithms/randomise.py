@@ -30,7 +30,7 @@ class Randomise:
             new_score = random_map.calculate_score()
 
             if iteration%5000 == 0:
-                print(f"Iteration {iteration} reached. {iterations - iteration} iterations left")
+                print(f"Randomise: Iteration {iteration} reached. {iterations - iteration} iterations left")
                 print(f"Highest score: {highest_score}\n")
             
             if new_score >= highest_score:

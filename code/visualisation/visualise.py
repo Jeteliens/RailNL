@@ -29,7 +29,7 @@ def visualise(train_map):
     ax.set_xlim(BBox[0], BBox[1])
     ax.set_ylim(BBox[2], BBox[3])
 
-    ax.set_title('Trajectories')
+    ax.set_title('Trajectories RailNL')
 
     # make new lists for every trajectory
     for train in train_map.trains:

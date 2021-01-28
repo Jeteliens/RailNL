@@ -25,7 +25,7 @@ def visualise(train_map):
     ax.axes.get_xaxis().set_visible(False)
 
     # set boundaries for image
-    BBox = (3.362, 7.234, 50.786, 53.557)
+    BBox = (3.302, 7.182, 50.733, 53.588)
     ax.set_xlim(BBox[0], BBox[1])
     ax.set_ylim(BBox[2], BBox[3])
 

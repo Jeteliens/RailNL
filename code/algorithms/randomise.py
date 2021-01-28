@@ -51,7 +51,7 @@ class Randomise:
 
 
     def create_map(self, number_of_trains):
-        
+        """Put trains together in map."""
         train_map = copy.deepcopy(self.map)
 
         # train id
@@ -83,7 +83,7 @@ class Randomise:
 
 
     def create_train(self, train_map):
-
+        """Build a train for in the map."""
         # randomly chose the start point
         station = random.choice(self.map.stations)
 

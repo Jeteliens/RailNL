@@ -78,6 +78,8 @@ class HillClimber:
             self.remove_last_station(trajectory, train_map, index)
         elif len(train[0].directions) == 1:
             self.remove_first_station(trajectory, train_map, index)
+        else:
+            self.remove_last_station(trajectory, train_map, index)
 
         # update map attributes
         train_map.total_distance = sum(train_map.train_distances)

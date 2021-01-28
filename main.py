@@ -50,7 +50,7 @@ if __name__ == '__main__':
             print(f"Lowest score: {randomise.lowest_score}")
             print(f"Average score: {randomise.average_score}")
 
-            best_map.create_output("random_output.csv")
+            best_map.create_output("output_random.csv")
             break
 
         # choose the type of change 
@@ -67,7 +67,7 @@ if __name__ == '__main__':
             # hillclimber
             if algorithm == '2':
                 hc = HillClimber(stations_file, connections_file, max_number_of_trains, time_frame)
-                hc.map.create_output("output1.csv")
+                hc.map.create_output("output_hc1.csv")
                 first_score = hc.map.score
                 print(f"Old score: {first_score}")
 
@@ -75,7 +75,7 @@ if __name__ == '__main__':
 
                 print(f"New score: {best_map.score}")
 
-                best_map.create_output("output2.csv")
+                best_map.create_output("output_hc2.csv")
                 break
             
             # simulated annealing 
@@ -91,13 +91,13 @@ if __name__ == '__main__':
                         temperature = TEMP
                         break
                 simanneal = SimulatedAnnealing(stations_file, connections_file, max_number_of_trains, time_frame, temperature)
-                simanneal.map.create_output("output1.csv")
+                simanneal.map.create_output("output_sa1.csv")
                 print(f"Old score: {simanneal.map.score}")
 
                 best_map = simanneal.run(iterations, change)
                 print(f"New score: {best_map.score}")
 
-                best_map.create_output("output2.csv")
+                best_map.create_output("output_sa2.csv")
                 break
     
     # choose for a visualisation or not

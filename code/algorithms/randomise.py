@@ -31,13 +31,13 @@ class Randomise:
             random_map = self.create_map(number_of_trains)
             new_score = random_map.calculate_score()
 
-            if iteration == 0:
-                visualise_names(random_map)
+            # if iteration == 0:
+            #     visualise_names(random_map)
 
             if iteration != 0 and iteration%(iterations/100) == 0:
                 print(f"Randomise: {(iteration / iterations)*100}%")
                 print(f"Highest score: {highest_score}\n")
-                visualise(random_map)
+                # visualise(random_map)
             
             if new_score >= highest_score:
                 best_map = random_map

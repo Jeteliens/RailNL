@@ -68,7 +68,7 @@ if __name__ == '__main__':
             if algorithm == '2':
                 hc = HillClimber(stations_file, connections_file, max_number_of_trains, time_frame)
                 hc.map.create_output("output_hc1.csv")
-                visualise_names(hc.map)
+                # visualise_names(hc.map)
                 first_score = hc.map.score
                 print(f"Old score: {first_score}")
 
@@ -94,7 +94,7 @@ if __name__ == '__main__':
                         break
                 simanneal = SimulatedAnnealing(stations_file, connections_file, max_number_of_trains, time_frame, temperature)
                 simanneal.map.create_output("output_sa1.csv")
-                visualise_names(simanneal.map)
+                # visualise_names(simanneal.map)
                 first_score = simanneal.map.score
                 print(f"Old score: {first_score}")
 

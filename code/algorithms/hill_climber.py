@@ -32,7 +32,7 @@ class HillClimber:
         """Creates a valid random map."""
         random_map = Map(stations_file, connections_file)
         randomise = Randomise(random_map)
-        randomise.run(self.max_number_of_trains, self.time_frame, 1000000)
+        randomise.run(self.max_number_of_trains, self.time_frame, 1)
         random_map = randomise.map
 
         return random_map
@@ -128,7 +128,7 @@ class HillClimber:
                 print(f"{int((iteration / iterations)*100)}%")
                 print(f"Current score: {self.score}")
                 # print(f"self.map.score: {self.map.score}\n")
-                visualise(new_map)
+                # visualise(new_map)
 
             # new_score = new_map.calculate_score()
 

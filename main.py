@@ -4,6 +4,7 @@ from code.algorithms.randomise import Randomise
 from code.algorithms.hill_climber import HillClimber
 from code.algorithms.simulated_annealing import SimulatedAnnealing
 from code.visualisation.visualise_names import visualise_names
+from code.visualisation.plot import plot
 import csv
 import random
 

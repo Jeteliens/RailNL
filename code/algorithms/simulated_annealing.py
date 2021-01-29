@@ -23,6 +23,7 @@ class SimulatedAnnealing(HillClimber):
         
         self.T0 = temperature
         self.T = temperature
+        self.best_map = copy.deepcopy(self.map)
 
 
     def update_temperature(self):
@@ -58,6 +59,10 @@ class SimulatedAnnealing(HillClimber):
         if random.random() < probability:
             self.map = new_map
             self.score = new_score
+            # print(f"Current score: {self.score}")
+
+        if new_score >= self.best_map.calculate_score():
+            self.best_map = new_map
 
         self.update_temperature()
         

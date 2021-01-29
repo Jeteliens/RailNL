@@ -2,6 +2,8 @@ import random
 import copy
 from code.classes.map import Map
 from helpers.remove_duplicates import remove_duplicates
+from code.visualisation.visualise_names import visualise_names
+from code.visualisation.visualise import visualise
 
 class Randomise:
     """Make random trajectories.
@@ -29,9 +31,13 @@ class Randomise:
             random_map = self.create_map(number_of_trains)
             new_score = random_map.calculate_score()
 
-            if iteration%5000 == 0:
-                print(f"Randomise: Iteration {iteration} reached. {iterations - iteration} iterations left")
+            if iteration == 0:
+                visualise_names(random_map)
+
+            if iteration != 0 and iteration%(iterations/100) == 0:
+                print(f"Randomise: {(iteration / iterations)*100}%")
                 print(f"Highest score: {highest_score}\n")
+                visualise(random_map)
             
             if new_score >= highest_score:
                 best_map = random_map
@@ -41,6 +47,11 @@ class Randomise:
 
             if new_score > highest_score:
                 print(f"New highest score: {new_score}")
+
+            output_file = "results/scores_data_random.csv"
+            
+            with open(output_file, "a") as output:     
+                output.write(f"{iteration},{highest_score}\n")
 
             scores_sum += new_score
 

@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from adjustText import adjust_text
 import random
-
+from helpers.unique_file import unique_file
 
 def visualise_names(train_map):
     """View all trajectories in a map."""
@@ -78,4 +78,4 @@ def visualise_names(train_map):
     # show the plots
     plt.show()
 
-    plt.savefig("results/trajectories.jpeg", format="jpeg", dpi=175)
+    plt.savefig(unique_file("results/trajectories", "jpeg"), format="jpeg", dpi=175)

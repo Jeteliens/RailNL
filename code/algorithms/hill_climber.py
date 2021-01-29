@@ -2,6 +2,8 @@ from .randomise import Randomise
 from code.classes.map import Map
 from helpers.remove_duplicates import remove_duplicates
 from code.visualisation.visualise import visualise
+from code.visualisation.visualise_names import visualise_names
+
 import csv
 import copy
 import random
@@ -30,7 +32,7 @@ class HillClimber:
         """Creates a valid random map."""
         random_map = Map(stations_file, connections_file)
         randomise = Randomise(random_map)
-        randomise.run(self.max_number_of_trains, self.time_frame, 1)
+        randomise.run(self.max_number_of_trains, self.time_frame, 1000000)
         random_map = randomise.map
 
         return random_map
@@ -64,6 +66,7 @@ class HillClimber:
         train_map.ridden_connections = remove_duplicates(train_map.all_ridden_connections)
         train_map.number_of_ridden_connections = len(train_map.ridden_connections)
         train_map.total_distance += new_train_distance - old_train_distance
+        train_map.score = train_map.calculate_score()
 
 
     def change_station(self, train_map):
@@ -76,29 +79,34 @@ class HillClimber:
        
         # delete either the last or first station 
         if len(train[-1].directions) == 1:
-            self.remove_last_station(trajectory, train_map, index)
+            self.remove_last_station(train_map, index)
         elif len(train[0].directions) == 1:
-            self.remove_first_station(trajectory, train_map, index)
+            self.remove_first_station(train_map, index)
         else:
-            self.remove_last_station(trajectory, train_map, index)
+            self.remove_last_station(train_map, index)
 
         # update map attributes
         train_map.total_distance = sum(train_map.train_distances)
         train_map.ridden_connections = remove_duplicates(train_map.all_ridden_connections)
         train_map.number_of_ridden_connections = len(train_map.ridden_connections)
+        train_map.score = train_map.calculate_score()
 
     def check_solution(self, new_map):
         """Checks and accepts better solutions than the current solution."""
         old_score = self.score
-        new_score = new_map.calculate_score()
+        new_score = new_map.score
+        # print(f"Score: {new_score}")
 
         # accept only better scores
         if new_score >= old_score:
-            self.map = copy.deepcopy(new_map)
+            self.map = new_map
             self.score = new_score
+            # print(f"new self.score: {self.score}")
 
         if new_score > old_score:
             print(f"New high score: {new_score}")
+            # print(f"self.score: {self.score}")
+            print(f"self.map.score: {self.map.score}")
 
 
     def run(self, iterations, change):
@@ -106,30 +114,38 @@ class HillClimber:
         self.iterations = iterations
   
         for iteration in range(iterations):
-            new_map = self.map
+            new_map = copy.deepcopy(self.map)
             # new_score = new_map.calculate_score()
 
             if change == "Change train":
-                self.change_station(new_map)
-            elif change == "Change station":
                 self.change_train(new_map)
+            elif change == "Change station":
+                self.change_station(new_map)
 
             self.check_solution(new_map)
 
-            if iteration%100 == 0:
-                print(f"Iteration {iteration} reached. {iterations - iteration} iterations left")
-                print(f"Highest score: {self.score}\n")
-                # visualise(new_map)
+            if iteration != 0 and iteration%(iterations/100) == 0:
+                print(f"{int((iteration / iterations)*100)}%")
+                print(f"Current score: {self.score}")
+                # print(f"self.map.score: {self.map.score}\n")
+                visualise(new_map)
 
-            new_score = new_map.calculate_score()
+            # new_score = new_map.calculate_score()
 
             output_file = "results/scores_data.csv"
             
             with open(output_file, "a") as output:     
-                output.write(f"{iteration},{new_score}\n")
+                output.write(f"{iteration},{self.score}\n")
 
+            # visualise_names(new_map)
             # visualise(new_map)
 
+            # if iteration == iterations - 1:
+                # print(f"Current score: {self.score}")
+                # print(f"Last self.map.score: {self.map.score}")
+
+        # print(f"END:::self.score: {self.score}")
+        # print(f"END:::self.map.score: {self.map.score}")
         return self.map
     
 
@@ -160,8 +176,9 @@ class HillClimber:
         return ridden_connections
 
 
-    def remove_last_station(self, trajectory, train_map, index):
+    def remove_last_station(self, train_map, index):
         """Remove last station of a train and add one at the beginning."""
+        trajectory = train_map.trains[index]
         train = trajectory['stations']
         possible_new_directions = [direction for direction in train[0].directions if direction[0] != train[1]]
     
@@ -169,6 +186,7 @@ class HillClimber:
         for direction in possible_new_directions:
             for station in train:
                 if direction[0] == station:
+                    # print(f"Direction: {direction[0]} / Station: {station}")
                     possible_new_directions.remove(direction)
 
         # add new station to the front
@@ -198,8 +216,9 @@ class HillClimber:
                 train_map.all_ridden_connections.append(new_cnx_id)
 
 
-    def remove_first_station(self, trajectory, train_map, index):
+    def remove_first_station(self, train_map, index):
         """Remove first station of a train and add one at the end."""
+        trajectory = train_map.trains[index]
         train = trajectory['stations']
         possible_new_directions = [direction for direction in train[-1].directions if direction[0] != train[-2]]
 

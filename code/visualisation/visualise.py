@@ -54,7 +54,7 @@ def visualise(train_map):
 
     x_positions = []
     y_positions = []
-    # names = []
+    names = []
 
     # list all the stations that are ridden in the trajectory
     for station in train_map.determine_ridden_stations():
@@ -66,9 +66,9 @@ def visualise(train_map):
     ax.scatter(y_positions, x_positions, c='k', marker=("."), zorder=2)
     
     # write the names of stations by each point
-    # texts = []
-    # for x, y, s in zip(y_positions, x_positions, names):
-    #     texts+=[plt.text(x, y, s, fontsize=6)]
+    texts = []
+    for x, y, s in zip(y_positions, x_positions, names):
+        texts+=[plt.text(x, y, s, fontsize=6)]
     
     # make sure annotations do not touch
     # adjust_text(texts, arrowprops=dict(arrowstyle="-", color='k', lw=0.5), only_move={'points':'y', 'texts':'y'})

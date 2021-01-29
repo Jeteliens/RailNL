@@ -68,7 +68,7 @@ if __name__ == '__main__':
             if algorithm == '2':
                 hc = HillClimber(stations_file, connections_file, max_number_of_trains, time_frame)
                 hc.map.create_output("output_hc1.csv")
-                # visualise_names(hc.map)
+                visualise_names(hc.map)
                 first_score = hc.map.score
                 print(f"Old score: {first_score}")
 
@@ -110,16 +110,14 @@ if __name__ == '__main__':
                 break
     
     # choose for a visualisation or not
-    # while True:
-    #     visualisation = str(input("----\nDo you want a visualisation?(y/n): ")).lower().strip()
+    while True:
+        visualisation = str(input("----\nDo you want a visualisation?(y/n): ")).lower().strip()
     
-    #     if visualisation[0] == 'y':
-    #         visualise_names(best_map)
-    #         break
-    #     if visualisation[0] == 'n':
-    #         break
+        if visualisation[0] == 'y':
+            visualise_names(best_map)
+            break
+        if visualisation[0] == 'n':
+            break
 
-    visualise_names(best_map)
-
-    # scores_data = "results/scores_data.csv"
-    # plot(iterations, scores_data)
+    scores_data = "results/scores_data.csv"
+    plot(iterations, scores_data)

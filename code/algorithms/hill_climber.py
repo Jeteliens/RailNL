@@ -127,7 +127,6 @@ class HillClimber:
             if iteration != 0 and iteration%(iterations/100) == 0:
                 print(f"{int((iteration / iterations)*100)}%")
                 print(f"Current score: {self.score}")
-                # print(f"self.map.score: {self.map.score}\n")
                 # visualise(new_map)
 
             # new_score = new_map.calculate_score()
@@ -140,12 +139,6 @@ class HillClimber:
             # visualise_names(new_map)
             # visualise(new_map)
 
-            # if iteration == iterations - 1:
-                # print(f"Current score: {self.score}")
-                # print(f"Last self.map.score: {self.map.score}")
-
-        # print(f"END:::self.score: {self.score}")
-        # print(f"END:::self.map.score: {self.map.score}")
         return self.map
     
 

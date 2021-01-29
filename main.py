@@ -120,3 +120,6 @@ if __name__ == '__main__':
     #         break
 
     visualise_names(best_map)
+
+    # scores_data = "results/scores_data.csv"
+    # plot(iterations, scores_data)
